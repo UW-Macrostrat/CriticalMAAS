@@ -1,7 +1,7 @@
 # Project Milestones
 ## Phase 1
 
-| Milestone | Task | Exit Criteria | Target Date | Product |
+| Milestone No. | Milestone | Exit Criteria | Target Date | Product |
 | --------- | ---- | ------------- | ----------- | ------- |
 | 0 | Specifications for TA 1-3 | Specifiation Plans | 09/2023 | |
 | 1 | Detailed research plan for Phase 1 | Milestone Report | 10/2023 | |
