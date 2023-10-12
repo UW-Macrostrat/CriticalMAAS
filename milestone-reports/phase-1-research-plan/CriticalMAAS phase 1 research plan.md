@@ -40,9 +40,11 @@ Given this expected challenge, we will devote extra effort to internally charact
 
 # Software development plan
 
+Our software development plan will prioritize aggregating TA1-2 data to support TA3 workflows, providing geologic data in appropriate formats for CMA, and augmenting the attributes of geologic data to form harmonized, multiscale products that support CMA workflows. As part of these efforts, we will build data-providing infrastructure, APIs, and user-facing human in the loop (HITL) interfaces
+
 ## Map integration
 
-As a first step towards HITL interfaces to standardize map geological information (e.g., legend data, line types, etc.) from TA1 outputs, we're going to try to improve the speed and interactivity of Macrostrat's vector data ingestion pipeline. This system moves from heterogeneous inputs, like Geodatabases, Shapefiles, or the old ArcInfo files you referenced, to the standardized layers that drive Macrostrat APIs.
+As a first step towards HITL interfaces to standardize geological map information (e.g., legend data, line types, etc.) from TA1 outputs, we're going to try to improve the speed and interactivity of Macrostrat's vector data ingestion pipeline. This system moves from heterogeneous inputs, like Geodatabases, Shapefiles, or the old ArcInfo files you referenced, to the standardized layers that drive Macrostrat APIs.
 
 Geologic map ingestion is reliant both on GIS data manipulation (and in the case of TA1 performers, image analysis), and on geological expertise. Geological decisions include splitting up unit ages from stratigraphic names, descriptions, and lithological information in legend text, which must in many cases be done manually. It's obviously useful to allow the geologic expertise to be applied without the need for SQL manipulation, as that will allow geologists to more readily participate.
 
@@ -111,11 +113,14 @@ This will help correct several deficiencies of Macrostrat's current representati
 
 Our plan is to produce key HITL interfaces, especially to support TA1 and TA2
 
-### Map-feedback interfaces
+### Map feedback interfaces
+
+<figure>
 
 ![Paired vector/raster map feedback interface](img/paired-vector-raster.png)
 
-_Map interface showing both vector and raster datasets for the same geologic map, in an interface with synthesized legend information_
+<figcaption>Map interface showing both vector and raster datasets for the same geologic map, in an interface with synthesized legend information</figcaption>
+</figure>
 
 - [Macrostrat web](https://github.com/UW-Macrostrat/web)
 - [Macrostrat web components](https://github.com/UW-Macrostrat/web-components)
@@ -123,8 +128,6 @@ _Map interface showing both vector and raster datasets for the same geologic map
 ### Map editing
 
 - [Mapboard topology](https://github.com/Mapboard/topology-manager)
-
-![Mapboard interface](img/mapboard-interface.jpg)
 
 ![Mapboard PostGIS](img/mapboard-postgis.png)
 
@@ -155,7 +158,7 @@ _Map interface showing both vector and raster datasets for the same geologic map
 
 ### Phase 1 Base evaluation
 
-# Summary of current progress
+# Current status
 
 ## System and interaction design
 
@@ -233,3 +236,19 @@ We have made some progress to later Phase 1 milestones, as well:
 
 - Subtask 1B **Milestone 4** _(Month 7)_: Pipeline for locating and extracting entities and augmenting Macrostrat database: In early exploratory phases with CS graduate and undergraduate students supervised by co-PI Venkataraman.
 - Subtask 3A **Milestone 4** _(Month 7)_: Adapt Mapboard GIS topological editing for map geospatial/topology correction: Key demonstration/validation has been accomplished
+
+<style>
+	figure {
+		margin: 0;
+		padding: 0;
+		max-width: 400px;
+		float: right;
+	}
+	figure img {
+		margin: 0;
+	}
+	figcaption {
+		font-style: italic;
+		font-size: 0.9em;
+	}
+</style>
