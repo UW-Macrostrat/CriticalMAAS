@@ -24,7 +24,7 @@ Feed TA2 data to TA3
 - Make mine report data sub-settable by geologic formation, lithology, etc. through linking to TA1 output (and geologic mapping from other sources)
 - Provide these point data objects using standardized APIs that can be queried and assimilated in TA3 modeling
 
-## Adjustments in response to initial challenges
+## Adjustments in response to project integration
 
 We have adapted our approach somewhat in light of initial integrations with other performers and discussions with other TAs. Key new things we would like to emphasize:
 
@@ -77,11 +77,15 @@ Tiled Macrostrat output, API-available in vector-based tile format has gained ag
 
 ![Tiled Macrostrat output for provision to TA3](img/tiled-macrostrat-output.png)
 
+![Attributed Macrostrat map in QGIS](img/macrostrat-map-qgis.png)
+
 ### Mineral site data
 
 We have successfully validated serving and filtering of point datasets relevant to CMA, including the MRDS dataset. Approaches to curating point data and linking it closely to geologic context (enabling spatial and geological time/unit filtering)
 
 Mine sites synthesized from TA2 will be linked to geologic context and forwarded to TA3 and TA4 HITL interfaces (ex., MTRI and/or EIS QGIS plugins).
+
+![Macrostrat MRDS data layer](img/macrostrat-mrds-interface.png)
 
 Macrostrat maintains links to other point datasets that may be useful to forward to TA3, and will continue to assimilate more
 
@@ -136,7 +140,7 @@ Our plan is to produce key HITL interfaces, especially to support TA1 and TA2
 - Coordinate with Jataware for TA2-supporting interfaces
 - [COSMOS visualizer](https://github.com/UW-COSMOS/cosmos-visualizer) page-level annotation interface may be adapted, or a Jataware-created tool may be used
 
-<img src="img/cosmos.png" alt="COSMOS visualizer" width="400"/>
+<img src="img/cosmos.png" alt="COSMOS visualizer" width="300"/>
 
 ## Targets for hackathon events
 
