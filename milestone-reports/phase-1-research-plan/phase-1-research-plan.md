@@ -69,7 +69,8 @@ data-providing infrastructure, APIs, and user-facing human in the loop (HITL)
 interfaces. Overall progress is tracked in the
 [`UW-Macrostrat/criticalmaas`](https://github.com/UW-Macrostrat/criticalmaas)
 GitHub repository, with individual software components tracked in the
-repositories discussed below (see @sec:software-repositories for an index).
+repositories discussed below (an index of all repositories discussed is
+available in @sec:software-index).
 
 This plan is organized around several lines:
 
@@ -623,22 +624,37 @@ We have made some progress to later Phase 1 milestones, as well:
   for map geospatial/topology correction: _Key demonstration/validation has been
   accomplished (@sec:map-editing)_
 
-# Index of software repositories {#sec:software-repositories}
+# Index of software repositories {#sec:software-index}
 
-| Repository                                                                                          | Description                                                     | Relevant section             |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------- |
-| [`DARPA-CRITICALMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas)                       | Schemas for TA1-3 integrations                                  | @sec:schemas                 |
-| [`DigitalCrust/weaver`](https://github.com/digitalcrust/weaver)                                     | Curation and ingestion of geological site datasets              | @sec:mineral-sites           |
-| [`Mapboard/topology-manager`](https://github.com/Mapboard/topology-manager)                         | Topological map editing                                         | @sec:map-editing             |
-| [`UW-COSMOS/cosmos-visualizer`](https://github.com/UW-COSMOS/cosmos-visualizer)                     | Page annotation and feedback                                    | @sec:document-interfaces     |
-| [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS)                                           | PDF entity extraction pipeline                                  | @sec:geologic-literature     |
-| [`UW-Macrostrat/cli`](https://github.com/UW-Macrostrat/cli)                                         | Macrostrat system management tools (_currently private_)        | @sec:macrostrat-system       |
-| [`UW-Macrostrat/criticalmaas`](https://github.com/UW-Macrostrat/criticalmaas)                       | Index repository for the CriticalMAAS project                   | --                           |
-| [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd)                   | xDD integration for geologic entity characterization            | @sec:entity-characterization |
-| [`UW-Macrostrat/map-integration`](https://github.com/UW-Macrostrat/map-integration)                 | Geologic map ingestion and harmonization                        | @sec:map-integration         |
-| [`UW-Macrostrat/python-libraries`](https://github.com/UW-Macrostrat/python-libraries)               | Python libraries used in multiple applications                  | @sec:map-integration         |
-| [`UW-Macrostrat/raster-cli`](https://github.com/UW-Macrostrat/raster-cli)                           | Prototype tool for ingesting raster datasets                    | @sec:raster-data             |
-| [`UW-Macrostrat/tiger-macrostrat-config`](https://github.com/UW-Macrostrat/tiger-macrostrat-config) | Configuration for CHTC infrastructure (_private_)               | @sec:macrostrat-system       |
-| [`UW-Macrostrat/tileserver`](https://github.com/UW-Macrostrat/tileserver)                           | Server for vector and raster tiles to GIS software              | @sec:geologic-map-data       |
-| [`UW-Macrostrat/web-components`](https://github.com/UW-Macrostrat/web-components)                   | Shared user interface components for Macrostrat user interfaces | @sec:map-interfaces          |
-| [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web)                                         | Macrostrat's main web interface                                 | @sec:map-interfaces          |
+- [`DARPA-CRITICALMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas):
+  Schemas for TA1-3 integrations (@sec:schemas)
+- [`DigitalCrust/weaver`](https://github.com/digitalcrust/weaver): Curation and
+  ingestion of geological site datasets (@sec:mineral-sites)
+- [`Mapboard/topology-manager`](https://github.com/Mapboard/topology-manager):
+  Topological map editing (@sec:map-editing)
+- [`UW-COSMOS/cosmos-visualizer`](https://github.com/UW-COSMOS/cosmos-visualizer):
+  Page annotation and feedback (@sec:document-interfaces)
+- [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS): PDF entity
+  extraction pipeline (@sec:geologic-literature)
+- [`UW-Macrostrat/cli`](https://github.com/UW-Macrostrat/cli): Macrostrat system
+  management tools (_currently private_; @sec:macrostrat-system)
+- [`UW-Macrostrat/criticalmaas`](https://github.com/UW-Macrostrat/criticalmaas):
+  Index repository for the CriticalMAAS project
+- [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
+  xDD integration for geologic entity characterization
+  (@sec:entity-characterization)
+- [`UW-Macrostrat/map-integration`](https://github.com/UW-Macrostrat/map-integration):
+  Geologic map ingestion and harmonization (@sec:map-integration)
+- [`UW-Macrostrat/python-libraries`](https://github.com/UW-Macrostrat/python-libraries):
+  Python libraries used in multiple applications (@sec:map-integration)
+- [`UW-Macrostrat/raster-cli`](https://github.com/UW-Macrostrat/raster-cli):
+  Prototype tool for ingesting raster datasets (@sec:raster-data)
+- [`UW-Macrostrat/tiger-macrostrat-config`](https://github.com/UW-Macrostrat/tiger-macrostrat-config):
+  Configuration for CHTC infrastructure (_private_; @sec:macrostrat-system)
+- [`UW-Macrostrat/tileserver`](https://github.com/UW-Macrostrat/tileserver):
+  Server for vector and raster tiles to GIS software (@sec:geologic-map-data)
+- [`UW-Macrostrat/web-components`](https://github.com/UW-Macrostrat/web-components):
+  Shared user interface components for Macrostrat user interfaces
+  (@sec:map-interfaces)
+- [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
+  web interface (@sec:map-interfaces)
