@@ -1,19 +1,38 @@
 # Introduction
-The primary objective of our TA4 activities is to adapt and leveage the Macrostrat and xDD data systems for the CriticalMAAS workflow. This places emphasis on the geological data that are central to TA3 modelling pipeline. Our specific immediate objectives are to 1) build a geological map ingestion and harmonization system for TA1 output that can rapidly augment the more than 300 geological maps that are already available in Macrostrat and tailoring the map data access points (APIs and tile servers) to conform with TA3 requirements, and 2) establishing an xDD corpus and document annotation and distribution pipeline that can faciliate TA2 data extraction tasks. We are attempting to facilitate integration of TA1 and some of TA2 outputs by focusing on geological units that appear in maps, geologic columns, and the literature, the goal being to augument map/column units with additional geological data that can be used in modelling steps. This initial thrust is, therefore, largely focused on integrating data extraction and assimilation pipelines that are directed towards TA3. Human-in-the-loop interfaces for assessing, annotating, and editing the data from TA1 and TA2 will be developed as the data flow pipelines are established. Here we report on our Phase 1 research plan to accomplish these objectives.
+
+The primary objective of our TA4 activities is to adapt and leverage the
+Macrostrat and xDD data systems for the CriticalMAAS workflow. This places
+emphasis on the geological data that are central to TA3 modelling pipeline. Our
+specific immediate objectives are to _(1)_ build a geological map ingestion and
+harmonization system for TA1 output that can rapidly augment the more than 300
+geological maps that are already available in Macrostrat and tailoring the map
+data access points (APIs and tile servers) to conform with TA3 requirements, and
+_(2)_ establish an xDD corpus and document annotation and distribution pipeline
+that can faciliate TA2 data extraction tasks. We are attempting to facilitate
+integration of TA1 and some of TA2 outputs by focusing on geological units that
+appear in maps, geologic columns, and the literature, the goal being to augument
+map/column units with additional geological data that can be used in modelling
+steps. This initial thrust is, therefore, largely focused on integrating data
+extraction and assimilation pipelines that are directed towards TA3.
+Human-in-the-loop interfaces for assessing, annotating, and editing the data
+from TA1 and TA2 will also be developed as the data flow pipelines are
+established. Here we report on our Phase 1 research plan to accomplish these
+objectives.
 
 ## Success criteria for Macrostrat TA4 system
 
-- Can we provide the data produced by TA1 and TA2 to TA3 (and other TA4 performers), on demand and en masse?
-- Can we augment and standardize these datasets to provide relevant geological information, particularly lithology and its properties?
+In addition to fulfilling the goals set out in the Phase 1 evaluation plan, we
+seek to establish a system that can support the CriticalMAAS system in response
+to the following challenges:
 
-## System goals
+- Can we provide the data produced by TA1 and TA2 to TA3 (and other TA4
+  performers), on demand and en masse?
+- Can we augment and standardize these datasets to provide relevant geological
+  information, particularly lithology and geological unit properties?
 
-Feed TA2 data to TA3
-
-- Make mine report data sub-settable by geologic formation, lithology, etc.
-  through linking to TA1 output (and geologic mapping from other sources)
-- Provide these point data objects using standardized APIs that can be queried
-  and assimilated in TA3 modeling
+These guiding questions are intended to focus our work on the key challenges
+that face Macrostrat, in conversation with the goals, activities, and expertise
+of the other TA4 performers.
 
 ## Adjustments in response to project integration
 
@@ -30,11 +49,12 @@ We will plan to integrate with tools produced by other TA4 performers:
 
 Based on descriptions of bottlenecks in CMA process workflows described by
 Lawley, and the expected structure of TA1 and TA2 outputs, we forecast that a
-major problem will be assembing a geologic dataset that is sufficiently well-characterized and
-standardized to be useful across scales and study areas to extract fairly
-specific CMA-relevant information. Given this expected challenge, we will devote
-extra effort to internally characterizing and harmonizing geologic map units, in
-order to provide appropriately queryable TA1 and TA2 datasets.
+major problem will be assembing a geologic dataset that is sufficiently
+well-characterized and standardized to be useful across scales and study areas
+to extract fairly specific CMA-relevant information. Given this expected
+challenge, we will devote extra effort to internally characterizing and
+harmonizing geologic map units, in order to provide appropriately queryable TA1
+and TA2 datasets.
 
 # Software development plan
 
@@ -70,12 +90,12 @@ raster data tiles) atop shared TA4 data repositories.
 Tiled Macrostrat output, API-available in vector-based tile format has gained
 agreement from MTRI (TA4) and SRI (TA3) that it has the requisite structure and
 properties to be used as a base for CMA workflows. We will continue to refine
-this output and provide it to TA3. We will work on:
+this output and provide it to TA3. Our key goals for this dataset are to:
 
-- improving the structure of tileserver output to better support querying by TA3
-  (ex., adding ability to filter by lithology).
-- Improving API capabilities for querying and filtering by relevant data fields
-- Integrating attribute types discussed by Lawley et al. (2022) and others, such
+- Improve the structure of tileserver output to better support querying by TA3
+  (ex., by adding ability to filter by lithology).
+- Imporve API capabilities for querying and filtering by relevant data fields
+- Integrate attribute types discussed by Lawley et al. (2022) and others, such
   as age ranges, paleolatitude, and vetted lithologic classes.
 
 The key codebase for this work, as well as for raster data provision, is the
@@ -83,78 +103,102 @@ The key codebase for this work, as well as for raster data provision, is the
 repository.
 
 <div id="fig:macrostrat-tile-api">
-![Tiled Macrostrat output for provision to TA3](img/tiled-macrostrat-output.png){width=40%}
-![Attributed Macrostrat map in QGIS](img/macrostrat-map-qgis.png){width=40%}
+![Tiled Macrostrat output for provision to TA3](img/tiled-macrostrat-output.png){#fig:macrostrat-tile-api-a width=40%}
+![Attributed Macrostrat map in QGIS](img/macrostrat-map-qgis.png){#fig:macrostrat-tile-api-b width=40%}
 
-Macrostrat's tiled output API, for provision to TA3
+Different views of Macrostrat's tiled output API, for provision to TA3
 
 </div>
 
 ### Mineral site data
 
-We have successfully validated serving and filtering of point datasets relevant
-to CMA, including the MRDS dataset. Approaches to curating point data and
-linking it closely to geologic context (enabling spatial and geological
-time/unit filtering)
+Site-based geologic data must also be forwarded to TA3 CMA pipelines, in a way
+that allows it to be generalized across geologically relevant areas (e.g.,
+through intersection with mapping data), filtered for the specific CMA task at
+hand, and validated based on source material (e.g., mine reports and USGS
+publications).
 
-Mine sites synthesized from TA2 will be linked to geologic context and forwarded
-to TA3 and TA4 HITL interfaces (ex., MTRI and/or EIS QGIS plugins).
+We have successfully validated serving point datasets relevant to CMA through
+publicly accessible APIs, including the MRDS dataset (@fig:mineral-sites).
+[This interface](https://staging.v2.macrostrat.org/map/dev/weaver) is publicly
+available on Macrostrat's development website. We will explore approaches to
+curating point data and linking it closely to geologic context, and thereby
+enabling spatial and geological time/unit filtering. The software that will
+house these data-provision capabilities will be housed in the
+[`DigitalCrust/weaver`](https://github.com/digitalcrust/weaver) GitHub
+repository and integrated into the Macrostrat system. This software will forward
+mineral site data to TA3 analytical pipelines and TA4 HITL interfaces (ex., MTRI
+and/or EIS QGIS plugins).
 
-![Macrostrat MRDS data layer, showing basic capabilities for point data provision](img/macrostrat-mrds-interface.png){width=40%}
+<!--
+- Make mine report data sub-settable by geologic formation, lithology, etc.
+  through linking to TA1 output (and geologic mapping from other sources)
+- Provide these point data objects using standardized APIs that can be queried
+  and assimilated in TA3 modeling
+  --->
 
-<!-- https://staging.v2.macrostrat.org/map/dev/weaver -->
+In order to synthesize and validate mine site data received from TA2, we will
+need to develop data pipelines and HITL interfaces oriented towards validating
+site-based data and mineral system models, and forwarding users to the specific
+document sources that underly the datasets. The structure of these pipelines are
+not yet clear, but they will be developed in conversation with TA2, along the
+lines proposed for the TA2 synthesis schemas (@sec:schemas).
 
 Macrostrat maintains links to other point datasets that may be useful to forward
-to TA3, such as USGS geochemical databases. If more datasets are needed, we will
-work with TA3 to identify and integrate them into the system, which will make them readily avaiable on demand for modelling tasks.
+to TA3, such as USGS legacy geochemical data. Additionally, TA2 plans to compile
+datasets from other existing structured data sources. We will work with TA2
+performers to ensure that these datasets are available to TA3. If more
+site-based datasets must be integrated, we will work with TA3 to identify and
+integrate them into the system, which will make them readily avaiable on demand
+for modelling tasks.
+
+![Macrostrat MRDS data layer, showing basic capabilities for point data provision](img/macrostrat-mrds-interface.png){#fig:mineral-sites
+width=60%}
 
 ### Raster datasets
 
-Raster datasets can usually be easily integrated directly into the workflow of TA3. However,
-compositing raster datasets across scales, etc. presents demanding workflows
-that can potentially be supported by TA4. We have validated and will maintain
-key capabilities to store and serve raster datasets, to support map feedback and
-CMA workflows.
+Raster datasets can usually be easily integrated directly into the workflow of
+TA3. However, compositing raster datasets across scales, etc. presents demanding
+workflows that can potentially be supported by TA4. We have validated and will
+maintain key capabilities to store and serve raster datasets, to support map
+feedback and CMA workflows.
 
 - [Macrostrat Raster CLI](https://github.com/UW-Macrostrat/raster-cli)
 
 This can also be used to help support TA1 feedback
 
-### A system to orchestrate geological data
+### The Macrostrat infrastructure platform {#sec:macrostrat-system}
 
 The core of the Macrostrat system consists of the databases and infrastructure
 that hosts the above data capabilities. In order to maintain and extend these
-APIs and data-provision systems, we will invest in the design and structure
-of underlying Macrostrat systems.
+APIs and data-provision systems, we will invest in the design and structure of
+underlying Macrostrat systems. The key repository for this work is the []
 
 - [Macrostrat CLI](https://github.com/UW-Macrostrat/cli)
 - [Macrostrat infrastructure configuration](https://github.com/UW-Macrostrat/tiger-macrostrat-config)
 
-#### Hackathon targets
-
-- _Month 3 hackathon_: Containerized Macrostrat system that supports basic
-  capabilities
-- _Month 6 hackathon_: Data model adjustments and pipelines for storing new data
-  and annotations
-- _Base evaluation_: End-to-end system for storing and distributing geological
-  data and literature artifacts
+These repositories are, for now, private, due to their role in orchestrating
+system components on specific infrastructure systems. Much of this configuration
+will be made public as it is augmented and vetted for security. For the final
+CriticalMAAS system, an end-to-end implementation encompassing the full set of
+capabilities will be published.
 
 ## Geologic map integration pipeline
 
 As a first step towards HITL interfaces to standardize geological map
-information (e.g., legend data, line types, etc.) from TA1 outputs, we're going
-to try to improve the speed and interactivity of Macrostrat's vector data
-ingestion pipeline. This system moves from heterogeneous inputs, like
-Geodatabases, Shapefiles, or the old ArcInfo files referenced, to the
-standardized layers that drive Macrostrat APIs.
+information (e.g., legend data, line types, etc.) from TA1 outputs, we will seek
+to improve the speed and interactivity of Macrostrat's vector data ingestion
+pipeline. This system moves from heterogeneous inputs, like Geodatabases,
+Shapefiles, or the old ArcInfo files referenced, to the standardized layers that
+drive Macrostrat APIs.
 
 Geologic map ingestion is reliant both on GIS data manipulation (and in the case
 of TA1 performers, image analysis), and on geological expertise. Geological
 decisions include splitting up unit ages from stratigraphic names, descriptions,
-and lithological information in legend text, which must in many cases must be done
-manually. It's obviously useful to allow the geologic expertise to be applied
-without the need for SQL manipulation, as that will allow geologists to more
-readily participate.
+and lithological information in legend text, which must in many cases must be
+done manually. It's obviously useful to allow the geologic expertise to be
+applied without the need for SQL manipulation, as that will allow geologists to
+more readily participate.
 
 We will build a web-based interface to allow geologists to interactively
 manipulate map data, and to provide feedback on the quality of the map data.
@@ -209,10 +253,11 @@ workflows._
 Our plan is to produce key HITL interfaces, especially to support TA1 and TA2.
 
 We will also account integrate with feedback interfaces produced by Jataware and
-MTRI. In particular, Jataware's map-projection system will be a critical
-precursor to our map ingestion system, and MTRIs QGIS plugin will be a key
-interface through which TA3 manipulates our vector-tile geologic mapping
-outputs.
+MTRI. In particular, Jataware's map-projection system will be required to add
+projection information to TA1 outputs prior to ingestion into Macrostrat's
+systems. Likewise, MTRIs QGIS plugin will be a key interface through which TA3
+manipulates our vector-tile geologic mapping outputs into binary and
+probability-based prospectivity rasters.
 
 ### Map feedback interfaces
 
@@ -225,14 +270,31 @@ width=70%}
 
 ### Map editing
 
-- [Mapboard topology](https://github.com/Mapboard/topology-manager)
+While initial extractions produced by TA1 pipelines are quite impressive, it is
+likely that human intervention will be required to produce maps that are
+suitable for downstream use. We will produce a system that solves the topology
+of a TA1 geologic map and creates a representation that can be rapidly edited.
+This system will be based on the Mapboard GIS system, which combines the
+purpose-built [**Mapboard GIS**](https://mapboard-gis.app) iPad application for
+pen-based mapping with a PostGIS-based topology management system. This topology
+management system will allow geologists to rapidly edit geologic maps, both via
+iPad streaming digitizing and using standard GIS platforms (QGIS and ArcGIS).
+This system will support both pipeline feedback to TA1 performers and the final
+production of high-fidelity, topologically correct geologic mapping datasets
+that can be integrated into Macrostrat and passed to TA3. The topology engine is
+an open-source component housed in the
+[`Mapboard/topology-manager`](https://github.com/Mapboard/topology-manager)
+repository. This engine will be supplemented with data migration scripts and
+management APIs that will be part of the Macrostrat system deliverable
+(@sec:macrostrat-system) for CriticalMAAS Phase 1.
 
 <div id="fig:mapboard-postgis">
-![*Mapboard GIS* map interface, an iPad app optimized for drawing geological maps](img/mapboard-interface.jpg){ width=50% }
-![Tethered mode for Mapboard Topology manager, which allows topological editing of geologic maps in both standard and purpose-built GIS environments](img/mapboard-postgis.png){
+![*Mapboard GIS* map interface, an iPad app optimized for drawing geological maps](img/mapboard-interface.jpg){#fig:mapboard-postgis-a width=50%}
+
+![Tethered mode for the Mapboard topology manager, which allows topological editing of geologic maps in both standard and purpose-built GIS environments](img/mapboard-postgis.png){#fig:mapboard-postgis-b
 width=40%}
 
-Elements of the Mapboard GIS system for TA1 map correction and feedback.
+Mapboard GIS interface and GIS system design
 
 </div>
 
@@ -245,7 +307,16 @@ Elements of the Mapboard GIS system for TA1 map correction and feedback.
 ![COSMOS image tagger user interface, which is an option for adaptation into HITL systems](img/cosmos.png){
 width=30% }
 
-## Targets for hackathon events
+# Targets for hackathon events
+
+#### Hackathon targets
+
+- _Month 3 hackathon_: Containerized Macrostrat system that supports basic
+  capabilities, running on CHTC infrastructure
+- _Month 6 hackathon_: Data models and pipelines for ingesting TA1-2 datasets,
+  and user interfaces for providing feedback on these datasets
+- _Base evaluation_: End-to-end system for storing and distributing geological
+  data and literature artifacts
 
 ### Month 3 hackathon
 
@@ -271,11 +342,14 @@ width=30% }
 
 # Current status
 
-## System and interaction design
+## System and interaction design {#sec:schemas}
 
-- Macrostrat team has spearheaded the production of schemas for data interchange
-  with TA1-3
-- Key additions to the schema: geologic data objects
+The Macrostrat team has been a major contributor to the design of CriticalMAAS
+data schemas for harmonizing TA1-3 datasets and ensuring their interoperability.
+We have worked closely with the other TA4 teams and TA1-3 performers to ensure
+that the data schemas are specific and well-designed; we have also been an
+advocate for including geologic data objects in the schemas, to support our
+pursuit of linked geologic data objects.
 
 ## Providing literature extractions to TA1 and TA2
 
@@ -307,13 +381,23 @@ and manipulating the literature corpus of documents from USGS and other sources.
 Since USGS documents are broadly in the public domain, TA2 performers have an
 opportunity to follow all extractions back to their full source material; this
 is usually encumbered by publisher agreements in the case of other literature
-sources, such as Elsevier, Wiley and the like. However, specific information in these source documents can be surfaced and integrated into knowledge bases, provided that the code to locate and extract the information is run within UW's CHTC environment and the output conforms to the expectations of publisher agreements (e.g., extractions constitute a derived data product, such as a list of entities and their relations, and not original unaltered content beyond short snippets of context).
+sources, such as Elsevier, Wiley and the like. However, specific information in
+these source documents can be surfaced and integrated into knowledge bases,
+provided that the code to locate and extract the information is run within UW's
+CHTC environment and the output conforms to the expectations of publisher
+agreements (e.g., extractions constitute a derived data product, such as a list
+of entities and their relations, and not original unaltered content beyond short
+snippets of context).
 
-## Progress to initial milestones
+## Production of HITL interfaces
+
+# Index of milestone progress
+
+## Milestones 1 and 2
 
 We are making progress on all proposed milestones. All but one deliverable
-proposed for execution by Month 4 have crossed key thresholds in readiness and
-are near completion, except for a single deliverable in Task 3B. The early
+proposed for execution by Month 4 has crossed key thresholds in readiness and is
+approaching completion, except for a single deliverable in Task 3B. The early
 establishment of key capabilities allows us to focus on building integrations
 with other performers (in all TAs) during and after the Month 3 hackathon.
 

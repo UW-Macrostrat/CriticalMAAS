@@ -12,18 +12,22 @@ numbersections: true
 secnumdepth: 2
 toc-depth: 2
 toc: true
+figureTitle: "Figure"
+tableTitle: "Table"
+figPrefix: "Fig."
+eqnPrefix: "Eqn."
+tblPrefix: "Tbl."
+secPrefix: "Sec."
 header-includes:
   - \usepackage[small,compact]{titlesec}
-  - \usepackage{titling, sectsty}
-  - \allsectionsfont{\textrm\sffamily}
+  - \usepackage{titling}
+  # - \allsectionsfont{\textrm\sffamily}
   - \setlength{\droptitle}{0em}
+  - \setcounter{secnumdepth}{2}
   - \pretitle{\begin{flushleft}\Large\sffamily}
   - \posttitle{\par\end{flushleft}\vskip 0.5em}
   - \usepackage{enumitem}
   - \setlist{nolistsep}
-  - \titlespacing{\section}{0pt}{\parskip}{-\parskip}
-  - \titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
-  - \titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
 abstract: |
   This document presents Macrostrat's research plan for Phase 1 of the CriticalMAAS project.
   Macrostrat's main goal is to provide the highest-possible quality geologic basemap for CMA workflows,
