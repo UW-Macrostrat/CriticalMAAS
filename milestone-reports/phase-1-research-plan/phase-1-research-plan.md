@@ -293,6 +293,9 @@ _Geologic units in Macrostrat have curated properties, but these are often not
 rigorous or descriptive enough to provide the level of detail needed for CMA
 workflows._
 
+This repository will house the core of Macrostrat's geological entity
+characterization system: https://github.com/UW-Macrostrat/macrostrat-xdd/
+
 ![*(a)* Starting user interface and *(b)* potential additional extractions for CMA-focused entity canonicalization tasks](img/entity-canonicalization.png){#fig:entity-characterization}
 
 ## HITL interfaces for TA1-2 pipeline support
@@ -407,13 +410,13 @@ width=30%}
   (@sec:map-integration and @sec:map-interfaces).
 - Prototype APIs to provide model feedback to TA1-2 performers
 - Demonstrated pipeline for geologic map unit characterization from xDD
-  documents (@sec:entity-characterization) to augment Macrostrat geologic units
+  documents (@sec:geologic-literature) to augment Macrostrat geologic units
   (@fig:entity-characterization), with a feedback tools based on Macrostrat's
   map interface (@sec:map-interfaces)
 - Pipeline for Macrostrat vector data through MTRI interfaces to TA3 performers,
   for evaluation by USGS users (@sec:geologic-map-data)
 - Data models and pipelines for ingesting TA1-2 datasets, and user interfaces
-  for providing feedback on these datasets
+  for providing feedback on these datasets.
 
 <!--
 - Pipeline to accrue descriptive characteristics of rock units from literature
@@ -425,13 +428,30 @@ width=30%}
 
 ### Month 9 hackathon
 
-- Stable system to stage Macrostrat maps
-- Macrostrat legend curation web interfaces
+- Stable system to stage TA1-2 datasets into Macrostrat systems and track its
+  status
+- HITL tools for map legend curation (@sec:map-integration) and geologic unit
+  characterization (@sec:entity-characterization) continually accessible to USGS
+  staff behind web login
+- Usable system for USGS staff to edit geologic map extractions from Mapboard
+  and GIS software (@sec:map-editing)
+- Prototype APIs to provide TA2 mineral site data to TA3
+- Macrostrat output tile datasets, attributed and projected for TA3 use
+  (@sec:geologic-map-data)
 
 ### Phase 1 Base evaluation
 
-- End-to-end system for storing and distributing geological data and literature
-  artifacts
+- APIs to provide map extraction corrections and feedback to TA1 pipelines
+- End-to-end system for synthesizing geologic unit data from xDD literature
+  extractions and TA1-2 output, with feedback interfaces for regional geological
+  experts (@sec:entity-characterization)
+- APIs to provide mineral site data to TA3 that are linked to geologic context,
+  filterable, and can be traced to source documents (@sec:mineral-site-data)
+- Demonstration of providing geologic datasets to TA3 with the level of
+  attribution necessary for accurate CMA workflows (@sec:geologic-map-data)
+- Demonstration of TA1 maps moving through Macrostrat ingestion pipeline
+  (@sec:map-integration) to TA3 data provision (@sec:geologic-map-data) with
+  data feedback, curation, and handling entirely by USGS staff
 
 # Current activities
 
