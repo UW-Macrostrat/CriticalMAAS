@@ -1,3 +1,4 @@
-# CriticalMAAS
+# UW-Macrostrat CriticalMAAS
 
-Project overview, roadmap and initial result reports
+Project overviews, roadmaps and
+[milestone reports](https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/milestones.md).
