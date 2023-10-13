@@ -1,0 +1,35 @@
+title: >-
+  CriticalMAAS Phase 1 research plan – Macrostrat TA4 team
+author: Daven Quinn, Shanan Peters, Shivaram Venkataraman, and Brian Bockelman
+affiliation: University of Wisconsin, Madison
+date: October 13, 2023
+fontsize: 11pt
+geometry: margin=1in
+papersize: letter
+mainfont: Chaparral Pro
+sansfont: Gotham Medium
+numbersections: true
+secnumdepth: 2
+toc-depth: 2
+toc: true
+header-includes:
+  - \usepackage[small,compact]{titlesec}
+  - \usepackage{titling, sectsty}
+  - \allsectionsfont{\textrm\sffamily}
+  - \setlength{\droptitle}{0em}
+  - \pretitle{\begin{flushleft}\Large\sffamily}
+  - \posttitle{\par\end{flushleft}\vskip 0.5em}
+  - \usepackage{enumitem}
+  - \setlist{nolistsep}
+  - \titlespacing{\section}{0pt}{\parskip}{-\parskip}
+  - \titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
+  - \titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+abstract: |
+  This document presents Macrostrat's research plan for Phase 1 of the CriticalMAAS project.
+  Macrostrat's main goal is to provide the highest-possible quality geologic basemap for CMA workflows,
+  integrating outputs from TA1 and TA2 with other NGMDB, USGS, and external data sources. This basemap
+  will be usable across scales and project areas, with consistent API-driven data access patterns usable by TA3 workflows.
+  To solve alignment problems that have been documented for past CMA workflows, we will prioritize the linking of
+  geological data into a consistent entity framework, driven by geologic unit matching across data sources.
+  We will also work with other CriticalMAAS performers
+  to build feedback capabilities into their data synthesis workflows, especially for TA1 and TA2.
