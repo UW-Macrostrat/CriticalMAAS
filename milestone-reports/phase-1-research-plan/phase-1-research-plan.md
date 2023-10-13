@@ -1,10 +1,10 @@
 # Introduction
+The primary objective of our TA4 activities is to adapt and leveage the Macrostrat and xDD data systems for the CriticalMAAS workflow. This places emphasis on the geological data that are central to TA3 modelling pipeline. Our specific immediate objectives are to 1) build a geological map ingestion and harmonization system for TA1 output that can rapidly augment the more than 300 geological maps that are already available in Macrostrat and tailoring the map data access points (APIs and tile servers) to conform with TA3 requirements, and 2) establishing an xDD corpus and document annotation and distribution pipeline that can faciliate TA2 data extraction tasks. We are attempting to facilitate integration of TA1 and some of TA2 outputs by focusing on geological units that appear in maps, geologic columns, and the liteature, the goal being to augument map/column units with additional geological data that can be used in modelling steps. This initial thrust is therefore largely focused on integrating data extraction and assimilation pipelines that are directed towards TA3. Human-in-the-loop interfaces for assessing, annotating, and editing the data from TA1 and TA2 will be developed as the data flow pipelines are established. Here we report on our Phase 1 research plan to accomplish these objectives.
 
 ## Success criteria for Macrostrat TA4 system
 
-- Can we provide TA1 and TA2 data to TA3 (and other TA4 performers), en masse?
-- Can we provide augment and standardize these datasets to provide relevant
-  lithologic info?
+- Can we provide the data produced by TA1 and TA2 to TA3 (and other TA4 performers), on demand and en masse?
+- Can we augment and standardize these datasets to provide relevant geological information, particularly lithology and its properties?
 
 ## System goals
 
@@ -30,8 +30,8 @@ We will plan to integrate with tools produced by other TA4 performers:
 
 Based on descriptions of bottlenecks in CMA process workflows described by
 Lawley, and the expected structure of TA1 and TA2 outputs, we forecast that a
-major problem will be assembing a geologic dataset well-characterized and
-standardized enough to be useful across scales and study areas to extract fairly
+major problem will be assembing a geologic dataset that is sufficiently well-characterized and
+standardized to be useful across scales and study areas to extract fairly
 specific CMA-relevant information. Given this expected challenge, we will devote
 extra effort to internally characterizing and harmonizing geologic map units, in
 order to provide appropriately queryable TA1 and TA2 datasets.
@@ -59,7 +59,7 @@ new understanding of its critical importance in the contextx of this project.
 ## Providing geologic datasets for CriticalMAAS performers
 
 Our key task for supporting CriticalMAAS is to provide harmonized geologic
-datasets over stable APIs to other CriticalMAAS performers. They most critical
+datasets over stable APIs to other CriticalMAAS performers. The most critical
 task is to provide these datasets to TA3, but we will also provide them to TA1
 and TA2 to support feedback. Additionally, we will support the activities and
 HITL interfaces of other TA4 performers with stable APIs (e.g., for geologic and
@@ -70,7 +70,7 @@ raster data tiles) atop shared TA4 data repositories.
 Tiled Macrostrat output, API-available in vector-based tile format has gained
 agreement from MTRI (TA4) and SRI (TA3) that it has the requisite structure and
 properties to be used as a base for CMA workflows. We will continue to refine
-this output and provide it to TA3. We will work on
+this output and provide it to TA3. We will work on:
 
 - improving the structure of tileserver output to better support querying by TA3
   (ex., adding ability to filter by lithology).
@@ -106,13 +106,13 @@ to TA3 and TA4 HITL interfaces (ex., MTRI and/or EIS QGIS plugins).
 
 Macrostrat maintains links to other point datasets that may be useful to forward
 to TA3, such as USGS geochemical databases. If more datasets are needed, we will
-work with TA3 to identify and integrate them.
+work with TA3 to identify and integrate them into the system, which will make them readily avaiable on demand for modelling tasks.
 
 ### Raster datasets
 
-Raster datasets can usually be easily accessed directly by TA3. However,
+Raster datasets can usually be easily integrated directly into the workflow of TA3. However,
 compositing raster datasets across scales, etc. presents demanding workflows
-that can be supported by TA4 potentially. We have validated and will maintain
+that can potentially be supported by TA4. We have validated and will maintain
 key capabilities to store and serve raster datasets, to support map feedback and
 CMA workflows.
 
@@ -123,8 +123,8 @@ This can also be used to help support TA1 feedback
 ### A system to orchestrate geological data
 
 The core of the Macrostrat system consists of the databases and infrastructure
-that hosts the above data capabilities. In order to maintain and extend thes
-APIs and data-provision capabilities, we will invest in the design and structure
+that hosts the above data capabilities. In order to maintain and extend these
+APIs and data-provision systems, we will invest in the design and structure
 of underlying Macrostrat systems.
 
 - [Macrostrat CLI](https://github.com/UW-Macrostrat/cli)
@@ -145,13 +145,13 @@ As a first step towards HITL interfaces to standardize geological map
 information (e.g., legend data, line types, etc.) from TA1 outputs, we're going
 to try to improve the speed and interactivity of Macrostrat's vector data
 ingestion pipeline. This system moves from heterogeneous inputs, like
-Geodatabases, Shapefiles, or the old ArcInfo files you referenced, to the
+Geodatabases, Shapefiles, or the old ArcInfo files referenced, to the
 standardized layers that drive Macrostrat APIs.
 
 Geologic map ingestion is reliant both on GIS data manipulation (and in the case
 of TA1 performers, image analysis), and on geological expertise. Geological
 decisions include splitting up unit ages from stratigraphic names, descriptions,
-and lithological information in legend text, which must in many cases be done
+and lithological information in legend text, which must in many cases must be done
 manually. It's obviously useful to allow the geologic expertise to be applied
 without the need for SQL manipulation, as that will allow geologists to more
 readily participate.
@@ -284,11 +284,11 @@ literature artifacts ready for TA2 extractions, both over USGS documents and the
 broader geologic literature.
 
 We are beginning to transition to **GeoKB** as a source of USGS documents. As
-part of this transition, switched from using the USGS Zotero instance as the
+part of this transition, we switched from using the USGS Zotero instance as the
 primary metadata source for target documents to the GeoKB SPARQL instance, under
 the guidance of Sky Bristol. This aligns us with the storage and knowledge plans
 of Sky's group at USGS. This includes storing the `w3id` stable URLs, which will
-allow us to link directly to the entire source for each USGS PDF.
+allow us to link directly to the original source for each USGS PDF.
 
 We have created a document set (`criticalmaas`) defined as the union of these
 documents with the USGS series publications (doi prefix of `10.3133`). This set
@@ -307,7 +307,7 @@ and manipulating the literature corpus of documents from USGS and other sources.
 Since USGS documents are broadly in the public domain, TA2 performers have an
 opportunity to follow all extractions back to their full source material; this
 is usually encumbered by publisher agreements in the case of other literature
-sources.
+sources, such as Elsevier, Wiley and the like. However, specific information in these source documents can be surfaced and integrated into knowledge bases, provided that the code to locate and extract the information is run within UW's CHTC environment and the output conforms to the expectations of publisher agreements (e.g., extractions constitute a derived data product, such as a list of entities and their relations, and not original unaltered content beyond short snippets of context).
 
 ## Progress to initial milestones
 
