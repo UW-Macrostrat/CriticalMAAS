@@ -66,7 +66,10 @@ TA3 workflows, providing geologic data in appropriate formats for CMA, and
 augmenting the attributes of geologic data to form harmonized, multiscale
 products that support CMA workflows. As part of these efforts, we will build
 data-providing infrastructure, APIs, and user-facing human in the loop (HITL)
-interfaces.
+interfaces. Overall progress is tracked in the
+[`UW-Macrostrat/criticalmaas`](https://github.com/UW-Macrostrat/criticalmaas)
+GitHub repository, with individual software components tracked in the
+repositories discussed below (see @sec:software-repositories for an index).
 
 This plan is organized around several lines:
 
@@ -77,7 +80,8 @@ This plan is organized around several lines:
 
 This is broadly similar to the Tasks 1-3 developed in our initial proposal, but
 with "linking geologic entities" extracted to a top-level task to align with our
-new understanding of its critical importance in the context of this project.
+new understanding of its critical importance in the context of this project
+(@sec:entity-characterization).
 
 ## Providing geologic datasets for CriticalMAAS performers
 
@@ -406,7 +410,8 @@ width=30%}
 
 ### Month 6 hackathon
 
-- Automated pipeline for ingesting TA1-2 datasets into Macrostrat systems (@sec:map-integration).
+- Automated pipeline for ingesting TA1-2 datasets into Macrostrat systems
+  (@sec:map-integration).
 - HITL interface prototype for geologic map legend synthesis atop this pipeline
   (@sec:map-integration and @sec:map-interfaces).
 - Prototype APIs to provide model feedback to TA1-2 performers
@@ -432,8 +437,8 @@ width=30%}
 - Stable system to stage TA1-2 datasets into Macrostrat systems and track their
   status
 - HITL tools for map legend curation (@sec:map-integration) and geologic unit
-  characterization (@sec:entity-characterization) accessible to USGS
-  staff behind web login
+  characterization (@sec:entity-characterization) accessible to USGS staff
+  behind web login
 - Usable system for USGS staff to edit geologic map extractions from Mapboard
   and GIS software (@sec:map-editing)
 - Prototype APIs to provide TA2 mineral site data to TA3
@@ -463,11 +468,13 @@ work plan (@sec:milestone-index). We have made progress along several lines.
 ## System and interaction design {#sec:schemas}
 
 The Macrostrat team has been a major contributor to the design of CriticalMAAS
-data schemas for harmonizing TA1-3 datasets and ensuring their interoperability.
-We have worked closely with the other TA4 teams and TA1-3 performers to ensure
-that the data schemas are specific and well-designed; we have also been an
-advocate for including geologic data objects in the schemas, to support our
-pursuit of linked geologic data objects.
+data schemas
+([`DARPA-CRITICALMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas)),
+for harmonizing TA1-3 datasets and ensuring their interoperability. We have
+worked closely with the other TA4 teams and TA1-3 performers to ensure that the
+data schemas are specific and well-designed; we have also been an advocate for
+including geologic data objects in the schemas, to support our pursuit of linked
+geologic data objects.
 
 ## Prototype HITL interfaces {#sec:hitl-progress}
 
