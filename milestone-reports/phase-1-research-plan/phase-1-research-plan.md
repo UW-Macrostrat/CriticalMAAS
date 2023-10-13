@@ -406,8 +406,7 @@ width=30%}
 
 ### Month 6 hackathon
 
-- Automated pipeline for ingesting TA1-2 datasets into Macrostrat systems,
-  accessible by TA1-2 performers (@sec:map-integration).
+- Automated pipeline for ingesting TA1-2 datasets into Macrostrat systems (@sec:map-integration).
 - HITL interface prototype for geologic map legend synthesis atop this pipeline
   (@sec:map-integration and @sec:map-interfaces).
 - Prototype APIs to provide model feedback to TA1-2 performers
@@ -430,10 +429,10 @@ width=30%}
 
 ### Month 9 hackathon
 
-- Stable system to stage TA1-2 datasets into Macrostrat systems and track its
+- Stable system to stage TA1-2 datasets into Macrostrat systems and track their
   status
 - HITL tools for map legend curation (@sec:map-integration) and geologic unit
-  characterization (@sec:entity-characterization) continually accessible to USGS
+  characterization (@sec:entity-characterization) accessible to USGS
   staff behind web login
 - Usable system for USGS staff to edit geologic map extractions from Mapboard
   and GIS software (@sec:map-editing)
