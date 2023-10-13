@@ -534,11 +534,11 @@ TAs 1-3_
 _Augment Macrostrat capabilities and datasets with functionality for AI-assisted
 critical mineral assessment._
 
-1. **Milestone 2** _(Month 4)_: A containerized instance of Macrostrat: A
-   containerized version of Macrostrat is running but not stable, and is being
-   used as a base for all development activities
+1. **Milestone 2** _(Month 4)_: A containerized instance of Macrostrat: _A
+   containerized version of Macrostrat is running (though unstable), and is
+   being used as a base for all development activities_
 2. **Milestone 2** _(Month 4)_: Database and software capabilities to ingest and
-   serve raster datasets: Initial validation complete
+   serve raster datasets: _Initial validation complete (@sec:raster-data)_
 3. **Milestone 2** _(Month 4)_: User management and authentication: **In initial
    stages of development, planned by Month 3 hackathon**
 4. **Milestone 2** _(Month 4)_: APIs to deliver geologic map and column data to
@@ -551,10 +551,12 @@ critical mineral assessment._
 _Provide literature artifacts (maps and tables) to TA1-2_
 
 1. **Milestone 1** _(Month 2)_: A vetted corpus of geological literature
-   pertinent to mineral assessment: The CriticalMAAS corpus is available
+   pertinent to mineral assessment: _The CriticalMAAS corpus is available
+   (@sec:xdd-set-progress)_
 2. **Milestone 2** _(Month 4)_: Pipeline for delivering contextualized
-   literature artifacts to TA 1 and 2: COSMOS outputs for maps, table
-   extractions, etc. are available
+   literature artifacts to TA 1 and 2: _COSMOS outputs for maps, table
+   extractions, etc. are available for the CriticalMAAS corpus
+   (@sec:xdd-set-progress)_
 
 ### Task 2: Ingest geological data from TAs 1-3
 
@@ -565,9 +567,10 @@ _Incorporate data products produced by TAs 1-3 into Macrostrat_
 _Incorporate TA1 map data products into harmonized Macrostrat map system_
 
 1. **Milestone 1** _(Month 1)_: Schemas for map data to be accepted by
-   Macrostrat system: Done as part of TA4 deliverable
+   Macrostrat system: _Done as part of TA4 deliverable (@sec:schemas)_
 2. **Milestone 2** _(Month 4)_: Documented ingestion APIs for maps from TA1:
-   Beginning to produce ingestion CLI and API for TA1 use
+   _Beginning to produce ingestion CLI and API for TA1 use
+   (@sec:map-integration)_
 
 #### 2B: Ingest geological data from TA2 and link entities
 
@@ -575,9 +578,11 @@ _Augment and extend Macrostrat map and column unit data to include mineral
 assessment-specific criteria_
 
 1. **Milestone 1** _(Month 1)_: Schemas for point-based geological data to be
-   accepted by Macrostrat system: Done as part of TA4 deliverable
+   accepted by Macrostrat system: _Done as part of TA4 deliverable
+   (@sec:schemas)_
 2. **Milestone 2** _(Month 4)_: Documented APIs for point-based data ingested
-   from TA2 (and TA1 as applicable): Started in Weaver repository
+   from TA2 (and TA1 as applicable): _Started in Weaver repository
+   (@fig:mineral-sites)_
 
 ### Task 3: Build HITL interfaces for model and extraction improvement
 
@@ -589,22 +594,25 @@ expert feedback_
 _Enable dynamic editing and annotation of geologic maps_
 
 1. **Milestone 2** _(Month 4)_: Add widgets for collecting map candidate
-   feedback to Macrostrat’s web map interface: In early development
+   feedback to Macrostrat’s web map interface: _In early development, but not
+   publicly available (@sec:map-interfaces)_
 
 #### Subtask 3B: Annotate geological data extractions and linked geological entities
 
 _Enable annotation of geological data extracted from descriptive documents_
 
 1. **Milestone 2** _(Month 4)_: Add widgets for collecting linked entity
-   feedback in Macrostrat web interfaces: **Not yet addressed**
+   feedback in Macrostrat web interfaces: _**Not yet addressed**
+   (@sec:entity-characterization)_
 
 ## Later milestones
 
 We have made some progress to later Phase 1 milestones, as well:
 
 - Subtask 1B **Milestone 4** _(Month 7)_: Pipeline for locating and extracting
-  entities and augmenting Macrostrat database: In early exploratory phases with
-  CS graduate and undergraduate students supervised by co-PI Venkataraman.
+  entities and augmenting Macrostrat database: _In early exploratory phases with
+  CS graduate and undergraduate students supervised by co-PI Venkataraman
+  (@sec:entity-characterization)_.
 - Subtask 3A **Milestone 4** _(Month 7)_: Adapt Mapboard GIS topological editing
-  for map geospatial/topology correction: Key demonstration/validation has been
-  accomplished
+  for map geospatial/topology correction: _Key demonstration/validation has been
+  accomplished (@sec:map-editing)_
