@@ -267,17 +267,36 @@ Several GitHub-hosted codebases are relevant to this task:
 
 ## Geologic entity characterization {#sec:entity-characterization}
 
-Geologic entities are discrete packages of rock (e.g., mapped bedrock map units) that can be characterized by a variety of attributes, including lithostratigraphic names, lithologies, environmental/tectonic context of formation, and geochemistry. Macrostrat maintains a database of geologic entities represented in, for example, regional geologic columns that can be used to further characterize geologic map units. However, Macrostrat's entity characterization is not of adequate completeness to fully support CMA workflows. This will be rectified by a combination of leveraging outputs from TA1-2, augmenting those outputs with our own AI-assisted literature synthesis, and building new HITL interfaces for curating information that better charaterizes the properties of rock units that are relevant to CMA.
+Geologic entities are discrete packages of rock (e.g., mapped bedrock map units)
+that can be characterized by a variety of attributes, including
+lithostratigraphic names, lithologies, environmental/tectonic context of
+formation, and geochemistry. Macrostrat maintains a database of geologic
+entities represented in, for example, regional geologic columns that can be used
+to further characterize geologic map units. However, Macrostrat's entity
+characterization is not of adequate completeness to fully support CMA workflows.
+This will be rectified by a combination of leveraging outputs from TA1-2,
+augmenting those outputs with our own AI-assisted literature synthesis, and
+building new HITL interfaces for curating information that better charaterizes
+the properties of rock units that are relevant to CMA.
 
 We are taking two separate approaches to this problem:
-1. Finding new descriptors of existing entities by, for example, reading publications.
-2. Finding new entities not currently represented in the database and incorporating them.
 
-These two approaches will help correct several deficiencies of Macrostrat's current
-representation of geologic entities, including more depauperate data on non-sedimentary units and a relatively general characterization of lithologies in heterogeneous units. The overarching goal of these activities is to produce more specific representations of geologic entity properties, particularly lithology, that are amenable to use in TA3 modelling workflows.
+1. Finding new descriptors of existing entities by, for example, reading
+   publications.
+2. Finding new entities not currently represented in the database and
+   incorporating them.
 
-This repository will house the core of Macrostrat's geological entity
-characterization system: https://github.com/UW-Macrostrat/macrostrat-xdd/
+These two approaches will help correct several deficiencies of Macrostrat's
+current representation of geologic entities, including more depauperate data on
+non-sedimentary units and a relatively general characterization of lithologies
+in heterogeneous units. The overarching goal of these activities is to produce
+more specific representations of geologic entity properties, particularly
+lithology, that are amenable to use in TA3 modelling workflows.
+
+This system will be developed and described in the
+[`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd)
+GitHub repository. Feedback tools for evaluating extraction quality will be
+built atop Macrostrat's map interface (@sec:map-interfaces).
 
 ![*(a)* Starting user interface and *(b)* potential additional extractions for CMA-focused entity canonicalization tasks](img/entity-canonicalization.png){#fig:entity-characterization}
 
