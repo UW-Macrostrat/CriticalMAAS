@@ -1,0 +1,3 @@
+# Ignored PNG and JPG files until we can handle them with git-annex
+*.png
+*.jpg
