@@ -10,6 +10,8 @@ documents=(
   2023-10-CriticalMAAS-Phase-1-research-plan.pdf
 )
 
+mkdir -p documents
+
 for document in "${documents[@]}"
 do
   outfile="documents/$document"
