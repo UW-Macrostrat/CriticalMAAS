@@ -1,9 +1,9 @@
 # UW-Macrostrat CriticalMAAS
 
-Project overviews, roadmaps and
-[milestone reports](https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/milestones.md).
+Project overviews, roadmaps and milestone reports for Macrostrat's contribution
+to the DARPA/USGS CriticalMAAS program.
 
-## CriticalMAAS project documents
+## Project documents
 
 Compiled documents are stored in a S3 and linked to below. To download all
 documents, run `make`.
@@ -27,8 +27,11 @@ as part of the Macrostrat CriticalMAAS effort.
 
 ### Macrostrat core system
 
+- [`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat):
+  Macrostrat's core system, including its database definitions and control
+  scripts.
 - [`UW-Macrostrat/tileserver`](https://github.com/UW-Macrostrat/tileserver):
-  Server for vector and raster tiles to GIS software (@sec:geologic-map-data)
+  Server for vector and raster tiles to GIS software
 - [`UW-Macrostrat/tiger-macrostrat-config`](https://github.com/UW-Macrostrat/tiger-macrostrat-config):
   Macrostrat onfiguration for CHTC infrastructure (_private, due to its tight
   integration with UW–Madison CHTC systems_)
@@ -88,3 +91,17 @@ CriticalMAAS project.
   Page annotation and feedback
 - [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS): PDF entity
   extraction pipeline
+
+## Project Milestones
+
+### Phase 1
+
+| #   | Milestone                                                                                                                                        | Exit Criteria         | Target Date | Product |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- | ----------- | ------- |
+| 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                       | Specifiation Plans    | 09/2023     |         |
+| 1   | [Detailed research plan for Phase 1](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf) | Milestone Report      | 10/2023     |         |
+| 2   | Initial code/documentation release                                                                                                               | Milestone Report/Code | 12/2023     |         |
+| 3   | Report detailing progress of research and technology and gaps                                                                                    | Milestone Report      | 02/2024     |         |
+| 4   | Code/documentation/data release                                                                                                                  | Milestone Report/Code | 03/2024     |         |
+| 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                       | Milestone Report      | 04/2024     |         |
+| 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                              | Milestone Report/Code | 07/2024     |         |
