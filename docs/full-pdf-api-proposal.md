@@ -64,7 +64,12 @@ public access. Examples:
 - **Page snippet API**: Cosmos-style extractions to provide page bounding boxes
   and context to web applications
 
-> [!todo] OCR text Providing access and search over the OCR text layer of PDFs
+A stable ID to each document will need to be defined, which we hope can mirror
+an xDD ID in many cases (this would obviously not be possible if documents were not
+contained in xDD).
+
+> [!todo] OCR text, ElasticSearch, and other services
+> Providing access and search over the OCR text layer of PDFs
 > will require significant backend infrastructure beyond a simple collection of
 > PDFs, but it might be worthwhile to drive certain extraction tasks.
 
@@ -73,16 +78,16 @@ public access. Examples:
 ### Metadata
 
 - `/documents`: List all documents in the store (+pagination, etc.)
-- `/document/<xdd-id>`: Document metadata for an individual document
+- `/document/<stable-id>`: Document metadata for an individual document
 
 ### Full-text PDFs
 
-- `/document/<xdd-id>.pdf`: The full-text PDF associated with an xDD ID
+- `/document/<stable-id>.pdf`: The full-text PDF associated with an xDD ID
 
 ### Page extraction images
 
-- `/document/<xdd-id>/page/<n>.{pdf|webp}`: Page PDF thumbnail
-- `/document/<xdd-id>/page/<n>/<x1>,<y1>,<x2>,<y2>.{pdf|webp}`: A windowed page
+- `/document/<stable-id>/page/<n>.{pdf|webp}`: Page PDF thumbnail
+- `/document/<stable-id>/page/<n>/<x1>,<y1>,<x2>,<y2>.{pdf|webp}`: A windowed page
   thumbnail
 - Images should be dynamically generated with caching as appropriate
 
@@ -104,9 +109,13 @@ to integrate with the "bring your own documents" flow currently being tested by
 xDD (November 2023). So new documents would be added to xDD and their full-text
 contents retained in this system, in tandem.
 
-> [!todo] A staging area for xDD ingestion? It might be desirable to allow this
-> store to contain documents that are not present in xDD. This would allow
-> external parties to contribute PDFs. In this capacity, this application could
-> serve as a "staging area" for bringing documents into the system. This would
-> require the metadata database to contain all information required for
-> successful document ingestion into xDD.
+However, for fully independent operation, it might be desirable to allow documents
+not in xDD to be tracked by this system. In that case, it remains an open question
+how many services provided by xDD (e.g., OCR processing, ElasticSearch) should be
+replicated in this framework.
+
+> [!todo] A staging area for xDD ingestion?
+> If this store contained documents not in xDD, this application could
+> serve as a "staging area" for bringing documents into the system, if the
+> metadata database contained the requisite information (e.g., citations, links to the source) for
+> successful ingestion into xDD.
