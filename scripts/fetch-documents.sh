@@ -2,7 +2,17 @@
 
 # This script fetches the documents from S3 and saves them in the documents folder
 
-s3_bucket="https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/"
+# If we have git-annex installed, we can use it to fetch the documents
+if command -v git-annex &> /dev/null
+then
+  git annex enableremote web-assets
+  git annex get --from web-assets media
+  exit 0
+fi
+
+# The old-fashioned way without git-annex
+
+s3_bucket="https://s3.macrostrat.chtc.io/web-assets"
 
 documents=(
   2023-08-CriticalMAAS-kickoff-slides.pdf 
@@ -10,11 +20,11 @@ documents=(
   2023-10-CriticalMAAS-Phase-1-research-plan.pdf
 )
 
-mkdir -p documents
+mkdir -p media
 
 for document in "${documents[@]}"
 do
-  outfile="documents/$document"
+  outfile="media/$document"
   [ -f $outfile ] && continue
-  wget -O $outfile $s3_bucket$document
+  wget -O $outfile "$s3_bucket/criticalmaas/$outfile"
 done
