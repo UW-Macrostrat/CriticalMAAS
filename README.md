@@ -133,7 +133,8 @@ point-based data.
 ### API documentation
 
 - [Tileserver (v2)](https://tileserver.staging.svc.macrostrat.org/docs)
-- [Macrostrat API (v2)](https://v2.macrostrat.org/api/)
+- [Macrostrat ingestion API documentation (v2)](https://v2.macrostrat.org/api/ingest/docs)
+- [Macrostrat API documentation](https://v2.macrostrat.org/api/)
 - [Macrostrat API tutorials](https://docs.google.com/document/d/13uLxrS0sI9qmLIERtVvegwXa6_063V5Mz82DzJ9LArw/edit)
 
 ### Document extraction
@@ -141,7 +142,7 @@ point-based data.
 - [COSMOS visualizer example](https://xdd.wisc.edu/set_visualizer/sets/dolomites?query=Belle%20Fourche):
   A demonstration of the COSMOS visualizer used to showcase data from a document
   set relative to carbonate rocks.
-- [Design document for file management system](https://github.com/UW-xDD/document-store/blob/main/docs/design_doc.md)
+- [Design for document management system](https://github.com/UW-xDD/document-store/blob/main/docs/design_doc.md)
 - [xDD API documentation](https://xdd.wisc.edu/api/)
 - [xDD example notebook](./notebooks/xDD and COSMOS examples.ipynb): A Jupyter
   notebook demonstrating the xDD API
