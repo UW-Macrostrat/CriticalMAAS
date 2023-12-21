@@ -1,6 +1,10 @@
 # DARPA CriticalMAAS Milestone 2 Report
 
-_Daven P. Quinn_ and the UW-Madison/Macrostrat CriticalMAAS team
+_Daven P. Quinn_ and the UW-Madison/Macrostrat CriticalMAAS team  
+December 20, 2023
+
+> This report is also available
+> [in PDF format](https://s3.macrostrat.chtc.io/web-assets/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf).
 
 ## Report period
 
@@ -161,7 +165,7 @@ support TA3.
 
 ### Paleogeography system
 
-![Macrostrat paleogeographic map](https://private-user-images.githubusercontent.com/1537910/290287160-a840a148-8773-4ea4-b21e-9caf401cd772.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMxMTc1OTMsIm5iZiI6MTcwMzExNzI5MywicGF0aCI6Ii8xNTM3OTEwLzI5MDI4NzE2MC1hODQwYTE0OC04NzczLTRlYTQtYjIxZS05Y2FmNDAxY2Q3NzIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQUlXTkpZQVg0Q1NWRUg1M0ElMkYyMDIzMTIyMSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyMzEyMjFUMDAwODEzWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NDliM2M3M2MwY2Q2OGI1OGVkMmQ2MDUxMjQ3MTUzZDE4ZDkzMTU2YTVmMTNjMjBmMTQzMjc4MDIzZWVmODQ1YSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.L0RnDmYWV2wADatCMPfCxlCP8GmH4guhUhn91na7GGE)
+![Macrostrat paleogeographic map](./paleogeography.png)
 
 One technical achievement that is outside of the bounds of our CriticalMAAS
 project plan but notably in-scope for the mineral systems analysis problem is
