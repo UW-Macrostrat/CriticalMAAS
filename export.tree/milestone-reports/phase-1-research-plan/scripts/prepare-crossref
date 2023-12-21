@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Prepares Pandoc markdown for crossref filter by opportunistically
+# wrapping references in escaped brackets to mimic citation style
+# so that [@fig:stuff] prints as [Figure 1].
+# Also escapes pipes for subfigures with non-printing characters,
+# enabling the @fig:stuff|b signature.
+inmatch="\S+"
+sed -r "s/\[((@(fig|eq|sec|tbl):$inmatch;? ?)*)\]/\\\[\1\\\]/g" \
+| sed -r "s/(@(fig|tbl):$inmatch)\|/\1‌/g"
