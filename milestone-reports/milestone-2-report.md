@@ -1,5 +1,7 @@
 # DARPA CriticalMAAS Milestone 2 Report
 
+_Daven P. Quinn_ and the UW-Madison/Macrostrat CriticalMAAS team
+
 ## Report period
 
 This **Milestone 2** report covers UW-Madison – Macrostrat contributions to the
