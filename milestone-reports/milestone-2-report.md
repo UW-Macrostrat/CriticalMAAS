@@ -165,7 +165,7 @@ support TA3.
 
 ### Paleogeography system
 
-![Macrostrat paleogeographic map](./paleogeography.png)
+![Macrostrat paleogeographic map](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/milestone-reports/paleogeography.png)
 
 One technical achievement that is outside of the bounds of our CriticalMAAS
 project plan but notably in-scope for the mineral systems analysis problem is

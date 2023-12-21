@@ -8,13 +8,13 @@ to the DARPA/USGS CriticalMAAS program.
 Compiled documents are stored in a S3 and linked to below. To download all
 documents, run `make`.
 
-- [Project whitepaper](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/-2023-08-CriticalMAAS-UW-whitepaper.pdf)
+- [Project whitepaper](https://s3.macrostrat.chtc.io/web-assets/criticalmaas/media/2023-08-CriticalMAAS-UW-whitepaper.pdf)
   _(August 2023)_: A trimmed-down version of the proposal, detailing goals and
   potential deliverables.
-- [Kickoff slides](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/2023-08-CriticalMAAS-kickoff-slides.pdf)
+- [Kickoff slides](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/media/2023-08-CriticalMAAS-kickoff-slides.pdf)
   _(August 2023)_: A brief overview of the Macrostrat platform and goals,
   presented by PI Daven Quinn at the kickoff meeting.
-- [Phase 1 research plan](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf)
+- [Phase 1 research plan](https://s3.macrostrat.chtc.io/web-assets/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf)
   _(October 2023)_: A detailed plan for the first phase of the project,
   including a timeline and deliverables.
 
@@ -102,12 +102,12 @@ CriticalMAAS project.
 
 ### Phase 1
 
-| #   | Milestone                                                                                                                                        | Exit Criteria         | Target Date | Product |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- | ----------- | ------- |
-| 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                       | Specifiation Plans    | 09/2023     |         |
-| 1   | [Detailed research plan for Phase 1](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf) | Milestone Report      | 10/2023     |         |
-| 2   | [Initial code/documentation release](milestone-reports/milestone-2-report.md)                                                                    | Milestone Report/Code | 12/2023     |         |
-| 3   | Report detailing progress of research and technology and gaps                                                                                    | Milestone Report      | 02/2024     |         |
-| 4   | Code/documentation/data release                                                                                                                  | Milestone Report/Code | 03/2024     |         |
-| 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                       | Milestone Report      | 04/2024     |         |
-| 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                              | Milestone Report/Code | 07/2024     |         |
+| #   | Milestone                                                                                                                                              | Exit Criteria         | Target Date | Product |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- | ----------- | ------- |
+| 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                             | Specifiation Plans    | 09/2023     |         |
+| 1   | [Detailed research plan for Phase 1](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf) | Milestone Report      | 10/2023     |         |
+| 2   | [Initial code/documentation release](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf)    | Milestone Report/Code | 12/2023     |         |
+| 3   | Report detailing progress of research and technology and gaps                                                                                          | Milestone Report      | 02/2024     |         |
+| 4   | Code/documentation/data release                                                                                                                        | Milestone Report/Code | 03/2024     |         |
+| 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                             | Milestone Report      | 04/2024     |         |
+| 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                                    | Milestone Report/Code | 07/2024     |         |
