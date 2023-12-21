@@ -3,10 +3,13 @@
 Project overviews, roadmaps and milestone reports for Macrostrat's contribution
 to the DARPA/USGS CriticalMAAS program.
 
-## Project documents
+## Key links
 
-Compiled documents are stored in a S3 and linked to below. To download all
-documents, run `make`.
+- [`v2.macrostrat.org`](https://v2.macrostrat.org): CriticalMAAS version of
+  Macrostrat
+- [macrostrat.org](https://macrostrat.org): Macrostrat's production website
+
+## Project documents
 
 - [Project whitepaper](https://s3.macrostrat.chtc.io/web-assets/criticalmaas/media/2023-08-CriticalMAAS-UW-whitepaper.pdf)
   _(August 2023)_: A trimmed-down version of the proposal, detailing goals and
@@ -17,86 +20,142 @@ documents, run `make`.
 - [Phase 1 research plan](https://s3.macrostrat.chtc.io/web-assets/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf)
   _(October 2023)_: A detailed plan for the first phase of the project,
   including a timeline and deliverables.
+- [Milestone 2 report](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf)
+  _(December 2023)_: A report detailing the progress of the project
 
-Run `make` in the root directory of this repository to download all documents.
+> Compiled documents are stored in a S3 and linked to below. To download all
+> documents, run `make` in the root directory of this repository.
 
-## Software repositories
+## Codebase
 
-This is an index of the software repositories that are or may be contributed to
-as part of the Macrostrat CriticalMAAS effort.
+This is an index of the software repositories that are being contributed to as
+part of the Macrostrat / UW–Madison CriticalMAAS effort.
 
 ### Macrostrat core system
 
+The repositories in Macrostrat's core system will eventually contain the minimum
+set of capabilities required to run a functioning instance of Macrostrat. They
+will contain the primary deliverables of the CriticalMAAS project and will be
+designed to be well-documented and runnable by USGS staff.
+
 - [`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat):
-  Macrostrat's core system, including its database definitions and control
-  scripts.
+  Macrostrat's core system, including its database definitions, control scripts,
+  and ingestion pipelines. This repository is the primary focus of the
+  CriticalMAAS project.
 - [`UW-Macrostrat/tileserver`](https://github.com/UW-Macrostrat/tileserver):
   Server for vector and raster tiles to GIS software
-- [`UW-Macrostrat/tiger-macrostrat-config`](https://github.com/UW-Macrostrat/tiger-macrostrat-config):
-  Macrostrat onfiguration for CHTC infrastructure (_private, due to its tight
-  integration with UW–Madison CHTC systems_)
 - [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
   web interface
+- [`UW-Macrostrat/api-v3`](https://github.com/UW-Macrostrat/api-v3`):
+  Macrostrat's v3 API, which will be the primary API for CriticalMAAS
+  capabilities
 
-### Program integration
+### Reusable libraries
 
-- [`DARPA-CRITICALMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas):
-  Schemas for TA1-3 integrations (_initiated by UW-Macrostrat team; now shared
-  among all performers_)
-- [`UW-Macrostrat/criticalmaas`](https://github.com/UW-Macrostrat/criticalmaas):
-  Index repository for Macrostrat's CriticalMAAS project documents
-- [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
-  xDD integration for geologic entity characterization
-
-### Shared libraries
+Macrostrat maintains shared libraries that underpin a variety of activities
+including CriticalMAAS.
 
 - [`UW-Macrostrat/web-components`](https://github.com/UW-Macrostrat/web-components):
-  Shared user interface components for Macrostrat user interfaces
+  Shared React/Typescript user interface components for rich map-based user
+  interfaces
 - [`UW-Macrostrat/python-libraries`](https://github.com/UW-Macrostrat/python-libraries):
-  Python libraries used in multiple applications (@sec:map-integration)
+  Python libraries used throughout Macrostrat server and control applications,
+  including tools for database access and data processing.
 
-### Data pipeline components
+### Program coordination
 
-These repositories contain data pipeline components in early development. Their
-organization is subject to change as systems develop (some similar components
-have already been merged into the
-[`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat)
-repository).
+Schemas, data interchange libraries, and shared infrastructure for the
+CriticalMAAS program.
 
-- [`UW-Macrostrat/raster-cli`](https://github.com/UW-Macrostrat/raster-cli):
-  Prototype tool for ingesting raster datasets
-- [`DigitalCrust/weaver`](https://github.com/digitalcrust/weaver): Curation and
-  ingestion of geological site datasets
-- [`Mapboard/topology-manager`](https://github.com/Mapboard/topology-manager):
-  Topological map editing
+- [`DARPA-CriticalMAAS/ta1-geopackage`](https://github.com/DARPA-CRITICALMAAS/ta1-geopackage):
+  a GeoPackage-based data format for validating and storing TA1 output
+- [`DARPA-CriticalMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas):
+  A repository for schemas and data formats for TA1-3 integrations (_started by
+  UW–Macrostrat and subsequently contributed to by all TA teams_)
+- [`UW-xDD/document-store`](https://github.com/UW-xDD/document-store): A
+  supplemental store for public/user provided PDFs that provides full-text
+  access, integrates with xDD APIs.
 
-### Other repositories
+### Geologic metadata curation
 
-#### Repositories integrated into [`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat)
+- [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
+  System to synthesize xDD-driven geologic unit descriptions from the scientific
+  literature (_placeholder for future development_)
+- [`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator):
+  An LLM-assisted generator for geological "fact sheets" that operates over the
+  scientific literature (_Bill Xia_; Computer Science)
+- [`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg):
+  Knowledge graph construction to discover new geologic entities in the
+  scientific literature (_Devesh Sarda_; Computer Science)
+- [`UW-Macrostrat/map-metadata-curation`](https://github.com/UW-Macrostrat/map-metadata-curation):
+  Documentation of efforts to align current archive of maps with **Macrostrat
+  v2** data standards. Focus on point data, raster image alignment, and
+  ingestion metadata recovery (_Kate Akin_; Geoscience)
 
-These repositories are not currently being actively developed, having been
-integrated into Macrostrat's core system.
+### External integrations
 
-- [`UW-Macrostrat/map-integration`](https://github.com/UW-Macrostrat/map-integration):
-  Geologic map ingestion and harmonization
-- [`UW-Macrostrat/cli`](https://github.com/UW-Macrostrat/cli): Macrostrat system
-  management tools
+Macrostrat is integrated with systems that provide additional functionality
+relevant to CriticalMAAS. Major adjustments to these systems are out-of-scope
+for the CriticalMAAS project, but integrations with Macrostrat can provide
+useful capabilities to the CriticalMAAS program.
 
-#### Document extraction handling
-
-These document handling repositories are maintained as part of the
-[xDD](https://xdd.wisc.edu/) system, and will be called on as necessary for the
-CriticalMAAS project.
-
-- [`UW-COSMOS/cosmos-visualizer`](https://github.com/UW-COSMOS/cosmos-visualizer):
-  Page annotation and feedback
-- [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS): PDF entity
-  extraction pipeline
+- [**Mapboard topology-manager**](https://github.com/Mapboard/topology-manager):
+  Topological map manager for PostGIS databases (for editing **TA1** maps and
+  topologically synthesizing them for Macrostrat output layers)
+- [**Corelle**](https://github.com/UW-Macrostrat/corelle): Paleogeographic
+  rotation system compatible with GPlates
+- [**xDD**](https://xdd.wisc.edu/): A system for extracting geologic metadata
+  from the scientific literature
+- [**Mapboard GIS**](https://mapboard-gis.app): An iPad-based GIS for
+  geologists, with a focus on rapid, intuitive drawing (for **TA1** map editing
+  if required)
+- [**Weaver**](https://github.com/digitalcrust/weaver): Ingestion, curation,
+  performant filtering, and visualization of massive geological point datasets
+  (for **TA2** data integration)
 
 ## Documentation
 
-- [`macrostrat` CLI documentation](https://github.com/UW-Macrostrat/macrostrat/blob/main/macrostrat-cli/docs/cli-usage.md):
-  The management interface for Macrostrat's schemas and data ingestion system.
+Documentation is associated with individual project repositories. Additionally,
+some broad documentation is being coordinated across the project towards
+building a cohesive, deployable system.
+
+The [`UW-Macrostrat/docs`](https://github.com/UW-Macrostrat/docs) (_placeholder
+for future development_) repository will contain broad system documentation and
+improve discoverability and usability.
+
+### Map interface examples
+
+The [`v2.macrostrat.org/dev`](https://v2.macrostrat.org/dev) and
+[`v2.macrostrat.org/map/dev`](https://v2.macrostrat.org/map/dev) websites
+contain examples of Macrostrat's map services for raster, vector, and
+point-based data.
+
+### API documentation
+
+- [Tileserver (v2)](https://tileserver.staging.svc.macrostrat.org/docs)
+- [Macrostrat API (v2)](https://v2.macrostrat.org/api/)
+- [Macrostrat API tutorials](https://docs.google.com/document/d/13uLxrS0sI9qmLIERtVvegwXa6_063V5Mz82DzJ9LArw/edit)
+
+### Document extraction
+
+- [COSMOS visualizer example](https://xdd.wisc.edu/set_visualizer/sets/dolomites?query=Belle%20Fourche):
+  A demonstration of the COSMOS visualizer used to showcase data from a document
+  set relative to carbonate rocks.
+- [Design document for file management system](https://github.com/UW-xDD/document-store/blob/main/docs/design_doc.md)
+- [xDD API documentation](https://xdd.wisc.edu/api/)
+- [xDD example notebook](./notebooks/xDD and COSMOS examples.ipynb): A Jupyter
+  notebook demonstrating the xDD API
+
+### TODO
+
+- [ ] Build [a documentation website](https://v2.macrostrat.org/docs)
+      (_placeholder for future development_)
+- [ ] Document new Macrostrat APIs using the OpenAPI specification in order to
+      conform to common standards.
+- [ ] Documentation websites for
+      [shared web components](https://github.com/UW-Macrostrat/web-components)
+      and [Python libraries](https://github.com/UW-Macrostrat/python-libraries)
+      will be established
 
 ## Project Milestones
 
@@ -111,3 +170,39 @@ CriticalMAAS project.
 | 4   | Code/documentation/data release                                                                                                                        | Milestone Report/Code | 03/2024     |         |
 | 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                             | Milestone Report      | 04/2024     |         |
 | 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                                    | Milestone Report/Code | 07/2024     |         |
+
+> ### Appendix: Out-of scope links
+>
+> #### Archived repositories
+>
+> These repositories are not currently being actively developed, having been
+> integrated into Macrostrat's core system at
+> [`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat)
+>
+> - [`UW-Macrostrat/map-integration`](https://github.com/UW-Macrostrat/map-integration):
+>   Geologic map ingestion and harmonization
+> - [`UW-Macrostrat/cli`](https://github.com/UW-Macrostrat/cli): Macrostrat
+>   system management tools
+> - [`UW-Macrostrat/raster-cli`](https://github.com/UW-Macrostrat/raster-cli):
+>   Prototype tool for ingesting raster datasets
+>
+> #### Private repositories
+>
+> - [`UW-Macrostrat/tiger-macrostrat-config`](https://github.com/UW-Macrostrat/tiger-macrostrat-config):
+>   Macrostrat configuration for CHTC infrastructure. Private due to its tight
+>   integration with UW–Madison CHTC systems.
+> - [`UW-Macrostrat/macrostrat-api`](https://github.com/UW-Macrostrat/macrostrat-api):
+>   Macrostrat's v1-2 APIs is deprecated and contains sensitive information
+>   impacting Macrostrat's production services. A simplified and
+>   security-audited v3 API will be released as part of CriticalMAAS.
+>
+> #### Document extraction handling
+>
+> These document handling repositories are maintained as part of the
+> [xDD](https://xdd.wisc.edu/) system, and will be called on as necessary for
+> the CriticalMAAS project.
+>
+> - [`UW-COSMOS/cosmos-visualizer`](https://github.com/UW-COSMOS/cosmos-visualizer):
+>   Page annotation and feedback
+> - [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS): PDF entity
+>   extraction pipeline
