@@ -38,10 +38,11 @@ as part of the Macrostrat CriticalMAAS effort.
 - [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
   web interface
 
-### Program documents and integration
+### Program integration
 
 - [`DARPA-CRITICALMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas):
-  Schemas for TA1-3 integrations (_shared among all performers_)
+  Schemas for TA1-3 integrations (_initiated by UW-Macrostrat team; now shared
+  among all performers_)
 - [`UW-Macrostrat/criticalmaas`](https://github.com/UW-Macrostrat/criticalmaas):
   Index repository for Macrostrat's CriticalMAAS project documents
 - [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
@@ -92,6 +93,11 @@ CriticalMAAS project.
 - [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS): PDF entity
   extraction pipeline
 
+## Documentation
+
+- [`macrostrat` CLI documentation](https://github.com/UW-Macrostrat/macrostrat/blob/main/macrostrat-cli/docs/cli-usage.md):
+  The management interface for Macrostrat's schemas and data ingestion system.
+
 ## Project Milestones
 
 ### Phase 1
@@ -100,7 +106,7 @@ CriticalMAAS project.
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- | ----------- | ------- |
 | 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                       | Specifiation Plans    | 09/2023     |         |
 | 1   | [Detailed research plan for Phase 1](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf) | Milestone Report      | 10/2023     |         |
-| 2   | Initial code/documentation release                                                                                                               | Milestone Report/Code | 12/2023     |         |
+| 2   | [Initial code/documentation release](milestone-reports/milestone-2-report.md)                                                                    | Milestone Report/Code | 12/2023     |         |
 | 3   | Report detailing progress of research and technology and gaps                                                                                    | Milestone Report      | 02/2024     |         |
 | 4   | Code/documentation/data release                                                                                                                  | Milestone Report/Code | 03/2024     |         |
 | 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                       | Milestone Report      | 04/2024     |         |
