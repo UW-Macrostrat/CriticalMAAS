@@ -70,11 +70,21 @@ Integration with TA1 teams started in mid-January, and by the hackathon, all TA1
 teams have shifted to using this file format to deliver candidate maps to
 Macrostrat.
 
-## Map ingestion pipeline
-
-We have made significant progress on the ingestion pipeline for TA1 data.
 Through the [TA1 Geopackage][ta1-geopackage] library, we have established a
 common endpoint for TA1 data to be ingested into Macrostrat.
+
+## Map ingestion pipeline
+
+Macrostrat's map ingestion pipeline is a system that allows the ingestion of
+geologic maps from a variety of sources into Macrostrat's harmonized
+representation, which has standardized representations of age, lithology, and
+named geological units. The central activity of our CriticalMAAS effort is to
+extend this pipeline to rapidly integrate high-resolution, high-quality geologic
+maps from TA1 and other sources [@sec:vector-maps]. We have made significant
+progress on streamlining the map ingestion pipeline to support the rapid
+ingestion of geologic mapping.
+
+We have made significant progress on the ingestion pipeline for TA1 data.
 
 - scaled our system to stage ~100 new NGMDB vector geologic maps
 - fully ingested several TA1 maps as a proof of concept
@@ -92,8 +102,14 @@ Macrostrat. It's been tested on:
 - 9 maps from the National Geologic Map Database (NGMDB) that had GIS data
   linked directly from their main page [6 had shapefile data that we could
   import]
-- The maps submitted by TA1 performers UIUC and UMN/Inferlink at the 6-month
-  hackathon
+- The maps submitted by TA1 performers UIUC and UMN/Inferlink, and Uncharted at
+  the 6-month hackathon (~90 total)
+
+In comparison, this 210 maps is about 70% of the total number of maps ingested
+into Macrostrat from 2016-2023 (294). Although most of these maps are not fully
+through the ingestion pipeline, their initial staging represents a substantial
+increase in the rate of map assimilation into Macrostrat. Our task for the next
+phase of the project is to speed up this pipeline
 
 From the hackathon:
 
@@ -118,27 +134,38 @@ process Create UIs to display a maps stage of ingestion Create UIs for lines and
 points Add feedback tools for lines, points and polygons Continue improving the
 map integration interface
 
-### Vector maps
-
-- Finding maps
-
 ## Macrostrat geologic exploration interface
 
-### Column visualizations
+Once maps are ingested into Macrostrat, they become part of a user-facing,
+web-available cyberinfrastructure designed for exploration and analysis. This
+system is widely used by geologists and the public for rapid exploration of
+geologic information in a rich user interface. As part of CriticalMAAS, we have
+been working to extend this interface with more capabilities for exploration of
+the geologic data contained in our database (see
+[the Macrostrat development website](https://dev2.macrostrat.org)). These
+capabilities will soon be extended to support feedback on geological entities
+within the system [@sec:feedback].
+
+Key capabilities such as single-map views and paleogeographic reconstructions
+that were discussed in the **Milestone 2** report continue to be developed.
+During this period, we have made substantial progress on building visualizations
+for our geologic lexicon [@sec:geologic-entities] and, most notably,
+**stratigraphic columns**.
 
 Macrostrat's stratigraphic column dataset is a rich index of geologic data in
 the subsurface of North America and is unique in its scale and consistency. This
 dataset has been queryable via Macrostrat's API, but lack of straightforward
 visualization has limited its usefulness for exploration and modeling.
-Macrostrat's column visualization system, now publicly available at
+Macrostrat's column visualization, now publicly available at
 [`dev2.macrostrat.org/columns`](https://dev2.macrostrat.org/columns), allows
-users to visualize and interact with Macrostrat's column dataset in a more
-intuitive and user-friendly way. Exploration of links with map datasets is
-possible, but ties between stratigraphic and map datasets will be made more
-explicit in future iterations of the tool. Since map datasets also have a
-time-stratigraphic element, which can usually be extracted from map legend unit
-descriptions, stratigraphic visualizations will provide a useful capability to
-evaluate the quality and consistency of TA1 map datasets.
+more intuitive and geologically sophisticated interaction with Macrostrat's
+column dataset. The interface can be explored alongside the geologic map
+interface, and ties between stratigraphic and map datasets will be made more
+explicit in future iterations of the tool. In the future, this new capability
+can support the integration of geologic maps as well. Map datasets generally
+have a time-stratigraphic element, which can usually be extracted from map
+legend unit descriptions; thus, stratigraphic visualizations can provide a
+useful capability to evaluate the quality and consistency of TA1 map datasets.
 
 ## Provision of TA1 geologic maps to TA3
 
