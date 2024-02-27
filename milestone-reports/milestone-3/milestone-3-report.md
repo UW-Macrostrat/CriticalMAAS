@@ -8,81 +8,90 @@ and technical goals defined in our [Phase 1 Research Plan][phase1_plan] and
 program goals, and the results of baseline integrations and capability
 demonstrations from the CriticalMAAS Month 6 Hackathon (_Denver, CO_).
 
-# Research and technical progress: Macrostrat geologic framework
+<!--
+Our approach to CriticalMAAS os based around Macrostrat, a principled,
+analysis-oriented geologic framework to harmonize maps and other geological
+knowledge products (e.g., stratigraphic columns) into a descriptive model of
+crustal rocks; and
 
-We have made major progress on our core task for CriticalMAAS, developing a
-pipeline for integrating TA1 mapping data into a harmonized geologic product to
-pass to TA3. Our progress has largely gone according to the [Phase 1 Research
-Plan][phase1_plan], but here we summarize several notable accomplishments.
-
-- Macrostrat – principled analysis-oriented geologic framework to harmonize maps
-  and other knowledge products into a descriptive model of crustal rocks
 - Literature-supported ML pipelines (using xDD) to augment this system with
   structured data (e.g., rock unit lithologies; relevant literature extractions)
 - Stable, performant, open (where feasible) web services to support wide use in
   analytical pipelines and user interfaces
 - Geologically oriented user interfaces (e.g., map interfaces, editors)
   supporting use, feedback, and expert contribution to the datasets
+-->
 
-By the end of Phase 1, we have committed to deliver a complete, runnable
-Macrostrat map curation system to USGS; we are on track to do so. This system
-will be housed in the [`UW-Macrostrat/macrostrat`][gh:macrostrat] repository,
-which integrates formerly separate components into a unified representation of
-Macrostrat's database schema, map ingestion pipelines, and geological data
-integration infrastructure.
+# Research and technical progress: Macrostrat geologic framework
 
-<!--
+Our core task for CriticalMAAS is to develop pipeline to integrate TA1 mapping
+data into a geologic data product that can be used by TA3. Our work has largely
+proceeded as laid out in the [Phase 1 Research Plan][phase1_plan], and we are
+midway through the development of a system that will support rapid map ingestion
+and standardization. At the **Month 6 Hackathon**, we demonstrated an end-to-end
+pipeline for ingesting geologic mapping from TA1 into Macrostrat, and providing
+a standardized representation of those datasets to TA3 for critical minerals
+modeling. This represents the initial demonstration of a system integration
+required for the success of CriticalMAAS.
 
-In creating the
-[`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat)
-repository, we have aligned and updated Macrostrat's codebase significantly to
-support CriticalMAAS use cases. With this system, we've started building a
-unified tool that can control Macrostrat across a distributed cloud
-infrastructure. The core of this system is the `macrostrat` command-line tool,
-which allows us to control Macrostrat data ingestion and evolve the system's
-schemas. In the CHTC private cloud, we have validated the process of making
-schema evolutions across the entire Macrostrat mapping database, and are now
-working to improve Macrostrat's backend processing and data ingestion pipelines
-to support the ingestion of TA1 data in January.
+By the end of Phase 1, we are committed to delivering a complete, runnable
+Macrostrat map curation system to USGS; we are on track to do so. The prototype
+system is housed in the [`UW-Macrostrat/macrostrat`][gh:macrostrat] repository,
+which integrates formerly separate components into a unified, open-source
+representation of Macrostrat's database schema, map ingestion pipelines, and
+geological data integration tooling.
 
-We will continue to build in this direction over the coming months in order to
-support the ingestion of TA1 and TA2 data and the rapid evolution of Macrostrat
-internals (especially around geologic attributes) that will be required to
-support TA3.
---->
+The successful end-to-end demonstration of this system relied on several areas
+of development that we have pursued over the last several months; we detail the
+progress in each of these areas below. In the coming months, we will streamline
+and extend this pipeline to support quick, accurate capture of geologic mapping
+datasets [@sec:gaps] and ingestion of more maps into the system
+[@sec:vector-maps].
 
-## TA1 geopackage library
+## TA1 GeoPackage library
 
-The TA1 Geopackage library is a Python library that provides a common interface
-for TA1 to deliver geologic map data to Macrostrat. This library is designed to
-be used by TA1 to deliver geologic map data to Macrostrat in a common format.
-The library wraps the GeoPackage format, which is a recognized "best-practice"
-standard for geospatial data delivery. We additionally bake the [TA1 schema
-design][ta1-schema] into the file format, to ensure that data types and
+Macrostrat entered the CriticalMAAS program with a well-established
+understanding of the most effective structure for geologic map data, and we have
+been working to convey this understanding on TA1 teams. Following our success in
+leading the design of [TA1 data schemas][ta1-schema], we have led the effort to
+establish specific formats for TA1 data products, in order to establish
+authoritative, consistent standards for candidate map interchange and archival.
+
+The [`DARPA-CriticalMAAS/ta1-geopackage`][ta1-geopackage] Python library
+provides a common interface for TA1 to deliver geologic maps to Macrostrat. The
+library wraps the GeoPackage format, which is a recognized "best-practice"
+standard for geospatial data delivery. We additionally bake the [TA1
+schemas][ta1-schema] into the file format, to ensure that data types and
 references are consistent between teams. This schema is supplemented by a set of
 utilities based on `fiona` and `geopandas` Python libraries to write data into
 the format. The resulting file contains all data that the TA1 teams generate for
-a given map, and it can be opened in QGIS, ArcGIS, and other systems. We have
-designed Macrostrat ingestion/export scripts to work with the file format as
-well.
+a given map, and it can be opened natively in QGIS, ArcGIS, and other GIS
+environments. We have designed Macrostrat ingestion/export scripts to work with
+the file format as well.
 
 Integration with TA1 teams started in mid-January, and by the hackathon, all TA1
 teams have shifted to using this file format to deliver candidate maps to
-Macrostrat.
-
-Through the [TA1 Geopackage][ta1-geopackage] library, we have established a
-common endpoint for TA1 data to be ingested into Macrostrat.
+Macrostrat via our S3 buckets; ~90 maps have been provided and ingested into
+Macrostrat's data pipelines [@sec:map-ingestion]. TA1 teams have implemented the
+schema to varying degrees, and we have been working to support their efforts.
+The library will be refined collaboratively with TA1 workers, supported by
+continuous integration and unit tests; it will likely underpin internal
+integration between TA1 teams and storage of TA1 data in the CDR.
 
 ## Map ingestion pipeline
 
-Macrostrat's map ingestion pipeline is a system that allows the ingestion of
-geologic maps from a variety of sources into Macrostrat's harmonized
-representation, which has standardized representations of age, lithology, and
-named geological units. The central activity of our CriticalMAAS effort is to
-extend this pipeline to rapidly integrate high-resolution, high-quality geologic
-maps from TA1 and other sources [@sec:vector-maps]. We have made significant
-progress on streamlining the map ingestion pipeline to support the rapid
-ingestion of geologic mapping.
+Macrostrat's map ingestion pipeline allows geologic maps from a variety of
+sources to be integrated into Macrostrat's harmonized representation. In
+CriticalMAAS, we have committed to extend this pipeline to rapidly integrate
+high-resolution, high-quality geologic maps from TA1 and other sources
+[@sec:vector-maps], thereby applying standardized representations of age,
+lithology, and named geological units and bringing them into a unified
+geological representation to support critical minerals modeling. We have made
+significant progress on streamlining this map ingestion pipeline to support the
+rapid ingestion of geologic maps, and have staged almost 200 maps into the
+system. Notably, at the **Month 6 Hackathon**, we successfully ingested several
+TA1 maps fully into Macrostrat's harmonized web representation, making them
+available alongside existing maps in Macrostrat's API and web interfaces.
 
 We have made significant progress on the ingestion pipeline for TA1 data.
 
