@@ -1,9 +1,8 @@
-# DARPA CriticalMAAS Milestone 3 Report
-
-> **_Daven P. Quinn_** and the **UW-Madison/Macrostrat CriticalMAAS team**  
-> February 26, 2024
->
-> This report is also available [in PDF format][milestone_3_report].
+---
+title: DARPA CriticalMAAS Milestone 3 Report
+author: Daven P. Quinn and the UW-Madison/Macrostrat CriticalMAAS team
+date: February 26, 2024
+---
 
 ## Report period
 
@@ -353,7 +352,7 @@ since the Month 6 hackathon, we will be able to build feedback interfaces in the
 coming months. For TA2, we will seek to coordinate closely with Jataware to
 ensure that we are not building redundant systems.
 
-## Issues or concerns
+## Issues and concerns
 
 ### Clarity of CDR work plan
 
@@ -398,7 +397,12 @@ Too many "out-of-band" reporting requirements
 These all take significant time, over and above the already substantial time
 weight of coordinating between TAs.
 
-## Schedule and milestones
+## Appendix: Progress towards established technical plan
+
+In addition to the specific advances highlighted above, we are making progress
+towards the broad technical tasks outlined in our [Phase 1 Research
+Plan][phase1_plan]. We have made significant progress towards our **Milestone
+4** (Month 7) deliverables across all task areas:
 
 - We are broadly on schedule with program tasks
 - Poised to hit next major milestone (active TA1 maps pipeline)
@@ -413,26 +417,6 @@ weight of coordinating between TAs.
   - Scaling up our infrastructure impacts our fiscal position after the end of
     the program, as Macrostrat has not incurred or supported this level of
     ongoing expense before
-
-[readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
-[phase1_plan]:
-  https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
-[milestone2]:
-  https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-12-CriticalMAAS-Milestone-2-report.pdf
-[lawley2023]: https://doi.org/10.1007/s11053-023-10216-1
-[milestone_3_report]:
-  https://storage.macrostrat.org/web-assets/media/criticalmaas/milestone-reports/milestone-3/milestone-3-report.pdf
-[gh:macrostrat]: https://github.com/UW-Macrostrat/macrostrat
-[ta1-geopackage]: https://github.com/DARPA-CRITICALMAAS/ta1-geopackage
-[document-store]: https://github.com/UW-xDD/document-store
-[ta1-schema]: https://github.com/DARPA-CRITICALMAAS/schemas/tree/main/ta1
-
-## Appendix: Progress towards established technical plan
-
-In addition to the specific advances highlighted above, we are making progress
-towards the broad technical tasks outlined in our [Phase 1 Research
-Plan][phase1_plan]. We have made significant progress towards our **Milestone
-2** across all task areas:
 
 #### **Task 1**: Updated and containerized Macrostrat system
 
@@ -460,3 +444,16 @@ Plan][phase1_plan]. We have made significant progress towards our **Milestone
   map interface: _complete; in internal testing_
 - **T3b**: Add widgets for collecting linked entity feedback in Macrostrat web
   interfaces: _in development_
+
+[readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
+[phase1_plan]:
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
+[milestone2]:
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-12-CriticalMAAS-Milestone-2-report.pdf
+[lawley2023]: https://doi.org/10.1007/s11053-023-10216-1
+[milestone_3_report]:
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/milestone-reports/milestone-3/milestone-3-report.pdf
+[gh:macrostrat]: https://github.com/UW-Macrostrat/macrostrat
+[ta1-geopackage]: https://github.com/DARPA-CRITICALMAAS/ta1-geopackage
+[document-store]: https://github.com/UW-xDD/document-store
+[ta1-schema]: https://github.com/DARPA-CRITICALMAAS/schemas/tree/main/ta1
