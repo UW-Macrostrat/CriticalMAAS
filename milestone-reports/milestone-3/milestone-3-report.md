@@ -67,29 +67,33 @@ a given map, and it can be opened natively in QGIS, ArcGIS, and other GIS
 environments. We have designed Macrostrat ingestion/export scripts to work with
 the file format as well.
 
-Integration with TA1 teams started in mid-January, and by the hackathon, all TA1
-teams have shifted to using this file format to deliver candidate maps to
-Macrostrat via our S3 buckets; ~90 maps have been provided and ingested into
-Macrostrat's data pipelines [@sec:map-ingestion]. TA1 teams have implemented the
-schema to varying degrees, and we have been working to support their efforts.
-The library will be refined collaboratively with TA1 workers, supported by
-continuous integration and unit tests; it will likely underpin internal
-integration between TA1 teams and storage of TA1 data in the CDR.
+We conceived of this direction just before our **Milestone 2** and began
+socializing the idea with TA1 teams in December 2023. The library was developed
+and refined in early January. Integration with TA1 teams started in mid-January,
+and by the **Month 6 Hackathon**, all TA1 teams had shifted to using this file
+format to deliver candidate maps to Macrostrat via our S3 buckets; ~90 maps have
+been provided and ingested into Macrostrat's data pipelines
+[@sec:map-ingestion]. At the moment, TA1 teams have implemented the schema to
+varying degrees, and we have been working to support their full compliance with
+the format. The library is now under collaborative refinement with TA1 workers,
+who have contributed bug reports, test cases, and pull requests; it will likely
+underpin internal integration between TA1 teams and storage of TA1 data in the
+CDR.
 
 ## Map ingestion pipeline
 
 Macrostrat's map ingestion pipeline allows geologic maps from a variety of
-sources to be integrated into Macrostrat's harmonized representation. In
-CriticalMAAS, we have committed to extend this pipeline to rapidly integrate
-high-resolution, high-quality geologic maps from TA1 and other sources
-[@sec:vector-maps], thereby applying standardized representations of age,
-lithology, and named geological units and bringing them into a unified
-geological representation to support critical minerals modeling. We have made
-significant progress on streamlining this map ingestion pipeline to support the
-rapid ingestion of geologic maps, and have staged almost 200 maps into the
-system. Notably, at the **Month 6 Hackathon**, we successfully ingested several
-TA1 maps fully into Macrostrat's harmonized web representation, making them
-available alongside existing maps in Macrostrat's API and web interfaces.
+sources to be integrated into a harmonized representation. In CriticalMAAS, we
+have committed to extend this pipeline to rapidly integrate high-resolution,
+high-quality geologic maps from TA1 and other sources [@sec:vector-maps],
+thereby applying standardized representations of age, lithology, and named
+geological units and bringing them into a unified geological representation to
+support critical minerals modeling. We have made significant progress on
+streamlining this map ingestion pipeline to support the rapid ingestion of
+geologic maps, and have staged almost 200 maps into the system. Notably, at the
+**Month 6 Hackathon**, we successfully ingested several TA1 maps fully into
+Macrostrat's harmonized web representation, making them available alongside
+existing maps in Macrostrat's API and web interfaces.
 
 We have made significant progress on the ingestion pipeline for TA1 data.
 
@@ -118,15 +122,17 @@ through the ingestion pipeline, their initial staging represents a substantial
 increase in the rate of map assimilation into Macrostrat. Our task for the next
 phase of the project is to speed up this pipeline
 
-From the hackathon:
+At the hackathon, we learned that the basic structure of the pipeline was sound.
+For example, that it made sense to have a "customizable" step for "scraping"
+maps from a given location
 
-- I validated that the basic structure of the pipeline was sound. For example,
-  that it made sense to have a "customizable" step for "scraping" maps from a
-  given location (I wrote a "scraper" for S3 buckets for the hackathon in maybe
-  half an hour).
+- (We wrote custom "scraper" for S3 buckets for the hackathon in maybe half an
+  hour).
 - I "learned" that the pipeline, as currently, implemented, has far too many
   human touch points to be effective when well-packaged maps are coming in
   quickly.
+
+- However, some steps, particularly the HITL step , is unwieldy
 
 Next steps:
 
@@ -136,10 +142,15 @@ Next steps:
   says "go", and everything else happens automatically, as much as is possible
   given the input data.
 
-Make Jataware map key a first class citizen in identifying a map throughout the
-process Create UIs to display a maps stage of ingestion Create UIs for lines and
-points Add feedback tools for lines, points and polygons Continue improving the
-map integration interface
+- Make Jataware map key a first class citizen in identifying a map throughout
+  the process
+- Create UIs to display a maps stage of ingestion
+- Create UIs for lines and points
+- Add feedback tools for lines, points and polygons
+
+![Map ingestion result](./images/uiuc-vector-raster-1068.jpg) _**Hackathon
+result:** TA1 map extraction atop Jataware-indexed raster map in Macrostrat's
+web user interface_
 
 ## Macrostrat geologic exploration interface
 
@@ -154,10 +165,13 @@ capabilities will soon be extended to support feedback on geological entities
 within the system [@sec:feedback].
 
 Key capabilities such as single-map views and paleogeographic reconstructions
-that were discussed in the **Milestone 2** report continue to be developed.
-During this period, we have made substantial progress on building visualizations
-for our geologic lexicon [@sec:geologic-entities] and, most notably,
-**stratigraphic columns**.
+that were discussed in the **Milestone 2** report continue to be developed. One
+small but important addition is hooks to Jataware's raster storage system,
+allowing georeferenced Cloud-Optimized GeoTIFF maps to be displayed alongside
+their vector equivalents in the Macrostrat web interface
+([See example map](https://dev2.macrostrat.org/maps/1068)). We have also made
+substantial progress on new visualizations for our geologic lexicon
+[@sec:geologic-entities] and, most notably, **stratigraphic columns**.
 
 Macrostrat's stratigraphic column dataset is a rich index of geologic data in
 the subsurface of North America and is unique in its scale and consistency. This
@@ -173,6 +187,13 @@ can support the integration of geologic maps as well. Map datasets generally
 have a time-stratigraphic element, which can usually be extracted from map
 legend unit descriptions; thus, stratigraphic visualizations can provide a
 useful capability to evaluate the quality and consistency of TA1 map datasets.
+
+![Stratigraphic column visualization](./images/macrostrat-map-interface.jpeg)
+_Stratigraphic column visualization in Macrostrat's web interface_
+
+![All maps](./images/all-maps.jpeg) _TA1 output in the context of other maps in
+Macrostrat's web interface — including an existing representation of the same
+map._
 
 ## Provision of TA1 geologic maps to TA3
 
@@ -220,6 +241,11 @@ knowledge bases etc. they can be tracked.
 
 ## Document entity extraction
 
+COSMOS pipelines attracted interest from TA2
+
+![COSMOS UI](./images/cosmos-ui.jpeg) _COSMOS UI for surfacing geologic entities
+from the scientific literature_
+
 ### xDD / COSMOS feedback
 
 - The ability to find closely grouped sets of terms (eg. specific processing
@@ -256,6 +282,10 @@ undergraduate students demonstrate early approaches to this problem:
   Knowledge graph construction to discover new geologic entities in the
   scientific literature (_Devesh Sarda_)
 
+![Candidate lithology extraction](./images/candidate-lithology-extractions.png)
+_Candidate lithology extractions from scientific literature, represented in a
+prototype feedback interface_
+
 ### Status
 
 - Utilized a entity hinting based relationships based extraction to get
@@ -272,12 +302,14 @@ undergraduate students demonstrate early approaches to this problem:
 
 # Research and technical progress: Program integration
 
+![Program flow chart](./images/criticalmaas-flow-chart.svg) _CriticalMAAS
+program flow chart showing software (black boxes), data management workflows
+(red), and HITL workflows (purple) being built by TA4 teams_
+
 One of the main goals of TA4 is to facilitate data interchange across the
 CriticalMAAS program. Indeed, to build HITL tooling across such a disparate set
 of performers requires careful attention, although such "data-pipelining"
 activities are mostly implicit in the BAA.
-
-## Systems supporting TAx-4 integration
 
 The UW-Macrostrat team has led the development of several infrastructure
 components for the CriticalMAAS program. At Milestone 2, the broad design of
@@ -297,38 +329,11 @@ carried into the design of the "CriticalMAAS Data Repository."
   A repository for schemas and data formats for TA1-3 integrations (_started by
   UW–Macrostrat and subsequently contributed to by all TA teams_)
 
-## Program alignment
-
-Macrostrat has driven and participated in alignment efforts for CriticalMAAS
-data systems and formats. These efforts have been focused on establishing
-consistent data formats and schemas for TA1-3 data, and have resulted in several
-notable achievements:
-
-- At the November workshop, TA4 was able to demonstrate aligned and
-  complementary components for georeferencing (Jataware), map curation
-  (Macrostrat), and data alignment for TA3 (MTRI) that demonstrate the notional
-  structure of a complete TA1-3 pipeline for geologic mapping data, supported by
-  TA4.
-- We've established a GeoPackage-based data format for TA1 data, which is
-  documented in at
-  [`DARPA-CriticalMAAS/ta1-geopackage`](https://github.com/DARPA-CriticalMAAS/ta1-geopackage)
-- We've aligned with Jataware on core needs for tracking of raster geologic maps
-  (source maps from NGMDB for TA1), and will use the data stores they are
-  building
-- We've aligned with Jataware on core needs for document storage and access for
-  TA2. We will build the document store to support this system in the
-  [`UW-xDD/document-store`](https://github.com/UW-xDD/document-store) repository
-  and expect to receive contributions from Jataware.
-- We have assisted MTRI with building and demonstrating an
-  [initial evaluation](https://github.com/DARPA-CRITICALMAAS/mtri-ta4/blob/main/plugins/gidlac/dev/macrostrat/transform.py)
-  that Macrostrat tiled mapping data and associated attributes can be used in
-  their QGIS-based data preparation workflows for TA3.
-
 Taken together, these integrations represent significant time spent on program
 alignment, with good results. We expect that the detailed plans we have
-established will speed our future development. These efforts also establish the
-parameters of the _CriticalMAAS data repository_ as a distributed effort among
-the teams.
+established will speed our future development. These efforts were based on an
+expectation that the development of the _CriticalMAAS data repository_ should be
+a distributed effort among the TA4 teams.
 
 # Gaps
 
