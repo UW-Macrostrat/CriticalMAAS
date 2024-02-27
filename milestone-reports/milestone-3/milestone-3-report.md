@@ -97,59 +97,69 @@ system. Notably, at the **Month 6 Hackathon**, we successfully ingested several
 TA1 maps fully into Macrostrat's harmonized web representation, making them
 available alongside existing maps in Macrostrat's API and web interfaces.
 
-We have made significant progress on the ingestion pipeline for TA1 data.
-Notably, we have:
+Since **Milestone 2**, we have greatly updated the infrastructure supporting
+Macrostrat's map ingestion pipeline. The pre-CriticalMAAS system was designed
+around expert-led ingestion in a manual, ad-hoc fashion, relying on direct
+database inserts and custom SQL scripts for each ingested map. This system was
+effective for ingesting a few dozen maps per year (Macrostrat's recent ingestion
+rate) with a high degree of control, but it was not scalable to the thousands of
+maps that we expect to ingest over the course of CriticalMAAS; it also only
+minimally tracked data provenance. We are midway through retooling this system
+into a more robust, scalable, and automated pipeline that includes storage
+buckets for candidate maps (TA1 GeoPackages and other vector datasets),
+automated ingestion scripts, and a repeatable HITL workflow for legend
+correction and standardization. The core of this pipeline is being built in the
+[`UW-Macrostrat/macrostrat`][gh:macrostrat] repository; it is supplemented by
+case-specific scripts for downloading and tracking potential vector maps
+([`brianaydemir/macrostrat-map-ingestion`](https://github.com/brianaydemir/macrostrat-map-ingestion));
+we seek to integrate these retrieval scripts with Jataware's web-scraping
+approach [@sec:gaps].
 
-- scaled our system to stage ~100 new NGMDB vector geologic maps
-- fully ingested several TA1 maps as a proof of concept
-- used a service-oriented approach to provide harmonized geologic map data to
-  TA3
-- Validated transformation of existing maps for rapid HITL editing in an
-  iPad-based interface
+We have validated the Macrostrat map ingestion pipeline both for staging new
+datasets into the system and for HITL curation and assimilation into our
+standardized data services. Broadly, map staging is now rapid and automated, and
+there is a bottleneck in HITL legend curation that we are working to address
+[@sec:map-ingestion-throughput]. The new web scraping/ingestion pipeline has
+been tested on several collections of maps spanning a range of input data
+formats and levels of completeness:
 
-https://github.com/brianaydemir/macrostrat-map-ingestion: This is a
-proof-of-concept pipeline (collection of scripts) for importing vector maps into
-Macrostrat. It's been tested on:
-
-- 95 maps from the Nevada Bureau of Mines and Geology (NBMG) [84 had shapefile
-  data that we could import]
+- 95 maps from the Nevada Bureau of Mines and Geology (NBMG), including 84 with
+  Shapefiles that we could import
 - 9 maps from the National Geologic Map Database (NGMDB) that had GIS data
-  linked directly from their main page [6 had shapefile data that we could
-  import]
-- The maps submitted by TA1 performers UIUC and UMN/Inferlink, and Uncharted at
-  the 6-month hackathon (~90 total)
+  linked directly from their main page (6 had shapefile data that we could
+  import)
+- 93 maps (including many partial/incomplete datasets) submitted by TA1
+  performers UIUC, UMN/Inferlink, and Uncharted during the 6-month hackathon
 
-In comparison, these 210 maps represent about 70% of the total number of maps
-ingested into Macrostrat from 2016-2023 (294). Although most of these new maps
-are not fully through the ingestion pipeline, their initial staging represents a
-substantial increase in the rate of map assimilation into Macrostrat. Our task
-for the next phase of the project is to speed up this pipeline and integrate it
-with entity canonicalization pipelines being developed over the CriticalMAAS
-document store.
+The successful bulk staging of maps is a significant step for Macrostrat's
+infrastructure. The 210 maps staged since the beginning of February represent
+about 70% of the total number of maps ingested into Macrostrat from 2016-2023
+(294). Although most of these new maps are not fully through the legend curation
+pipeline, their ingestion represents a substantial increase in the rate of
+Macrostrat's ability to assimilate new mapping data.
 
-At the hackathon, we learned that the basic structure of the pipeline was sound.
-For example, we learned that it made sense to have a "customizable" step for
-"scraping" maps from a given location. To this end we:
+The hackathon provided a valuable opportunity to "stress-test" this ingestion
+system, and we verified that the basic structure of the pipeline is sound under
+load. The system can handle both maps provided in a controlled way with a
+standardized schema (e.g., TA1 datasets uploaded to a S3 bucket) and other map
+formats that are not yet standardized (e.g., vector geologic maps in NGMDB with
+varying attribute schemas). However, we also identified several areas that need
+substantial improvement. The pipeline, as currently implemented, has far too
+many human touch points to be effective when well-packaged maps are coming in
+quickly. Some steps need more attention to data pipeline design others require
+more interaction with TA1 to ensure schema compliance. In particular, the HITL
+legend-curation step, which is managed in a table-based web interface, is
+unwieldy and slow due to both the complexity of the task and poor user interface
+design. We are working to address these issues in the coming months.
 
-- Wrote custom "scraper" for S3 buckets for the hackathon in maybe half an hour.
-- We "learned" that the pipeline, as currently, implemented, has far too many
-  human touch points to be effective when well-packaged maps are coming in
-  quickly.
-- We also learned that some steps, particularly the HITL step, is unwieldy.
-
-Based on the lessons-learned at the hackathon, we have identified several next
-steps. In the coming months we plan to:
-
-- Retool the pipeline/ingest scripts so that it still preserves the ability to
-  re-process a map that might only partially made it through the process while
-  not requiring so many human touch points. Ideally, a human (or periodic tasks)
-  says "go", and everything else happens automatically, as much as is possible
-  given the input data.
-- Make the Jataware map key a first class citizen in identifying a map
-  throughout the process.
-- Create UIs to display a maps stage of ingestion.
-- Create UIs for lines and points.
-- Add feedback tools for lines, points and polygons.
+Despite the slow pace of HITL curation, we were able to demonstrate the
+ingestion of maps from TA1 into Macrostrat, successfully staging several maps
+produced during the hackathon into the system. Once data-format concerns were
+addressed with TA1 teams, the ingestion process was straightforward and quick,
+though it required a significant amount of manual intervention. Although there
+are clear gaps to be filled, successful demonstration of our map ingestion
+system represents a major proof of concept for our overall approach to
+integrating mapping data.
 
 ![Map ingestion result](./images/uiuc-vector-raster-1068.jpg) _**Hackathon
 result:** TA1 map extraction atop Jataware-indexed raster map in Macrostrat's
@@ -196,8 +206,8 @@ useful capability to evaluate the quality and consistency of TA1 map datasets.
 _Stratigraphic column visualization in Macrostrat's web interface_
 
 ![All maps](./images/all-maps.jpeg) _TA1 output in the context of other maps in
-Macrostrat's web interface — including an existing representation of the same
-map._
+Macrostrat's web interface — including an already-ingested vector dataset for
+the same map._
 
 ## Provision of TA1 geologic maps to TA3
 
@@ -215,52 +225,68 @@ mining company reports, contain information pertinent to critical minerals
 assessments and geological rock unit characterization. CriticalMAAS workflows,
 therefore, require a solution for finding, retrieving, and processing relevant
 documents for any given mineral system. We realized prior to **Milestone 2**
-that we needed a clearer delineation between functionality to build ML tools and
-HITL workflows atop documents, as well as efficient and effective
-search/discovery of documents for any given mineral modeling task. We have
-clarified this distinction and are building a new system to support the latter,
-the [`UW-xDD/document-store`][document-store] repository:
+that a clearer delineation was needed between efficient and effective
+search/discovery of documents, which xDD provides, and the deep access to
+document content that allows **TA2** to test ML tools and HITL workflows. This
+distinction is particularly salient in CriticalMAAS, which relies largely on
+documents that are freely and openly licensed unlike most of xDD's corpus.
 
-- New document store system that allows xDD infrastructure for indexing and
-  retrieval to be leveraged alongside full-page/document services operating over
-  open-licensed documents managed by CriticalMAAS.
-- The systm will soon support better feedback interfaces, including Jataware’s
-  document annotator.
-- We have deployed initial pipelines for entity extraction of geologic unit
-  names from scientific literature using graph- and RAG-based approaches.
+The needs of CriticalMAAS presented an opportunity to build a new system that
+can complement xDD's capabilities for openly licensed documents. As such,
+starting in December 2023, we started building the **CriticalMAAS Document
+Store** ([`UW-xDD/document-store`][document-store]) to provides
+full-page/document services operating over open-licensed documents managed by
+CriticalMAAS. It operates alongside existing xDD infrastructure for indexing and
+retrieval, and will be geared to supporting annotation and feedback interfaces,
+including Jataware’s _Silk_ document annotator, which already can read the
+Document Store APIs.
 
-In terms of new document ingest, xDD has already been working with the USGS to
-acquire, store, and index relevant documents. Currently, the only info from xDD
-that we depend on in the document store is document title and DOI. It should be
-pretty efficient to spin up a new endpoint that allows a user to submit this
-metadata along with PDF content. The bigger issue is discoverability, since we
-don't store any info about document text in the document store right now. If
-title-based search and retrieval is sufficient for user-contributed content,
-then it should be possible to accomplish that relatively quickly though new
-retrieval APIs. Incorporating user-supplied documents into the ElasticSearch
-instance that is automatically populated for documents entering xDD may also be
-feasible, if full-text type retrieval is desired for user-contributed content.
+The Document Store is designed to be a standalone CDR component that can be used
+independently. Integration with xDD confers several advantages to the Document
+Store. Since xDD has already been working with the USGS to acquire, store, and
+index relevant documents, the Document Store is "seeded" with a large number of
+highly relevant documents, and xDD's search APIs can be used to navigate this
+set. However, the only information from xDD that we depend on in the document
+store is document title and DOI; in principle, other knowledge curation systems
+(e.g., the TA2 knowledge graph) can be integrated with the Document Store along
+similar lines.
+
+Currently, the Document Store relies heavily on xDD for metadata search and
+document discovery. Title-based search and retrieval is currently possible, but
+more complicated search tasks fall back to xDD. If a need is demonstrated for a
+truly independent and fully searchable collection of user-contributed program
+documents not indexed by xDD, certain xDD services (e.g, ElasticSearch) can be
+brought over into the Document Store context.
 
 ## Document entity extraction
 
-COSMOS pipelines attracted interest from TA2
+In addition to providing a baseline for program storage of documents, xDD
+provides services over documents that can be valuable for CriticalMAAS. In
+particular, the [COSMOS][cosmos] pipeline, which identifies and contextualizes
+document entities (e.g., figures, tables, equations, abstracts), has been
+successfully used for tasks such as recalling all tables from documents that
+mention a specific element, or for finding geologic maps relating to surveys for
+specific minerals (_see figure_). This capability was used during the hackathon
+to rapidly forward maps related to Nickel to TA1 for ingestion. We are working
+to run this pipeline over all CriticalMAAS-relevant documents to provide an
+searchable index of document extractions. When combined with the Document Store,
+these extractions can "pre-seed" TA2 data curation UIs and pipelines with
+relevant snippets of documents, allowing efficient workflows to be built. At the
+hackathon, we planned such an integration with Jataware (user interfaces) and
+SRI (machine-learning pipelines); we will stand up APIs to provide extractions
+in the Document Store framework in the coming months.
+
+In addition to being useful within TA2 pipelines, we conducted a demonstration
+at the hackathon geared to exploring xDD and COSMOS as user-facing tools for
+document search and discovery. We received valuable feedback from USGS
+scientists on these tools including the need for more search capabilities for
+closely grouped terms, more API documentation and usage examples, abd improved
+labeling of maps and other broad types of figures. We will work to assimilate
+these suggestions over time to make xDD a more useful service for discovering
+literature related to critical minerals.
 
 ![COSMOS UI](./images/cosmos-ui.jpeg) _COSMOS UI for surfacing geologic entities
 from the scientific literature_
-
-### xDD / COSMOS feedback
-
-- The ability to find closely grouped sets of terms (eg. specific processing
-  techniques used on specific minerals)
-- A set of sample Jupyter notebooks for API usage
-- A more user-friendly interface for querying xDD
-- A tool to download the results of API queries in a more scientist-friendly
-  format (csv, excel), rather than JSON
-- COSMOS extractions run on geologically relevant articles outside of the
-  critical-maas dataset
-- Ability to back-reference COSMOS extractions to the source document
-- Specific COSMOS label for maps, or a separate extraction for maps A tool to
-  extract the text from COSMOS table extractions
 
 ## Geologic unit characterization
 
@@ -353,6 +379,35 @@ best modern mapping USGS internal problem, to my understanding
 
 ## Map ingestion throughput
 
+For example, we learned that it made sense to have a "customizable" step for
+"scraping" maps from a given location. To this end we:
+
+Based on the lessons-learned at the hackathon, we have identified several next
+steps. In the coming months we plan to:
+
+We have identified several areas for improvement in the pipeline, and we are
+working to address these issues in the coming months.
+
+Our task for the next phase of the project is to speed up map integration
+pipeline to allow rapid curation of maps staged into the system .
+
+As we push TA1 to better fulfill the metadata requirements in the schema it with
+entity canonicalization pipelines being developed over the CriticalMAAS document
+store.
+
+Our goal by the **Month 9**
+
+- Retool the pipeline/ingest scripts so that it still preserves the ability to
+  re-process a map that might only partially made it through the process while
+  not requiring so many human touch points. Ideally, a human (or periodic tasks)
+  says "go", and everything else happens automatically, as much as is possible
+  given the input data.
+- Make the Jataware map key a first class citizen in identifying a map
+  throughout the process.
+- Create UIs to display a maps stage of ingestion.
+- Create UIs for lines and points.
+- Add feedback tools for lines, points and polygons.
+
 ## Finding vector maps
 
 ## TA3 query workflow
@@ -393,7 +448,7 @@ implementation, and some indications that the CDR needs to be a highly specific
 system, yet there has seemed to be reticence to discuss specific requirements
 and plans.
 
-Some aspects of the CDR seem geared towards satisiying reporting requirements
+Some aspects of the CDR seem geared towards satisfying reporting requirements
 and evaluation driven by DARPA, but others are more focused on product technical
 needs, in particular for data searchability/accessibility. These capabilities
 are at least notionally aligned with the goals of TA4 as expressed in the BAA
@@ -434,7 +489,7 @@ Too many "out-of-band" reporting requirements
 These all take significant time, over and above the already substantial time
 weight of coordinating between TAs.
 
-# Appendix 1: Index of software repositories {-}
+# Appendix: Index of software repositories {-}
 
 Code and documentation for this milestone are indexed in the [**UW–Macrostrat
 CriticalMAAS README**][readme] at the root of the the
@@ -471,54 +526,6 @@ report on this progress here.
 - [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
   web interface (@sec:map-interfaces)
 
-# Appendix 2: Progress towards technical plan {-}
-
-In addition to the specific advances highlighted above, we are making progress
-towards the broad technical tasks outlined in our [Phase 1 Research
-Plan][phase1_plan]. We have made significant progress towards our **Milestone
-4** (Month 7) deliverables across all task areas:
-
-- We are broadly on schedule with program tasks
-- Poised to hit next major milestone (active TA1 maps pipeline)
-- Behind on feedback interfaces, but are building underlying tooling to move
-  quickly with TA1/2 products on the table
-- Since 1-year mark was originally defined as a “Proof of concept” our planned
-  tasking back-weighted some stabilization tasks the 6-month option, which may
-  make impact our ability to deliver a fully-functioning system in the 1-year
-  timeframe.
-- Financial status is fine
-  - We are spending as programmed on staff
-  - Scaling up our infrastructure impacts our fiscal position after the end of
-    the program, as Macrostrat has not incurred or supported this level of
-    ongoing expense before
-
-#### **Task 1**: Updated and containerized Macrostrat system
-
-- **T1a**: A containerized instance of Macrostrat: _complete, running at
-  [v2.macrostrat.org](https://v2.macrostrat.org)_
-  - Database and software capabilities to ingest and serve raster datasets
-  - User management and authentication: _complete_
-  - APIs to deliver geologic map and column data to TAs1-3: _complete and
-    documented_
-  - Raster data APIs: _We will utilize Jataware's raster pipeline for TA1_
-- **T1b**: Pipeline to synthesize information from the geologic literature: _in
-  progress, see
-  [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd)_
-
-#### Task 2: Ingest geological data from TAs 1-3
-
-- **T2a**: Documented ingestion APIs for maps from TA1: _file format structure
-  is established, and ingestion has been validated on existing NGMDB maps_
-- **T2b**: Documented APIs for point-based data ingested from TA2 (and TA1 as
-  applicable)
-
-### Task 3: Build HITL interfaces for model and extraction improvement
-
-- **T3a**: Add widgets for collecting map candidate feedback to Macrostrat’s web
-  map interface: _complete; in internal testing_
-- **T3b**: Add widgets for collecting linked entity feedback in Macrostrat web
-  interfaces: _in development_
-
 [readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
 [phase1_plan]:
   https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
@@ -531,3 +538,4 @@ Plan][phase1_plan]. We have made significant progress towards our **Milestone
 [ta1-geopackage]: https://github.com/DARPA-CRITICALMAAS/ta1-geopackage
 [document-store]: https://github.com/UW-xDD/document-store
 [ta1-schema]: https://github.com/DARPA-CRITICALMAAS/schemas/tree/main/ta1
+[cosmos]: https://github.com/UW-COSMOS/COSMOS
