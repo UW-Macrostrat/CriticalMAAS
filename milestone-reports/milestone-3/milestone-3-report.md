@@ -8,19 +8,17 @@ and technical goals defined in our [Phase 1 Research Plan][phase1_plan] and
 program goals, and the results of baseline integrations and capability
 demonstrations from the CriticalMAAS Month 6 Hackathon (_Denver, CO_).
 
-<!--
 Our approach to CriticalMAAS os based around Macrostrat, a principled,
 analysis-oriented geologic framework to harmonize maps and other geological
 knowledge products (e.g., stratigraphic columns) into a descriptive model of
-crustal rocks; and
-
-- Literature-supported ML pipelines (using xDD) to augment this system with
-  structured data (e.g., rock unit lithologies; relevant literature extractions)
-- Stable, performant, open (where feasible) web services to support wide use in
-  analytical pipelines and user interfaces
-- Geologically oriented user interfaces (e.g., map interfaces, editors)
-  supporting use, feedback, and expert contribution to the datasets
--->
+crustal rocks. This system is already accessible via stable, performant, and
+open web services that support wide use, and geologically oriented user
+interfaces that allow exploration. We seek to enhance this system by adding new
+data ingestion capabilities and tools for feedback and expert contribution.
+Additionally, we seek to use literature-supported machine learning pipelines to
+augment this system with structured data (e.g., rock unit lithologies) that can
+inform querying and analysis. We have made significant progress in each of these
+domains.
 
 # Research and technical progress: Macrostrat geologic framework
 
