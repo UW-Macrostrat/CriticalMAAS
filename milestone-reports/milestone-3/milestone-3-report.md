@@ -13,11 +13,13 @@ analysis-oriented geologic framework to harmonize maps and other geological
 knowledge products (e.g., stratigraphic columns) into a descriptive model of
 crustal rocks. This system is already accessible via stable, performant, and
 open web services that support wide use, with geologically-oriented user
-interfaces that allow exploration. We are enhancing this system and tuning it for use in CriticalMAAS by adding new
-data ingestion capabilities and tools for feedback and expert contribution.
-Additionally, we seek to incorporate literature-connected machine learning pipelines to
-augment this system with structured data (e.g., rock unit lithologies) that can
-further inform querying and analysis tasks specific to CriticalMAAS modeling requirements. We have made significant progress in each of these domains.
+interfaces that allow exploration. We are enhancing this system and tuning it
+for use in CriticalMAAS by adding new data ingestion capabilities and tools for
+feedback and expert contribution. Additionally, we seek to incorporate
+literature-connected machine learning pipelines to augment this system with
+structured data (e.g., rock unit lithologies) that can further inform querying
+and analysis tasks specific to CriticalMAAS modeling requirements. We have made
+significant progress in each of these domains.
 
 # Research and technical progress: Macrostrat geologic framework
 
@@ -28,8 +30,8 @@ midway through the development of a system that will support rapid map ingestion
 and standardization. At the **Month 6 Hackathon**, we demonstrated an end-to-end
 pipeline for ingesting geologic mapping from TA1 into Macrostrat, and providing
 a standardized representation of those datasets to TA3 for critical minerals
-modeling. This represents the initial demonstration of the system integrations and data throughput
-required for the success of CriticalMAAS.
+modeling. This represents the initial demonstration of the system integrations
+and data throughput required for the success of CriticalMAAS.
 
 By the end of Phase 1, we are committed to delivering a complete, runnable
 Macrostrat map curation system to USGS; we are on track to do so. The prototype
@@ -82,19 +84,21 @@ CDR.
 ## Map ingestion pipeline
 
 Macrostrat's map ingestion pipeline allows geologic maps from a variety of
-sources to be integrated into a harmonized representation, which is critical for leveraging mapd data in regional and continental-scale mineral assessments. In CriticalMAAS, we
-have committed to extend this pipeline to rapidly integrate high-resolution,
-high-quality geologic maps from TA1 and other sources [@sec:vector-maps],
-thereby applying standardized representations of age, lithology, and named
-geological units and bringing them into a unified geological representation to
-support critical minerals modeling. We have made significant progress on
-streamlining this map ingestion pipeline to support the rapid ingestion of
-geologic maps, and have staged almost 200 maps into the system. Notably, at the
-**Month 6 Hackathon**, we successfully ingested several TA1 maps fully into
-Macrostrat's harmonized web representation, making them available alongside
-existing maps in Macrostrat's API and web interfaces.
+sources to be integrated into a harmonized representation, which is critical for
+leveraging mapd data in regional and continental-scale mineral assessments. In
+CriticalMAAS, we have committed to extend this pipeline to rapidly integrate
+high-resolution, high-quality geologic maps from TA1 and other sources
+[@sec:vector-maps], thereby applying standardized representations of age,
+lithology, and named geological units and bringing them into a unified
+geological representation to support critical minerals modeling. We have made
+significant progress on streamlining this map ingestion pipeline to support the
+rapid ingestion of geologic maps, and have staged almost 200 maps into the
+system. Notably, at the **Month 6 Hackathon**, we successfully ingested several
+TA1 maps fully into Macrostrat's harmonized web representation, making them
+available alongside existing maps in Macrostrat's API and web interfaces.
 
-We have made significant progress on the ingestion pipeline for TA1 data. Notably, we have:
+We have made significant progress on the ingestion pipeline for TA1 data.
+Notably, we have:
 
 - scaled our system to stage ~100 new NGMDB vector geologic maps
 - fully ingested several TA1 maps as a proof of concept
@@ -115,32 +119,34 @@ Macrostrat. It's been tested on:
 - The maps submitted by TA1 performers UIUC and UMN/Inferlink, and Uncharted at
   the 6-month hackathon (~90 total)
 
-In comparison, these 210 maps represent about 70% of the total number of maps ingested
-into Macrostrat from 2016-2023 (294). Although most of these new maps are not fully
-through the ingestion pipeline, their initial staging represents a substantial
-increase in the rate of map assimilation into Macrostrat. Our task for the next
-phase of the project is to speed up this pipeline and integrate it with entity canonicalization pipelines being developed over the CriticalMAAS document store.
+In comparison, these 210 maps represent about 70% of the total number of maps
+ingested into Macrostrat from 2016-2023 (294). Although most of these new maps
+are not fully through the ingestion pipeline, their initial staging represents a
+substantial increase in the rate of map assimilation into Macrostrat. Our task
+for the next phase of the project is to speed up this pipeline and integrate it
+with entity canonicalization pipelines being developed over the CriticalMAAS
+document store.
 
 At the hackathon, we learned that the basic structure of the pipeline was sound.
-For example, we learned that it made sense to have a "customizable" step for "scraping"
-maps from a given location. To this end we:
+For example, we learned that it made sense to have a "customizable" step for
+"scraping" maps from a given location. To this end we:
 
-- Wrote custom "scraper" for S3 buckets for the hackathon in maybe half an
-  hour.
+- Wrote custom "scraper" for S3 buckets for the hackathon in maybe half an hour.
 - We "learned" that the pipeline, as currently, implemented, has far too many
   human touch points to be effective when well-packaged maps are coming in
   quickly.
 - We also learned that some steps, particularly the HITL step, is unwieldy.
 
-Based on the lessons-learned at the hackathon, we have identified several next steps. In the coming months we plan to:
+Based on the lessons-learned at the hackathon, we have identified several next
+steps. In the coming months we plan to:
 
 - Retool the pipeline/ingest scripts so that it still preserves the ability to
   re-process a map that might only partially made it through the process while
   not requiring so many human touch points. Ideally, a human (or periodic tasks)
   says "go", and everything else happens automatically, as much as is possible
   given the input data.
-- Make the Jataware map key a first class citizen in identifying a map throughout
-  the process.
+- Make the Jataware map key a first class citizen in identifying a map
+  throughout the process.
 - Create UIs to display a maps stage of ingestion.
 - Create UIs for lines and points.
 - Add feedback tools for lines, points and polygons.
@@ -152,11 +158,12 @@ web user interface_
 ## Macrostrat geologic exploration interface
 
 Once maps are ingested into Macrostrat, they become part of a user-facing,
-web-available cyberinfrastructure designed for data distribution and analysis. This
-system is currently widely used by geologists and the public for rapid exploration of
-geologic information in rich web and mobile user interfaces. As part of CriticalMAAS, we have
-been working to extend our interfaces with additional capabilities for exploration of
-the geologic data contained in Macrostrat (see
+web-available cyberinfrastructure designed for data distribution and analysis.
+This system is currently widely used by geologists and the public for rapid
+exploration of geologic information in rich web and mobile user interfaces. As
+part of CriticalMAAS, we have been working to extend our interfaces with
+additional capabilities for exploration of the geologic data contained in
+Macrostrat (see
 [the Macrostrat development website](https://dev2.macrostrat.org)). These
 capabilities will soon be extended to support feedback on geological entities
 within the system [@sec:feedback].
@@ -171,10 +178,10 @@ substantial progress on new visualizations for our geologic lexicon
 [@sec:geologic-entities] and, most notably, **stratigraphic columns**.
 
 Macrostrat's stratigraphic column dataset is a rich index of geologic data in
-the surface and subsurface of North America and it is unique in its scale and consistency. This
-dataset is queryable via Macrostrat's API, but the lack of straightforward
-visualization has limited its usefulness for exploration and modeling.
-Macrostrat's column visualization, now publicly available at
+the surface and subsurface of North America and it is unique in its scale and
+consistency. This dataset is queryable via Macrostrat's API, but the lack of
+straightforward visualization has limited its usefulness for exploration and
+modeling. Macrostrat's column visualization, now publicly available at
 [`dev2.macrostrat.org/columns`](https://dev2.macrostrat.org/columns), allows
 more intuitive and geologically sophisticated interaction with Macrostrat's
 column dataset. The interface can be explored alongside the geologic map
@@ -203,21 +210,36 @@ straightforwardly brought into a QGIS environment at any scale.
 
 ## The CriticalMAAS Document Store
 
-Published documents of various types, ranging from USGS Professional Papers to mining company reports, contain information pertinent to critical minerals assessments and geological rock unit characterization. CriticalMAAS workflows, therefore, require a solution for finding, retrieving, and processing relevant documents for any given mineral system. We realized prior to **Milestone 2** that we needed a clearer delineation between functionality to build ML tools and HITL workflows atop documents, as well as efficient and effective search/discovery of documents for any given mineral modeling task. We have clarified this distinction and are building a new system to support the latter, the
-[`UW-xDD/document-store`][document-store] repository:
+Published documents of various types, ranging from USGS Professional Papers to
+mining company reports, contain information pertinent to critical minerals
+assessments and geological rock unit characterization. CriticalMAAS workflows,
+therefore, require a solution for finding, retrieving, and processing relevant
+documents for any given mineral system. We realized prior to **Milestone 2**
+that we needed a clearer delineation between functionality to build ML tools and
+HITL workflows atop documents, as well as efficient and effective
+search/discovery of documents for any given mineral modeling task. We have
+clarified this distinction and are building a new system to support the latter,
+the [`UW-xDD/document-store`][document-store] repository:
 
-- New document store system that allows xDD infrastructure for indexing and retrieval to be leveraged alongside full-page/document services operating over open-licensed documents managed by CriticalMAAS.
-- The systm will soon support better feedback interfaces, including Jataware’s document
-  annotator.
-- We have deployed initial pipelines for entity extraction of geologic unit names from scientific
-  literature using graph- and RAG-based approaches.
+- New document store system that allows xDD infrastructure for indexing and
+  retrieval to be leveraged alongside full-page/document services operating over
+  open-licensed documents managed by CriticalMAAS.
+- The systm will soon support better feedback interfaces, including Jataware’s
+  document annotator.
+- We have deployed initial pipelines for entity extraction of geologic unit
+  names from scientific literature using graph- and RAG-based approaches.
 
-In terms of new document ingest, xDD has already been working with the USGS to acquire, store, and index relevant documents. Currently, the only info from xDD that we depend on in the document store is document
-title and DOI. It should be pretty efficient to spin up a new endpoint that
-allows a user to submit this metadata along with PDF content. The bigger issue
-is discoverability, since we don't store any info about document text in the
-document store right now. If title-based search and retrieval is sufficient for
-user-contributed content, then it should be possible to accomplish that relatively quickly though new retrieval APIs. Incorporating user-supplied documents into the ElasticSearch instance that is automatically populated for documents entering xDD may also be feasible, if full-text type retrieval is desired for user-contributed content. 
+In terms of new document ingest, xDD has already been working with the USGS to
+acquire, store, and index relevant documents. Currently, the only info from xDD
+that we depend on in the document store is document title and DOI. It should be
+pretty efficient to spin up a new endpoint that allows a user to submit this
+metadata along with PDF content. The bigger issue is discoverability, since we
+don't store any info about document text in the document store right now. If
+title-based search and retrieval is sufficient for user-contributed content,
+then it should be possible to accomplish that relatively quickly though new
+retrieval APIs. Incorporating user-supplied documents into the ElasticSearch
+instance that is automatically populated for documents entering xDD may also be
+feasible, if full-text type retrieval is desired for user-contributed content.
 
 ## Document entity extraction
 
@@ -318,8 +340,9 @@ a distributed effort among the TA4 teams.
 # Gaps
 
 Scaling up: our infrastructure is substantially more complex than before to meet
-map throughput. We are in a learn/adjust phase that is orienting computing researchers
-and staff towards solving geological problems (microcosm of program challenge).
+map throughput. We are in a learn/adjust phase that is orienting computing
+researchers and staff towards solving geological problems (microcosm of program
+challenge).
 
 CDR plans: Our database/data formats are closely tied to our system design — a
 major integration with an external store would be substantial unplanned work. We
