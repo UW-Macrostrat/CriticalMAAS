@@ -289,35 +289,35 @@ hackathon, we planned such an integration with Jataware (user interfaces) and
 SRI (machine-learning pipelines); we will stand up APIs to provide extractions
 in the Document Store framework in the coming months.
 
-In addition to being useful within TA2 pipelines, we conducted a demonstration
-at the hackathon geared to exploring xDD and COSMOS as user-facing tools for
-document search and discovery. We received valuable feedback from USGS
-scientists on these tools including the need for more search capabilities for
-closely grouped terms, more API documentation and usage examples, abd improved
-labeling of maps and other broad types of figures. We will work to assimilate
-these suggestions over time to make xDD a more useful service for discovering
-literature related to critical minerals.
+In addition to being useful within TA2 pipelines, xDD and COSMOS were
+demonstrated as user-facing tools for document search and discovery. We received
+valuable feedback from USGS scientists on the system, including the need for
+more search capabilities for closely grouped terms, more API documentation and
+usage examples, and improved labeling of maps and other figure types. We will
+work to assimilate these suggestions over time to make xDD a more useful service
+for discovering literature related to critical minerals
 
 ![COSMOS UI](./images/cosmos-ui.jpeg) _COSMOS UI for surfacing geologic entities
 from the scientific literature_
 
 ## Geologic unit characterization
 
-One factor that limits the queryability of Macrostrat geologic maps is the fact
-that the lithologic classification of rock units is basic and non-standardized.
-This gap is a common stumbling block for quantitative mineral systems modeling,
-since mineral occurrences are often tied to certain infrequent features that do
-not show up in "bulk" descriptions of map units. Geologists typically solve such
-problems by spending lots of time hand-labeling datasets; this was done for the
-State Geologic Map Compilation (SGMC) project; [Lawley et al, 2023][lawley2023]
-reports that assembling the necessary lithologic classification took months of
-overhead even using only regional-scale maps. To extend such an effort to local
-maps at the scale desired by CriticalMAAS would be infeasible.
+As in most geologic map datasets, structured data about Macrostrat rock units is
+mostly limited to basic lithologic classifications that only record major
+components. This gap is important for mineral systems modeling, since mineral
+occurrences are correlated with infrequent features that do not show up in
+"bulk" descriptions of map units (e.g., localized veins or small pegmatite
+bodies). Geologists typically solve such problems by hand-labeling datasets for
+specific problems; this was done for the State Geologic Map Compilation (SGMC)
+project; [Lawley et al, 2023][lawley2023] reports that assembling the necessary
+lithologic classification took months of overhead even using only regional-scale
+maps. To extend such an effort to local maps at the scale desired by
+CriticalMAAS would be infeasible.
 
-To address this data limitation, we are building a pipeline that can acquire
-lithologic information about specific rock units from the geologic literature
-using mentions in xDD's corpus. Two approaches are being developed in parallel:
-an LLM-based approach
+We seek to address this data limitation in a more automated way with a pipeline
+to acquire lithologic information about specific rock units from the geologic
+literature using mentions in xDD's corpus. Two approaches are being developed in
+parallel: an LLM-based approach
 ([`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator);
 _Bill Xia_) and a knowledge-graph curation approach
 ([`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg);
@@ -336,7 +336,108 @@ Macrostrat's data services and user interfaces.
 _Candidate lithology extractions from scientific literature, represented in a
 prototype feedback interface_
 
-# Research and technical progress: Program integration
+# Gaps
+
+Although we have made substantial progress on building infrastructure and
+systems to support program needs, several major gaps in functionality have
+become apparent as our systems underwent stress-testing in the **Month 6
+Hackathon**.
+
+## Map ingestion throughput
+
+At the **Month 6 Hackathon**, the standardized data format and TA1 focus on
+producing results allowed us to stage a large number of maps into Macrostrat's
+ingestion pipeline. However, the throughput of this pipeline was not sufficient
+to quickly process TA1 maps into forms that could be evaluated visually,
+integrated with other mapping, and used by TA3. Some bottlenecks, such as
+inefficient scripts, have already been addressed, but the major problems remain
+an too many human touch points for each map dataset, the lack of reporting and
+metrics within our pipeline, and an inefficient HITL legend-curation interface.
+Our key goal for the immediate future is to retool the pipeline to expose a
+well-defined set of mostly-automated tools to ingest, process, and update map
+datasets. Ideally, much of the ingestion of TA1-provided maps should occur
+without human intervention, and the system should be able to handle a large
+number of "candidate" maps at various stages of assimilation. Although the core
+task has been demonstrated, achieving a reliable throughput and simple process
+is critical to ensuring that map curation is straightforward and can be taken
+over by USGS staff.
+
+## Accessing vector maps
+
+Map ingestion is not only relevant for TA1 datasets: the USGS and other
+organizations (e.g., state and international geologic surveys) maintain large
+archives of vector mapping, both for modern "born-digital" maps and for older
+maps that have been manually digitized (often at great expense and a high level
+of quality). Importantly, since they were either produced recently or targeted
+for expensive re-processing, these maps are often among the most important to
+access for mineral modeling — a “best-in-class” analytical capability should
+incorporate the best modern mapping to the degree possible. This potential gap
+has been on our radar since the start of CriticalMAAS, but gained salience
+during the **Month 6 Hackathon**, when one of the maps ingested by TA1 as a
+"high-value target" for Nickel was actually already in Macrostrat, as part of a
+[2005 USGS compilation](https://dev2.macrostrat.org/maps/25).
+
+Hurdles to accessing vector maps appear to be largely organizational, with NGMDB
+unable or unwilling to provide a centralized, direct access point to their
+datasets. Given the state and fragmentation of USGS systems, these maps cannot
+be accessed straightforwardly. We have started working on approaches to access
+these maps via public web pages, but progress has been episodic. One possible
+path forward is to integrate with Jataware's map scraping approach, particularly
+taking advantage of their augmentation of the USGS's map viewer. Working with
+Jataware to develop an approach to vector map access will ensure that two teams
+are not duplicating tedious web-scraping work. We may also elect to expose a map
+upload tool for USGS staff and others to directly contribute.
+
+## TA3 query workflow
+
+Macrostrat's standardized API allows querying both a harmonized, multiscale
+geologic map and single maps, which was an acceptable initial target for
+providing geologic map layers to TA3. As originally conceived, based on the
+methods of [Lawley et al, 2023][lawley2023], TA3 would query Macrostrat for a
+categorized representation of the geologic map, and all categories would be used
+as layers in the mineral modeling process. However, TA3 has elected to go a
+somewhat different route of pre-filtering the geologic map to high-potential
+rock types, and using only those polygons for modeling. Both of these approaches
+are principled and fundamentally compatible with Macrostrat's system design;
+however, because the current filtering approach did not come into focus until
+recently, we have not invested much time in developing the user experience of
+querying Macrostrat for map subsets. Several imperfections need to be addressed:
+the Macrostrat tile APIs do not support provider-side filtering and API calls
+cannot be efficiently batched to "build up" a complex query. The latter problem
+will have to be solved in conjunction with MTRI's Python library and QGIS tools.
+By Month 9, we will demonstrate and document this query process to allow
+arbitrary slicing of Macrostrat's dataset, easily and with provenance tracking.
+
+In addition to these gaps in API design and documentation, we need to adjust and
+simplify our lithologic vocabularies to better match implicit relationships. In
+the current version of our APIs, rocks can be missed if they are tracked with
+more specific terms than the user is querying for. We will construct a querying
+approach that navigates hierarchical lithologic vocabularies to ensure that
+matching is intuitive. These improvements will be further augmented by automated
+entity extraction [@sec:geologic-entities].
+
+## Feedback interfaces
+
+One major gap in our current system is the lack of tools to provide feedback
+over geologic data being accumulated in the system, in particular those datasets
+being ingested from TA1 [@sec:map-ingestion] and accumulated by geologic entity
+characterization [@sec:geologic-entities]. We need to start building and
+exposing feedback tools to allow data augmentation and correction. We have many
+of the infrastructure needed to build such tools (e.g., login systems, data
+visualization interfaces) but we have not yet built specific UI "widgets" for
+feedback. The one exception is the table interface for map curation, but this is
+not yet ready for external testing. Map feature correction interfaces are
+possible with the Mapboard GIS app, but we need to understand the structures and
+failure modes of TA1 datasets before committing to specific approaches for
+feedback; after getting TA1 maps into the system at the **Month 6 Hackathon**,
+making these plans is now possible. Similarly, now that TA4 has access to TA2
+mineral sites we will be able to build feedback interfaces in the coming months.
+For HITL tools supporting both TA1 and TA2, we will coordinate closely with
+Jataware to ensure that we are not building redundant systems.
+
+# Issues and concerns
+
+# Uncertain design requirements for program integration
 
 ![Program flow chart](./images/criticalmaas-flow-chart.svg) _CriticalMAAS
 program flow chart showing software (black boxes), data management workflows
@@ -346,196 +447,74 @@ One of the main goals of TA4 is to facilitate data interchange across the
 CriticalMAAS program. Indeed, building HITL tooling that links such a disparate
 set of performers requires careful attention to integration design, although
 such "data-pipelining" activities are mostly implicit in the BAA. The
-UW-Macrostrat team has led the development several infrastructure components
-that are oriented towards these program goals. At **Milestone 2**, we had
-established the broad need for these components, and received buy-in from other
-teams. Since then, we have built initial functional versions of each of these
-components:
+"CriticalMAAS Data Repository" (CDR) plan attempts to make data and storage
+requirements more explicit, but the specific capabilities and design expected
+for CDR systems has been made clear. Some aspects of the CDR plan seem geared
+towards satisfying reporting requirements and evaluation (driven by
+DARPA/MITRE), while others are more focused on technical needs, in particular
+for data searchability/web accessibility, that seem more geared towards USGS end
+users.
+
+Since the start of the CriticalMAAS program, the UW-Macrostrat team has led
+development several infrastructure components oriented towards establishing
+program-level shared capabilities. In our view, these explicitly respond to
+_integration_ goals (i.e., addressing needs outside of our own tools). We have
+sought alignment with Jataware and other performers to ensure that we were not
+producing duplicate functionality. At **Milestone 2**, we established the broad
+need to work in these directions, received buy-in from other teams, and
+commenced work.
 
 - [`DARPA-CriticalMAAS/ta1-geopackage`][ta1-geopackage]: a GeoPackage-based data
   format for validating and storing TA1 output [@sec:ta1-geopackage]
 - [`UW-xDD/document-store`][document-store]: A supplemental store for
   public/user provided PDFs that provides full-text access, integrates with xDD
   APIs [@sec:document-store]
-- In addition, the Macrostrat system itself has "CDR-like" capabilities (e.g.,
-  persistent storage, high availability, and web-based data search and access);
-  parts of our goals for the system are explicitly focused around being the
-  center point of TA1–TA3 integration [@sec:vector-maps]
+- The Macrostrat system itself has "CDR-like" capabilities (e.g., persistent
+  storage, high availability, and web-based data search and access); parts of
+  our goals for the system are explicitly focused around being the center point
+  of TA1–TA3 integration [@sec:vector-maps]
 
-Broadly, we have been successful in building these components and beginning to
-scaffold data-integration workflows around them. Taken together, these
-integrations represent significant time spent on program alignment and backend
-services, and we believe that is a success unto itself. We hope to carry these
-nascent systems into the implementation of the "CriticalMAAS Data Repository,"
-but we are not yet clear on the specific requirements for this system. One key
-goal for the next phase of work is to solidify integration plans and scope final
-functionality; these plans will be developed in coordination with Jataware and
-MTRI. However, the outcome of this planning could have a substantial impact on
-our work plan and timeline, especially if significant reorientation is required
-around new system designs imposed by the CDR or DARPA program leadership.
+Broadly, we have been successful in building these components and scaffolding
+data-integration workflows around them. Taken together, these systems represent
+significant time spent on building shared backend services, clearly bolstering
+CriticalMAAS goals. However, given the lack of consistent communication from
+DARPA about the CDR, it seems possible that our systems somehow fail to meet
+specific goals of program leadership. Jataware being put at the center of the
+CDR effort is a sensible choice, given their flexible capacity and
+responsiveness to DARPA. However, we are also attuned to the needs of the
+program, anchored in geoscience like the USGS end users, and have spent
+substantial time and energy build shared systems that anticipate program
+integration needs.
 
-# Gaps
-
-Scaling up: our infrastructure is substantially more complex than before to meet
-map throughput. We are in a learn/adjust phase that is orienting computing
-researchers and staff towards solving geological problems (microcosm of program
-challenge).
-
-CDR plans: Our database/data formats are closely tied to our system design — a
-major integration with an external store would be substantial unplanned work. We
-have spent substantial time developing program-oriented APIs we seek to use
-Access to USGS mapping (modern/vector as well as TA1) Cannot produce a
-meaningfully “best-in-class” analytical capability without incorporating the
-best modern mapping USGS internal problem, to my understanding
-
-## Map ingestion throughput
-
-For example, we learned that it made sense to have a "customizable" step for
-"scraping" maps from a given location. To this end we:
-
-Based on the lessons-learned at the hackathon, we have identified several next
-steps. In the coming months we plan to:
-
-We have identified several areas for improvement in the pipeline, and we are
-working to address these issues in the coming months.
-
-Our task for the next phase of the project is to speed up map integration
-pipeline to allow rapid curation of maps staged into the system .
-
-As we push TA1 to better fulfill the metadata requirements in the schema it with
-entity canonicalization pipelines being developed over the CriticalMAAS document
-store.
-
-Our goal by the **Month 9**
-
-- Retool the pipeline/ingest scripts so that it still preserves the ability to
-  re-process a map that might only partially made it through the process while
-  not requiring so many human touch points. Ideally, a human (or periodic tasks)
-  says "go", and everything else happens automatically, as much as is possible
-  given the input data.
-- Make the Jataware map key a first class citizen in identifying a map
-  throughout the process.
-- Create UIs to display a maps stage of ingestion.
-- Create UIs for lines and points.
-- Add feedback tools for lines, points and polygons.
-
-## Finding vector maps
-
-## TA3 query workflow
-
-Macrostrat's standardized API allows querying both a harmonized, multiscale
-geologic map and single maps.
-
-We have not yet established a clear workflow for querying the Macrostrat API for
-TA3. This is a significant gap, as it is the primary mechanism for delivering
-geologic data to TA3. We have established a basic API for TA3 to query
-Macrostrat, but have not yet established a clear workflow for how TA3 will use
-this API to access the data they need. This is a significant gap in our current
-system, and we will need to work closely with MTRI to establish this workflow.
-
-- Adapt MTRI's Python library into a Macrostrat API client with a clear workflow
-  for staged querying of data to assemble complex result sets.
-
-## Feedback interfaces
-
-One major gap in our current system is the lack of tools to provide feedback
-over the geologic data we are ingesting from TA1 and accumulating from entity
-characterization. Two major feedback mechanisms are needed
-
-The [Document store](#document-store) provides a backbone for feedback
-mechanisms for TA2 datasets, but similarly to the map ingestion pipeline,
-progress on specific interfaces and workflows awaits deep engagement with the
-TA2 teams. Now that TA4 has established a workflow for accessing TA2 datasets
-since the Month 6 hackathon, we will be able to build feedback interfaces in the
-coming months. For TA2, we will seek to coordinate closely with Jataware to
-ensure that we are not building redundant systems.
-
-# Issues and concerns
-
-## Clarity and pacing of CDR work plan
-
-From the DARPA program management, we have heard both that TA4 is behind on CDR
-implementation, and some indications that the CDR needs to be a highly specific
-system, yet there has seemed to be reticence to discuss specific requirements
-and plans.
-
-Some aspects of the CDR seem geared towards satisfying reporting requirements
-and evaluation driven by DARPA, but others are more focused on product technical
-needs, in particular for data searchability/accessibility. These capabilities
-are at least notionally aligned with the goals of TA4 as expressed in the BAA
-and developed over the course of the project through coordination between TA4
-teams. However, specific capabilities (e.g., pub-sub APIs for data tracking, or
-the need for data search and visualization via web browser) require very
-different development paths. It is also unclear the extent to which CDR goals
-must be fulfilled by a "single system" maintained at the program level by CDR
-leaders (Jataware) or whether existing services collected in a more distributed
-fashion can meet the need. If the latter, it is unclear how many program-level
-requirements for data tracking, etc. will need to be built to adapt the services
-to DARPA requirements.
-
-Jataware being put at the center of the CDR effort is a sensible choice, given
-their flexible capacity and responsiveness to DARPA. However, the design of the
-CDR should be responsive to the needs of the program as a whole, which we are
-also attuned to. Given our organizational anchoring in geoscience, we have
-
-Overall, we are continuing to coordinate with other TA4 teams to build
-integrations with TA1-3, but we do not have significant input or insight into
-the CDR work plan. Therefore, we are exposed to risk that our development
-activities, including those geared towards productive integration with TA1-3
-(e.g., the [Document Store][document-store] and [TA1 Geopackage
-format][ta1-geopackage]), will be misaligned with CDR requirements. To mitigate
-this, we will continue to work with Jataware and MTRI to design healthy and
-productive interactions with TA1-3 and clarify the specific design requirements
-for our systems.
+A shared TA4 goal for the next phase of work is to solidify integration plans
+and scope final CDR functionality; we hope to develop these plans in
+coordination with Jataware and MTRI with effort to ensure continuity with
+capabilities and work already in progress (based on our mostly-productive
+working relationships within TA4, we expect this to be a success). However,
+without substantial input into CDR design and open, ongoing communication about
+specifics, we are exposed to risk of needing to reorient around a system design
+"handed down" from DARPA based on requirements that were not communicated.
+Pivoting into an unanticipated integration work plan could seriously impact our
+capacity and timelines to deliver key functionality.
 
 ## Inefficient reporting
 
-Too many "out-of-band" reporting requirements
-
-- Posters
-- Milestone reports
-- Wrap-up reports for hackathon
-- "Weekly activity reports" for DARPA
-
-These all take significant time, over and above the already substantial time
-weight of coordinating between TAs.
-
-# Appendix: Index of software repositories {-}
-
-Code and documentation for this milestone are indexed in the [**UW–Macrostrat
-CriticalMAAS README**][readme] at the root of the the
-[`UW-Macrostrat/CriticalMAAS`](https://github.com/UW-Macrostrat/CriticalMAAS)
-GitHub repository. The overall structure of the codebase has not changed
-substantially since [Milestone 2][milestone2], but we have made significant
-progress on implementing research goals by developing this infrastructure. We
-report on this progress here.
-
-- [`DARPA-CRITICALMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas):
-  Schemas for TA1-3 integrations (@sec:schemas)
-- [`DigitalCrust/weaver`](https://github.com/digitalcrust/weaver): Curation and
-  ingestion of geological site datasets (@sec:mineral-sites)
-- [`Mapboard/topology-manager`](https://github.com/Mapboard/topology-manager):
-  Topological map editing (@sec:map-editing)
-- [`UW-COSMOS/cosmos-visualizer`](https://github.com/UW-COSMOS/cosmos-visualizer):
-  Page annotation and feedback (@sec:document-interfaces)
-- [`UW-COSMOS/COSMOS`](https://github.com/UW-COSMOS/COSMOS): PDF entity
-  extraction pipeline (@sec:geologic-literature)
-- [`UW-Macrostrat/CriticalMAAS`](https://github.com/UW-Macrostrat/criticalmaas):
-  Index repository for the CriticalMAAS project
-- [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
-  xDD integration for geologic entity characterization
-  (@sec:entity-characterization)
-- [`UW-Macrostrat/raster-cli`](https://github.com/UW-Macrostrat/raster-cli):
-  Prototype tool for ingesting raster datasets (@sec:raster-data)
-- [`UW-Macrostrat/tiger-macrostrat-config`](https://github.com/UW-Macrostrat/tiger-macrostrat-config):
-  Configuration for CHTC infrastructure (_private_; @sec:macrostrat-system)
-- [`UW-Macrostrat/tileserver`](https://github.com/UW-Macrostrat/tileserver):
-  Server for vector and raster tiles to GIS software (@sec:geologic-map-data)
-- [`UW-Macrostrat/web-components`](https://github.com/UW-Macrostrat/web-components):
-  Shared user interface components for Macrostrat user interfaces
-  (@sec:map-interfaces)
-- [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
-  web interface (@sec:map-interfaces)
+The DARPA CriticalMAAS program has a substantial reporting burden, which has
+been a significant time sink for the UW-Macrostrat team, and I expect for other
+teams as well. Other than the Milestone Reports described in the BAA, we are
+being asked to produce weekly activity reports, posters, descriptions of tools,
+lists of capabilities, etc. These are useful for communicating program goals and
+progress, certainly, but they often seem to be thrown out on Slack with unclear
+deliverables or overlapping/contradictory requirements outlined by different
+people. Often there seems to be a lack of coordination between DARPA and MITRE
+about the purpose and content of reports. The time spent on responding to these
+requests and building the necessary artifacts is substantial, and it is not
+clear that each of them has independent value. Posters, for example, take
+several hours to produce, especially when printing time is considered. I would
+like to see a more streamlined, unified reporting process that is clearly set
+out in a single document with due dates, and effort made to economize on the
+number of reports required. This would allow us to focus on coordinating between
+teams and building the infrastructure and tools that are the core of our work.
 
 [readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
 [phase1_plan]:
