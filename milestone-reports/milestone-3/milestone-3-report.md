@@ -110,10 +110,9 @@ buckets for candidate maps (TA1 GeoPackages and other vector datasets),
 automated ingestion scripts, and a repeatable HITL workflow for legend
 correction and standardization. The core of this pipeline is being built in the
 [`UW-Macrostrat/macrostrat`][gh:macrostrat] repository; it is supplemented by
-case-specific scripts for downloading and tracking potential vector maps
-([`brianaydemir/macrostrat-map-ingestion`](https://github.com/brianaydemir/macrostrat-map-ingestion));
-we seek to integrate these retrieval scripts with Jataware's web-scraping
-approach [@sec:gaps].
+[source-specific scripts](https://github.com/brianaydemir/macrostrat-map-ingestion)
+for acquiring potential vector maps. Going forward, we seek to integrate our map
+acquisition process with Jataware's web-scraping approach [@sec:gaps].
 
 We have validated the Macrostrat map ingestion pipeline both for staging new
 datasets into the system and for HITL curation and assimilation into our
@@ -128,8 +127,9 @@ formats and levels of completeness:
 - 9 maps from the National Geologic Map Database (NGMDB) that had GIS data
   linked directly from their main page (6 had shapefile data that we could
   import)
-- 93 maps (including many partial/incomplete datasets) submitted by TA1
-  performers UIUC, UMN/Inferlink, and Uncharted during the 6-month hackathon
+- 93 maps (including partial/incomplete datasets) submitted by TA1 performers
+  UIUC, UMN/Inferlink, and Uncharted during the 6-month hackathon, covering maps
+  relevant to the "MANIAC" magmatic nickel challenge
 
 The successful bulk staging of maps is a significant step for Macrostrat's
 infrastructure. The 210 maps staged since the beginning of February represent
@@ -167,40 +167,41 @@ web user interface_
 
 ## Macrostrat geologic exploration interface
 
-Once maps are ingested into Macrostrat, they become part of a user-facing,
-web-available cyberinfrastructure designed for data distribution and analysis.
-This system is currently widely used by geologists and the public for rapid
-exploration of geologic information in rich web and mobile user interfaces. As
-part of CriticalMAAS, we have been working to extend our interfaces with
-additional capabilities for exploration of the geologic data contained in
-Macrostrat (see
-[the Macrostrat development website](https://dev2.macrostrat.org)). These
-capabilities will soon be extended to support feedback on geological entities
-within the system [@sec:feedback].
+Once ingested into Macrostrat, maps become part of a user-facing, web-available
+cyberinfrastructure designed for data distribution and analysis. This system is
+already widely used by geologists and the public for rapid exploration of
+geologic information in rich web and mobile user interfaces. As part of
+CriticalMAAS, we have been working to extend our interfaces with additional
+capabilities for geologic data exploration relevant to mineral systems (see
+[the Macrostrat development website](https://dev2.macrostrat.org)).
 
-Key capabilities, such as single-map views and paleogeographic reconstructions
-that were discussed in the **Milestone 2** report, continue to be developed. One
-small but important addition is hooks to Jataware's raster storage system,
+These capabilities will soon be extended to support feedback on geological
+entities within the system [@sec:feedback].
+
+Key capabilities that were discussed in the **Milestone 2** report (e.g.,
+single-map views and paleogeographic reconstructions) continue to be developed.
+One small but important addition is hooks to Jataware's raster storage system,
 allowing georeferenced Cloud-Optimized GeoTIFF maps to be displayed alongside
 their vector equivalents in the Macrostrat web interface
 ([See example map](https://dev2.macrostrat.org/maps/1068)). We have also made
 substantial progress on new visualizations for our geologic lexicon
 [@sec:geologic-entities] and, most notably, **stratigraphic columns**.
 
-Macrostrat's stratigraphic column dataset is a rich index of geologic data in
-the surface and subsurface of North America and it is unique in its scale and
-consistency. This dataset is queryable via Macrostrat's API, but the lack of
-straightforward visualization has limited its usefulness for exploration and
-modeling. Macrostrat's column visualization, now publicly available at
+Macrostrat's stratigraphic column dataset is a rich index of the subsurface
+rocks of North America; it is unique in its scale and consistency and provides
+another "view" of geologic information about the crust alongside maps. This
+dataset is queryable via Macrostrat's API, but a lack of straightforward
+visualization has limited its usefulness for exploration and modeling.
+Macrostrat's column visualization, now publicly available at
 [`dev2.macrostrat.org/columns`](https://dev2.macrostrat.org/columns), allows
 more intuitive and geologically sophisticated interaction with Macrostrat's
-column dataset. The interface can be explored alongside the geologic map
-interface, and ties between stratigraphic and map datasets will be made more
-explicit in future iterations of the tool. In the future, this new capability
-can support the integration of geologic maps as well. Map datasets generally
-have a time-stratigraphic element, which can usually be extracted from map
-legend unit descriptions; thus, stratigraphic visualizations can provide a
-useful capability to evaluate the quality and consistency of TA1 map datasets.
+column dataset. Columns can be explored alongside the geologic map interface,
+and navigation between datasets will be made more explicit in future iterations
+of the tool. In the future, this new capability can support the integration of
+geologic maps as well. Since geologic maps also have a time-stratigraphic
+element alongside their spatial footprint, stratigraphic visualizations can
+provide a useful capability to evaluate the quality and consistency of TA1 maps
+and legend extractions.
 
 ![Stratigraphic column visualization](./images/macrostrat-map-interface.jpeg)
 _Stratigraphic column visualization in Macrostrat's web interface_
@@ -209,12 +210,24 @@ _Stratigraphic column visualization in Macrostrat's web interface_
 Macrostrat's web interface — including an already-ingested vector dataset for
 the same map._
 
-## Provision of TA1 geologic maps to TA3
+## Providing TA1 geologic maps to TA3
 
-Our map APIs have supported standardized querying since the start of the program
-and present a stable target for integration with TA3. MTRI has built a pipeline
-for querying Macrostrat that allows our tile-based API output to be
-straightforwardly brought into a QGIS environment at any scale.
+Macrostrat's geologic map APIs support standardized querying of our geologic
+maps and present a stable target for integration with TA3. Importantly, these
+APIs are designed to work similarly for both single maps and the Macrostrat
+"harmonized" map, which is a composite from maps at multiple scales. Thus, the
+TA1 maps that we have ingested into Macrostrat's system can be accessed in a
+straightforward way. MTRI has built a library for querying Macrostrat that
+allows our tile-based API output to be straightforwardly brought into a QGIS
+environment and "re-merged" into a coherent product, which reduces some of the
+complexities of working with streaming tiles. This capability was tested early
+in the program, but we validated it during the hackathon by pulling a collection
+of rocks matching "mafic" lithologies into QGIS using MTRI's tools. This mostly
+went well, validating the basic capability of the system to support TA3
+querying. Although improvements must be made in efficiency and specificity of
+filtering, the basic capability in place is the final piece of an end-to-end
+system for TA1-3 integration, a significant milestone for Macrostrat's role in
+CriticalMAAS.
 
 # Research and technical progress: xDD literature integration
 
@@ -290,43 +303,38 @@ from the scientific literature_
 
 ## Geologic unit characterization
 
-In the CriticalMAAS month 3 workshop and weekly TA3 meetings, the need for
-consistent and well-defined geologic attributes for geologic maps has gained
-increasing focus. Even advanced, AI-driven mineral systems studies such as
-[Lawley et al, 2023][lawley2023] have had to build consistent geologic attribute
-sets (particularly around lithologic classification for rock units) by hand, at
-significant time expense for geological experts. Our integrations with **TA1**
-and **TA2** seek to address this need. In addition, we have also been working to
-augment Macrostrat structured data with geologic information from the scientific
-literature. This effort, in early development, is described in the
-[`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd)
-repository. Of note for this milestone, two projects by UW–Madison graduate and
-undergraduate students demonstrate early approaches to this problem:
+One factor that limits the queryability of Macrostrat geologic maps is the fact
+that the lithologic classification of rock units is basic and non-standardized.
+This gap is a common stumbling block for quantitative mineral systems modeling,
+since mineral occurrences are often tied to certain infrequent features that do
+not show up in "bulk" descriptions of map units. Geologists typically solve such
+problems by spending lots of time hand-labeling datasets; this was done for the
+State Geologic Map Compilation (SGMC) project; [Lawley et al, 2023][lawley2023]
+reports that assembling the necessary lithologic classification took months of
+overhead even using only regional-scale maps. To extend such an effort to local
+maps at the scale desired by CriticalMAAS would be infeasible.
 
-- [`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator):
-  An LLM-assisted generator for geological "fact sheets" that operates over the
-  scientific literature (_Bill Xia_)
-- [`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg):
-  Knowledge graph construction to discover new geologic entities in the
-  scientific literature (_Devesh Sarda_)
+To address this data limitation, we are building a pipeline that can acquire
+lithologic information about specific rock units from the geologic literature
+using mentions in xDD's corpus. Two approaches are being developed in parallel:
+an LLM-based approach
+([`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator);
+_Bill Xia_) and a knowledge-graph curation approach
+([`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg);
+_Devesh Sarda_). Since **Milestone 2**, we have built infrastructure supporting
+"end-to-end" extraction of lithologic descriptors for rock units and
+presentation as candidate relationships in
+[Macrostrat's "lexicon explorer" user interface](https://dev2.macrostrat.org/lex).
+Forthcoming feedback tools [@sec:feedback] will allow this dataset to be
+augmented by expert geologists; if successful, this line of work will allow
+descriptions of the geologic units to be automatically assembled from geologic
+reports and papers. Having successfully demonstrated this pipeline, we will
+continue to improve the quality of extractions and their integration with
+Macrostrat's data services and user interfaces.
 
 ![Candidate lithology extraction](./images/candidate-lithology-extractions.png)
 _Candidate lithology extractions from scientific literature, represented in a
 prototype feedback interface_
-
-### Status
-
-- Utilized a entity hinting based relationships based extraction to get
-  predefined relationships for entities in the Macrostrat database
-- Also finetuned the REBEL model to perform triplet extraction which doesn’t
-  need predefined relationships
-- Created script to link the relationships back to the Macrostrat database and
-  write the triplets to predefined schema
-- You can find information about the models and how they work here:
-  https://github.com/sarda-devesh/unsupervised-kg/tree/main. In terms of future
-  work: Create an initial dataset of paragraph level relationships we want to be
-  able to be extract as well define benchmark metrics out of that Look into
-  performance of existing models on paragraph level relationships
 
 # Research and technical progress: Program integration
 
@@ -335,33 +343,36 @@ program flow chart showing software (black boxes), data management workflows
 (red), and HITL workflows (purple) being built by TA4 teams_
 
 One of the main goals of TA4 is to facilitate data interchange across the
-CriticalMAAS program. Indeed, to build HITL tooling across such a disparate set
-of performers requires careful attention, although such "data-pipelining"
-activities are mostly implicit in the BAA.
-
-The UW-Macrostrat team has led the development of several infrastructure
-components for the CriticalMAAS program. At Milestone 2, the broad design of
-these components had gained broad agreement among other teams. In
-December–February, we built out these components and introduced them to the
-broader program.
-
-The goal of these program elements is to establish key integrations that can be
-carried into the design of the "CriticalMAAS Data Repository."
+CriticalMAAS program. Indeed, building HITL tooling that links such a disparate
+set of performers requires careful attention to integration design, although
+such "data-pipelining" activities are mostly implicit in the BAA. The
+UW-Macrostrat team has led the development several infrastructure components
+that are oriented towards these program goals. At **Milestone 2**, we had
+established the broad need for these components, and received buy-in from other
+teams. Since then, we have built initial functional versions of each of these
+components:
 
 - [`DARPA-CriticalMAAS/ta1-geopackage`][ta1-geopackage]: a GeoPackage-based data
-  format for validating and storing TA1 output
+  format for validating and storing TA1 output [@sec:ta1-geopackage]
 - [`UW-xDD/document-store`][document-store]: A supplemental store for
   public/user provided PDFs that provides full-text access, integrates with xDD
-  APIs.
-- [`DARPA-CriticalMAAS/schemas`](https://github.com/DARPA-CRITICALMAAS/schemas):
-  A repository for schemas and data formats for TA1-3 integrations (_started by
-  UW–Macrostrat and subsequently contributed to by all TA teams_)
+  APIs [@sec:document-store]
+- In addition, the Macrostrat system itself has "CDR-like" capabilities (e.g.,
+  persistent storage, high availability, and web-based data search and access);
+  parts of our goals for the system are explicitly focused around being the
+  center point of TA1–TA3 integration [@sec:vector-maps]
 
-Taken together, these integrations represent significant time spent on program
-alignment, with good results. We expect that the detailed plans we have
-established will speed our future development. These efforts were based on an
-expectation that the development of the _CriticalMAAS data repository_ should be
-a distributed effort among the TA4 teams.
+Broadly, we have been successful in building these components and beginning to
+scaffold data-integration workflows around them. Taken together, these
+integrations represent significant time spent on program alignment and backend
+services, and we believe that is a success unto itself. We hope to carry these
+nascent systems into the implementation of the "CriticalMAAS Data Repository,"
+but we are not yet clear on the specific requirements for this system. One key
+goal for the next phase of work is to solidify integration plans and scope final
+functionality; these plans will be developed in coordination with Jataware and
+MTRI. However, the outcome of this planning could have a substantial impact on
+our work plan and timeline, especially if significant reorientation is required
+around new system designs imposed by the CDR or DARPA program leadership.
 
 # Gaps
 
