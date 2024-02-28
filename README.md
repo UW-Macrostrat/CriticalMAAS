@@ -171,7 +171,7 @@ point-based data.
 | 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                             | Milestone Report      | 04/2024     |         |
 | 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                                    | Milestone Report/Code | 07/2024     |         |
 
-> ### Appendix: Out-of scope links
+> ### Appendix: Out-of scope codebases
 >
 > #### Archived repositories
 >
