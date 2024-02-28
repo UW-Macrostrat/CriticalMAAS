@@ -44,10 +44,10 @@ The successful end-to-end demonstration of this system relied on several areas
 of development that we have pursued over the last several months; we detail the
 progress in each of these areas below. In the coming months, we will streamline
 and extend this pipeline to support quick, accurate capture of geologic mapping
-datasets [@sec:gaps] and ingestion of more maps into the system
-[@sec:vector-maps].
+datasets ([@sec:throughput]) and ingestion of more maps into the system
+([@sec:vector-maps]).
 
-## TA1 GeoPackage library
+## TA1 GeoPackage library {#sec:ta1-geopackage}
 
 Macrostrat entered the CriticalMAAS program with a well-established
 understanding of the most effective structure for geologic map data, and we have
@@ -74,21 +74,21 @@ and refined in early January. Integration with TA1 teams started in mid-January,
 and by the **Month 6 Hackathon**, all TA1 teams had shifted to using this file
 format to deliver candidate maps to Macrostrat via our S3 buckets; ~90 maps have
 been provided and ingested into Macrostrat's data pipelines
-[@sec:map-ingestion]. At the moment, TA1 teams have implemented the schema to
+([@sec:map-ingestion]). At the moment, TA1 teams have implemented the schema to
 varying degrees, and we have been working to support their full compliance with
 the format. The library is now under collaborative refinement with TA1 workers,
 who have contributed bug reports, test cases, and pull requests; it will likely
 underpin internal integration between TA1 teams and storage of TA1 data in the
 CDR.
 
-## Map ingestion pipeline
+## Map ingestion pipeline {#sec:map-ingestion}
 
 Macrostrat's map ingestion pipeline allows geologic maps from a variety of
 sources to be integrated into a harmonized representation, which is critical for
 leveraging mapd data in regional and continental-scale mineral assessments. In
 CriticalMAAS, we have committed to extend this pipeline to rapidly integrate
 high-resolution, high-quality geologic maps from TA1 and other sources
-[@sec:vector-maps], thereby applying standardized representations of age,
+([@sec:vector-maps]), thereby applying standardized representations of age,
 lithology, and named geological units and bringing them into a unified
 geological representation to support critical minerals modeling. We have made
 significant progress on streamlining this map ingestion pipeline to support the
@@ -112,15 +112,15 @@ correction and standardization. The core of this pipeline is being built in the
 [`UW-Macrostrat/macrostrat`][gh:macrostrat] repository; it is supplemented by
 [source-specific scripts](https://github.com/brianaydemir/macrostrat-map-ingestion)
 for acquiring potential vector maps. Going forward, we seek to integrate our map
-acquisition process with Jataware's web-scraping approach [@sec:gaps].
+acquisition process with Jataware's web-scraping approach ([@sec:vector-maps]).
 
 We have validated the Macrostrat map ingestion pipeline both for staging new
 datasets into the system and for HITL curation and assimilation into our
 standardized data services. Broadly, map staging is now rapid and automated, and
 there is a bottleneck in HITL legend curation that we are working to address
-[@sec:map-ingestion-throughput]. The new web scraping/ingestion pipeline has
-been tested on several collections of maps spanning a range of input data
-formats and levels of completeness:
+([@sec:throughput]). The new web scraping/ingestion pipeline has been tested on
+several collections of maps spanning a range of input data formats and levels of
+completeness:
 
 - 95 maps from the Nevada Bureau of Mines and Geology (NBMG), including 84 with
   Shapefiles that we could import
@@ -175,9 +175,6 @@ CriticalMAAS, we have been working to extend our interfaces with additional
 capabilities for geologic data exploration relevant to mineral systems (see
 [the Macrostrat development website](https://dev2.macrostrat.org)).
 
-These capabilities will soon be extended to support feedback on geological
-entities within the system [@sec:feedback].
-
 Key capabilities that were discussed in the **Milestone 2** report (e.g.,
 single-map views and paleogeographic reconstructions) continue to be developed.
 One small but important addition is hooks to Jataware's raster storage system,
@@ -185,7 +182,7 @@ allowing georeferenced Cloud-Optimized GeoTIFF maps to be displayed alongside
 their vector equivalents in the Macrostrat web interface
 ([See example map](https://dev2.macrostrat.org/maps/1068)). We have also made
 substantial progress on new visualizations for our geologic lexicon
-[@sec:geologic-entities] and, most notably, **stratigraphic columns**.
+([@sec:geologic-entities]) and, most notably, **stratigraphic columns**.
 
 Macrostrat's stratigraphic column dataset is a rich index of the subsurface
 rocks of North America; it is unique in its scale and consistency and provides
@@ -203,12 +200,9 @@ element alongside their spatial footprint, stratigraphic visualizations can
 provide a useful capability to evaluate the quality and consistency of TA1 maps
 and legend extractions.
 
-![Stratigraphic column visualization](./images/macrostrat-map-interface.jpeg)
-_Stratigraphic column visualization in Macrostrat's web interface_
+![Stratigraphic column visualization in Macrostrat's web interface](./images/macrostrat-map-interface.jpeg)
 
-![All maps](./images/all-maps.jpeg) _TA1 output in the context of other maps in
-Macrostrat's web interface — including an already-ingested vector dataset for
-the same map._
+![TA1 output in the context of other maps in Macrostrat's web interface — including an already-ingested vector dataset for the same map.](./images/all-maps.jpeg)
 
 ## Providing TA1 geologic maps to TA3
 
@@ -231,7 +225,7 @@ CriticalMAAS.
 
 # Research and technical progress: xDD literature integration
 
-## The CriticalMAAS Document Store
+## The CriticalMAAS Document Store {#sec:document-store}
 
 Published documents of various types, ranging from USGS Professional Papers to
 mining company reports, contain information pertinent to critical minerals
@@ -255,12 +249,11 @@ including Jataware’s _Silk_ document annotator, which already can read the
 Document Store APIs.
 
 The Document Store is designed to be a standalone CDR component that can be used
-independently. Integration with xDD confers several advantages to the Document
-Store. Since xDD has already been working with the USGS to acquire, store, and
-index relevant documents, the Document Store is "seeded" with a large number of
-highly relevant documents, and xDD's search APIs can be used to navigate this
-set. However, the only information from xDD that we depend on in the document
-store is document title and DOI; in principle, other knowledge curation systems
+independently. Integration with xDD confers several advantages: The Document
+Store is "seeded" with a set of documents that xDD has been working with the
+USGS to acquire, store, and index; xDD's search APIs can be used to navigate
+this set. However, the only information from xDD that we depend on in the
+document store is title and DOI; in principle, other knowledge curation systems
 (e.g., the TA2 knowledge graph) can be integrated with the Document Store along
 similar lines.
 
@@ -297,10 +290,9 @@ usage examples, and improved labeling of maps and other figure types. We will
 work to assimilate these suggestions over time to make xDD a more useful service
 for discovering literature related to critical minerals
 
-![COSMOS UI](./images/cosmos-ui.jpeg) _COSMOS UI for surfacing geologic entities
-from the scientific literature_
+![COSMOS UI for surfacing geologic entities from the scientific literature](./images/cosmos-ui.jpeg)
 
-## Geologic unit characterization
+## Geologic unit characterization {#sec:geologic-entities}
 
 As in most geologic map datasets, structured data about Macrostrat rock units is
 mostly limited to basic lithologic classifications that only record major
@@ -325,16 +317,14 @@ _Devesh Sarda_). Since **Milestone 2**, we have built infrastructure supporting
 "end-to-end" extraction of lithologic descriptors for rock units and
 presentation as candidate relationships in
 [Macrostrat's "lexicon explorer" user interface](https://dev2.macrostrat.org/lex).
-Forthcoming feedback tools [@sec:feedback] will allow this dataset to be
+Forthcoming feedback tools ([@sec:feedback]) will allow this dataset to be
 augmented by expert geologists; if successful, this line of work will allow
 descriptions of the geologic units to be automatically assembled from geologic
 reports and papers. Having successfully demonstrated this pipeline, we will
 continue to improve the quality of extractions and their integration with
 Macrostrat's data services and user interfaces.
 
-![Candidate lithology extraction](./images/candidate-lithology-extractions.png)
-_Candidate lithology extractions from scientific literature, represented in a
-prototype feedback interface_
+![Candidate lithology extractions from scientific literature, represented in a prototype feedback interface](./images/candidate-lithology-extractions.png)
 
 # Gaps
 
@@ -343,7 +333,7 @@ systems to support program needs, several major gaps in functionality have
 become apparent as our systems underwent stress-testing in the **Month 6
 Hackathon**.
 
-## Map ingestion throughput
+## Map ingestion throughput {#sec:throughput}
 
 At the **Month 6 Hackathon**, the standardized data format and TA1 focus on
 producing results allowed us to stage a large number of maps into Macrostrat's
@@ -362,7 +352,7 @@ task has been demonstrated, achieving a reliable throughput and simple process
 is critical to ensuring that map curation is straightforward and can be taken
 over by USGS staff.
 
-## Accessing vector maps
+## Accessing vector maps {#sec:vector-maps}
 
 Map ingestion is not only relevant for TA1 datasets: the USGS and other
 organizations (e.g., state and international geologic surveys) maintain large
@@ -414,16 +404,16 @@ the current version of our APIs, rocks can be missed if they are tracked with
 more specific terms than the user is querying for. We will construct a querying
 approach that navigates hierarchical lithologic vocabularies to ensure that
 matching is intuitive. These improvements will be further augmented by automated
-entity extraction [@sec:geologic-entities].
+entity extraction ([@sec:geologic-entities]).
 
-## Feedback interfaces
+## Feedback interfaces {#sec:feedback}
 
 One major gap in our current system is the lack of tools to provide feedback
 over geologic data being accumulated in the system, in particular those datasets
-being ingested from TA1 [@sec:map-ingestion] and accumulated by geologic entity
-characterization [@sec:geologic-entities]. We need to start building and
-exposing feedback tools to allow data augmentation and correction. We have many
-of the infrastructure needed to build such tools (e.g., login systems, data
+being ingested from TA1 ([@sec:map-ingestion]) and accumulated by geologic
+entity characterization ([@sec:geologic-entities]). We need to start building
+and exposing feedback tools to allow data augmentation and correction. We have
+many of the infrastructure needed to build such tools (e.g., login systems, data
 visualization interfaces) but we have not yet built specific UI "widgets" for
 feedback. The one exception is the table interface for map curation, but this is
 not yet ready for external testing. Map feature correction interfaces are
@@ -437,11 +427,9 @@ Jataware to ensure that we are not building redundant systems.
 
 # Issues and concerns
 
-# Uncertain design requirements for program integration
+## Design requirements for program integration
 
-![Program flow chart](./images/criticalmaas-flow-chart.svg) _CriticalMAAS
-program flow chart showing software (black boxes), data management workflows
-(red), and HITL workflows (purple) being built by TA4 teams_
+![CriticalMAAS program flow chart showing software (black boxes), data management workflows (red), and HITL workflows (purple) being built by TA4 teams](./images/criticalmaas-flow-chart.svg)
 
 One of the main goals of TA4 is to facilitate data interchange across the
 CriticalMAAS program. Indeed, building HITL tooling that links such a disparate
@@ -465,51 +453,46 @@ need to work in these directions, received buy-in from other teams, and
 commenced work.
 
 - [`DARPA-CriticalMAAS/ta1-geopackage`][ta1-geopackage]: a GeoPackage-based data
-  format for validating and storing TA1 output [@sec:ta1-geopackage]
+  format for validating and storing TA1 output ([@sec:ta1-geopackage])
 - [`UW-xDD/document-store`][document-store]: A supplemental store for
   public/user provided PDFs that provides full-text access, integrates with xDD
-  APIs [@sec:document-store]
+  APIs ([@sec:document-store])
 - The Macrostrat system itself has "CDR-like" capabilities (e.g., persistent
   storage, high availability, and web-based data search and access); parts of
   our goals for the system are explicitly focused around being the center point
-  of TA1–TA3 integration [@sec:vector-maps]
+  of TA1–TA3 integration ([@sec:map-ingestion])
 
 Broadly, we have been successful in building these components and scaffolding
 data-integration workflows around them. Taken together, these systems represent
-significant time spent on building shared backend services, clearly bolstering
-CriticalMAAS goals. However, given the lack of consistent communication from
-DARPA about the CDR, it seems possible that our systems somehow fail to meet
-specific goals of program leadership. Jataware being put at the center of the
-CDR effort is a sensible choice, given their flexible capacity and
-responsiveness to DARPA. However, we are also attuned to the needs of the
-program, anchored in geoscience like the USGS end users, and have spent
-substantial time and energy build shared systems that anticipate program
-integration needs.
+significant time spent on building shared backend services by the UW–Madison
+team. However, given the lack of consistent communication from DARPA about the
+CDR, there seems to be a risk that we will fail to meet specific goals of
+program leadership, forcing a disruptive late-stage change in work plan.
 
 A shared TA4 goal for the next phase of work is to solidify integration plans
 and scope final CDR functionality; we hope to develop these plans in
 coordination with Jataware and MTRI with effort to ensure continuity with
 capabilities and work already in progress (based on our mostly-productive
-working relationships within TA4, we expect this to be a success). However,
-without substantial input into CDR design and open, ongoing communication about
-specifics, we are exposed to risk of needing to reorient around a system design
-"handed down" from DARPA based on requirements that were not communicated.
-Pivoting into an unanticipated integration work plan could seriously impact our
-capacity and timelines to deliver key functionality.
+working relationships within TA4, we expect such discussions to go well).
+However, without substantial input into CDR design and open, ongoing
+communication about specifics, we are exposed to risk of needing to reorient
+around a system design "handed down" from DARPA based on requirements that were
+not communicated. Pivoting into an unanticipated integration work plan could
+seriously impact our capacity and timelines to deliver key functionality.
 
 ## Inefficient reporting
 
 The DARPA CriticalMAAS program has a substantial reporting burden, which has
 been a significant time sink for the UW-Macrostrat team, and I expect for other
-teams as well. Other than the Milestone Reports described in the BAA, we are
-being asked to produce weekly activity reports, posters, descriptions of tools,
-lists of capabilities, etc. These are useful for communicating program goals and
-progress, certainly, but they often seem to be thrown out on Slack with unclear
+teams as well. Beyond the Milestone Reports described in the BAA, we are being
+asked to produce weekly activity reports, posters, descriptions of tools, lists
+of capabilities, etc. These are useful for communicating program goals and
+progress, certainly, but they often seem to be promulgated on Slack with unclear
 deliverables or overlapping/contradictory requirements outlined by different
-people. Often there seems to be a lack of coordination between DARPA and MITRE
-about the purpose and content of reports. The time spent on responding to these
-requests and building the necessary artifacts is substantial, and it is not
-clear that each of them has independent value. Posters, for example, take
+people. Often there seems to be minimal coordination between DARPA and MITRE
+about the purpose and structure of reports. The time spent on responding to
+these requests and building the necessary artifacts is substantial, and it is
+not clear that each of them has independent value. Posters, for example, take
 several hours to produce, especially when printing time is considered. I would
 like to see a more streamlined, unified reporting process that is clearly set
 out in a single document with due dates, and effort made to economize on the
