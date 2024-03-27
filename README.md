@@ -46,7 +46,7 @@ designed to be well-documented and runnable by USGS staff.
   Server for vector and raster tiles to GIS software
 - [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
   web interface
-- [`UW-Macrostrat/api-v3`](https://github.com/UW-Macrostrat/api-v3`):
+- [`UW-Macrostrat/api-v3`](https://github.com/UW-Macrostrat/api-v3):
   Macrostrat's v3 API, which will be the primary API for CriticalMAAS
   capabilities
 
