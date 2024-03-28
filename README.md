@@ -78,15 +78,20 @@ CriticalMAAS program.
 
 ### Geologic metadata curation
 
-- [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
-  System to synthesize xDD-driven geologic unit descriptions from the scientific
-  literature (_placeholder for future development_)
+We are working towards building better rock-record descriptions from the geological literature by:
+- Discovering concepts linked to known geological units
+- Finding new units based on proximity to known entities
+
+The starting point for this is two exploratory projects by UW-Madison computer science students, who are both taking different approaches to the problem:
 - [`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator):
   An LLM-assisted generator for geological "fact sheets" that operates over the
   scientific literature (_Bill Xia_; Computer Science)
 - [`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg):
-  Knowledge graph construction to discover new geologic entities in the
-  scientific literature (_Devesh Sarda_; Computer Science)
+  Unsupervised knowledge graph construction to discover new entitities from geological literature (_Devesh Sarda_; Computer Science)
+
+Eventually, both of these projects will be combined into a final system at [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd). This will allow us to automatically generate new filterable and searchable entities describing rocks and their mineral contents as well as discover new rock entities. We will also integrate the results of this system into [macrostrat.org](https://macrostrat.org) to make these results easily accessible. 
+
+We are also working on extract metadata from maps:
 - [`UW-Macrostrat/map-metadata-curation`](https://github.com/UW-Macrostrat/map-metadata-curation):
   Documentation of efforts to align current archive of maps with **Macrostrat
   v2** data standards. Focus on point data, raster image alignment, and
