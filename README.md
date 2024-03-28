@@ -84,12 +84,11 @@ We are working towards building better rock-record descriptions from the geologi
 
 The starting point for this is two exploratory projects by UW-Madison computer science students, who are both taking different approaches to the problem:
 - [`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator):
-  An LLM-assisted generator for geological "fact sheets" that operates over the
-  scientific literature (_Bill Xia_; Computer Science)
+  An LLM-assisted generator for geological "fact sheets" that operates over the scientific literature (_Bill Xia_; Computer Science)
 - [`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg):
   Unsupervised knowledge graph construction to discover new entitities from geological literature (_Devesh Sarda_; Computer Science)
 
-Eventually, both of these projects will be combined into a final system at [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd). This will allow us to automatically generate new filterable and searchable entities describing rocks and their mineral contents as well as discover new rock entities. We will also integrate the results of this system into [macrostrat.org](https://macrostrat.org) to make these results easily accessible. 
+Eventually, both of these projects will be combined into a final system at [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd). This will allow us to automatically generate new filterable and searchable entities describing rocks and their mineral contents as well as discover new rock entities. We will also integrate the results of this system into [macrostrat.org](https://macrostrat.org) to make these results easily accessible. Doing so will not only allow for TA3 performers to filter by specific criteria when exploring entities but also allow us to build a feedback interface that will be used to continously improve the quality of extracted descriptions. An early prototype of the system can be found in the [development instance of Macrostrat](https://dev2.macrostrat.org/lex/strat-names/6).   
 
 We are also working on extract metadata from maps:
 - [`UW-Macrostrat/map-metadata-curation`](https://github.com/UW-Macrostrat/map-metadata-curation):
