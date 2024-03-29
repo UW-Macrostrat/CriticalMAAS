@@ -15,5 +15,5 @@ lib-cov
 .Trashes
 
 output
-
 *.pdf
+!media/*.pdf
