@@ -125,7 +125,7 @@ building a cohesive, deployable system.
 
 The [Macrostrat Documentation](https://dev2.macrostrat.org/docs/) includes the 
 documentation for Macrostrat users and Administrators. It is the main hub for 
-how to use and manage the macrostrat interface. 
+how to use and manage Macrostrat services. 
 
 ### Map interface examples
 
