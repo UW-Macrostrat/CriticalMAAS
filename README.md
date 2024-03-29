@@ -123,9 +123,9 @@ Documentation is associated with individual project repositories. Additionally,
 some broad documentation is being coordinated across the project towards
 building a cohesive, deployable system.
 
-The [`UW-Macrostrat/docs`](https://github.com/UW-Macrostrat/docs) (_placeholder
-for future development_) repository will contain broad system documentation and
-improve discoverability and usability.
+The [Macrostrat Documentation](https://dev2.macrostrat.org/docs/) includes the 
+documentation for Macrostrat users and Administrators. It is the main hub for 
+how to use and manage Macrostrat services. 
 
 ### Map interface examples
 
