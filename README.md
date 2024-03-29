@@ -46,7 +46,7 @@ designed to be well-documented and runnable by USGS staff.
   Server for vector and raster tiles to GIS software
 - [`UW-Macrostrat/web`](https://github.com/UW-Macrostrat/web): Macrostrat's main
   web interface
-- [`UW-Macrostrat/api-v3`](https://github.com/UW-Macrostrat/api-v3`):
+- [`UW-Macrostrat/api-v3`](https://github.com/UW-Macrostrat/api-v3):
   Macrostrat's v3 API, which will be the primary API for CriticalMAAS
   capabilities
 
@@ -78,15 +78,19 @@ CriticalMAAS program.
 
 ### Geologic metadata curation
 
-- [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd):
-  System to synthesize xDD-driven geologic unit descriptions from the scientific
-  literature (_placeholder for future development_)
-- [`UW-Macrostrat/factsheet-generator`](https://github.com/UW-Macrostrat/factsheet-generator):
-  An LLM-assisted generator for geological "fact sheets" that operates over the
-  scientific literature (_Bill Xia_; Computer Science)
+We are working towards building better rock-record descriptions from the geological literature by:
+- Discovering concepts linked to known geological units
+- Finding new units based on proximity to known entities
+
+The starting point for this is two exploratory projects by UW-Madison computer science students, who are both taking different approaches to the problem:
+- [`UW-Macrostrat/llm-kg-generator`](https://github.com/UW-Macrostrat/llm-kg-generator):
+  An LLM-assisted generation that extracts geological facts from knowledge graphs, operates over the scientific literature (_Bill Xia_; Computer Science)
 - [`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg):
-  Knowledge graph construction to discover new geologic entities in the
-  scientific literature (_Devesh Sarda_; Computer Science)
+  Unsupervised knowledge graph construction to discover new entitities from geological literature (_Devesh Sarda_; Computer Science)
+
+Eventually, both of these projects will be combined into a final system at [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd). This will allow us to automatically generate new filterable and searchable entities describing rocks and their mineral contents as well as discover new rock entities. A pipeline to facilitate the execution of these different methods has also just begun development. We plan on scaling up these models in the pipeline, so they can be run on a larger corpus of data. The results will be automatically stored in the Macrostrat database along with feedback on the accuracy of the different approaches. We will also integrate the results of this system into [macrostrat.org](https://macrostrat.org) to make these results easily accessible. Doing so will not only allow for TA3 performers to filter by specific criteria when exploring entities but also allow us to build a feedback interface that will be used to continously improve the quality of extracted descriptions. An early prototype of the system can be found in the [development instance of Macrostrat](https://dev2.macrostrat.org/lex/strat-names/6).   
+
+We are also working on extract metadata from maps:
 - [`UW-Macrostrat/map-metadata-curation`](https://github.com/UW-Macrostrat/map-metadata-curation):
   Documentation of efforts to align current archive of maps with **Macrostrat
   v2** data standards. Focus on point data, raster image alignment, and
@@ -167,7 +171,7 @@ point-based data.
 | 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                             | Specifiation Plans    | 09/2023     |         |
 | 1   | [Detailed research plan for Phase 1](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf) | Milestone Report      | 10/2023     |         |
 | 2   | [Initial code/documentation release](https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf)    | Milestone Report/Code | 12/2023     |         |
-| 3   | Report detailing progress of research and technology and gaps                                                                                          | Milestone Report      | 02/2024     |         |
+| 3   | [Report detailing progress of research and technology and gaps](https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/milestone-reports/milestone-3/milestone-3-report.md)                                                                                          | Milestone Report      | 02/2024     |         |
 | 4   | Code/documentation/data release                                                                                                                        | Milestone Report/Code | 03/2024     |         |
 | 5   | Report detailing progress, capabilities, gaps, and final integration plans                                                                             | Milestone Report      | 04/2024     |         |
 | 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                                    | Milestone Report/Code | 07/2024     |         |
