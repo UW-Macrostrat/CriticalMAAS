@@ -501,12 +501,12 @@ teams and building the infrastructure and tools that are the core of our work.
 
 [readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
 [phase1_plan]:
-  https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
 [milestone2]:
-  https://storage.macrostrat.org/web-assets/media/criticalmaas/2023-12-CriticalMAAS-Milestone-2-report.pdf
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf
 [lawley2023]: https://doi.org/10.1007/s11053-023-10216-1
 [milestone_3_report]:
-  https://storage.macrostrat.org/web-assets/media/criticalmaas/milestone-reports/milestone-3/milestone-3-report.pdf
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2024-02-CriticalMAAS-Milestone-3-report.pdf
 [gh:macrostrat]: https://github.com/UW-Macrostrat/macrostrat
 [ta1-geopackage]: https://github.com/DARPA-CRITICALMAAS/ta1-geopackage
 [document-store]: https://github.com/UW-xDD/document-store
