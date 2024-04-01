@@ -70,7 +70,7 @@ Work is just beginning to integrate these tools into an infrastructure for bulk
 extraction of geologic information, which will be housed at
 [`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd).
 
-### Geologic map editing
+## Geologic map editing
 
 A prototype human-in-the-loop (HITL) geologic map editing system is being
 developed in several repositories:
@@ -86,7 +86,7 @@ standard GIS platforms; the natural drawing interface of the
 [**Mapboard GIS** app](https://mapboard-gis.app) will also be available but
 optional, as its codebase is not open-source (see [@sec:geo-map-editing]).
 
-### Program coordination
+## Program coordination
 
 Macrostrat has contributed code for shared infrastructure for the CriticalMAAS
 program, including data formats, schemas, and shared libraries.
@@ -117,10 +117,9 @@ into a more declarative and unified framework. Key accomplishments include
 - Macrostrat's control framework has been considerably improved in this code
   release, with a `macrostrat` command line interface with subcommands for
   database management and map ingestion.
-- Automated test suites and CI pipelines have been added to key components such
-  as [Macrostrat Python libraries][gh:python_libraries] and the [v3
-  API][gh:macrostrat_api_v3] to ensure stable capabilities. Such tests will be
-  added to other components in the coming months.
+- Automated test suites and CI pipelines have been added to the [Macrostrat
+  Python libraries][gh:python_libraries] and [v3 API][gh:macrostrat_api_v3] to
+  ensure stable capabilities.
 - Most Macrostrat services have been containerized for local or cloud
   deployment, with CD processes that track both the `main` branch and tagged
   releases.
@@ -251,15 +250,6 @@ automatically expanded to include all child terms.
 This will make it easier to construct complex lithological queries and preserve
 the option to add new levels to the lithology hierarchy in the future.
 
-### User interface enhancements
-
-We continue to make small enhancements to Macrostrat's web user interface around
-linking to individual maps, allowing quick navigation between stratigraphic
-models and maps, and enhancing the display of metadata for geologic units. New
-user interface contexts are being prepared to host in-development feedback tools
-for geologic unit descriptions and relationships
-[@sec:geologic-metadata-feedback].
-
 ## Document store and CDR integration
 
 The [CriticalMAAS Document Store][document-store] was initially produced to host
@@ -332,7 +322,7 @@ prompting approach is used.
 5. Incorporate standardized Macrostrat terms and IDs for the known entities into
    the final relationship triplets.
 
-### Infrastructure and feedback
+### Infrastructure and feedback {#sec:geologic-metadata-feedback}
 
 Each of these models is designed for unattended characterization of a geologic
 unit against its particular footprint in the published geologic literature. They
@@ -414,13 +404,12 @@ Between the 3-Month and 6-Month Hackathons, we created the [TA1 Geopackage
 Format][ta1-geopackage] in conversation with TA1 performers. This format had two
 goals:
 
-1. The pre-CDR integration design that was described in the BAA and remained in
-   place until the 6-Month Hackathon prioritized exchange of flat files between
+1. The pre-CDR integration design prioritized exchange of flat files between
    teams, rather than the webhook architecture adopted in the CDR. A
-   "self-describing" format was needed to ensure that TA1 outputs could be
-   validated at the point of creation.
+   "self-describing" format ensured that TA1 outputs could be validated at the
+   point of creation.
 2. The format was intended to encompass a "structurally complete" geologic map,
-   with all necessary metadata and relationships for downstream. This was
+   with all necessary metadata and relationships for downstream use. This was
    intended to ensure that necessary evaluation, validation, and correction
    occurred in the TA1 phase through HITL tools, and that the endpoint of TA1
    was a complete, validated geologic map packaged in one file.
@@ -429,67 +418,53 @@ goals:
 
 Since the CDR has taken on the responsibility of data storage and schema
 conformance, the TA1 Geopackage has been rendered largely unnecessary as a
-data-passing format. But the housing of more "atomic" TA1 extractions in the CDR
-raises the risk that these outputs will evaluated piecemeal and never integrated
-into a complete geologic map. The compositing of TA1 outputs into a full
-representation of a map is a complex problem in which both TA1 performers (who
-know the relative strengths and interactions between their models) and USGS
-staff operating HITL interfaces need to participate.
+data-passing format. But the prioritization of more "atomic" TA1 extractions in
+the CDR raises the risk that these outputs will be evaluated piecemeal and never
+integrated into a complete geologic map. The compositing of TA1 outputs into a
+full representation of a map is a complex problem in which both TA1 performers
+(who know the relative strengths and interactions between their models) and USGS
+staff operating HITL interfaces need to participate. If this integration
+exercise falls by the wayside, the burden of deciding between different TA1
+outputs will be pushed onto the analysts doing a mineral assessment. This will
+either slow analysts substantially, requiring them to repeatedly evaluate the
+map extractions for each new mineral modeling task, or require new, complex
+probabilistic modeling approaches to integrate multiple potential maps into TA3
+analytical pipelines. Developing a clear roadmap around the structure and
+capabilities of HITL tools, workflows, and CDR formats targeting TA1 integration
+will be necessary to address this issues ([@sec:jataware-integration]).
 
-In discussions with Jataware, this has been labeled "a TA4 problem," but it is
-unclear whether the CDR system design will make it straightforward to solve. If
-maps aren't integrated into "final" products at the endpoint of TA1, the burden
-of deciding between different TA1 outputs will be pushed onto the analysts doing
-a mineral assessment. This will either slow analysts substantially by requiring
-them to repeatedly evaluate the map extractions for each new mineral modeling
-task, or require new, complex probabilistic models to integrate different maps
-to be built into TA3 pipelines.
-
-Macrostrat will find it difficult to ingest maps that are provided as piecemeal,
-atomic units, or to rapidly build tooling to visualize/integrate these to the
-required standard. We expect that CriticalMAAS TA1 will be engaged with this
-problem, given its centrality to the output products envisioned in the BAA.
-Developing a clear roadmap around the structure and capabilities of HITL tools
-for TA1 integration will be necessary to ensure that this problem is addressed
-([@sec:jataware-integration]).
-
-## Accessing vector maps {#sec:vector-map-access}
+## Availability of vector maps {#sec:vector-map-access}
 
 In our Milestone 3 report, we reported difficulty of accessing vector maps for
 ingestion into Macrostrat. This concern is unchanged. As we build a map
-ingestion pipeline, getting access to vector maps is a key bottleneck to
-integrating modern, "born-digital" mapping into TA3 modeling workflows. We have
-made some progress in getting datasets from state geological surveys, but some
-of these products notably lack standard metadata fields (e.g., maps ingested
-from the Nevada Geologic Survey lack even cursory unit descriptions). This
-underscores that high quality datasets have to be actively and systematically
-sought and acquired. One good example of this is that USGS mapping databases
-contain only state-scale data for much of California, though higher resolution
-mapping data is available from the California Geological Survey and other
-organizations in many areas.
+ingestion pipeline, access to vector maps is a key bottleneck to integrating
+modern, "born-digital" mapping into TA3 modeling workflows. We have made some
+progress in acquiring datasets from state geological surveys, but these products
+of are of variable quality (e.g., some maps digitized by the Nevada Geologic
+Survey lack even cursory unit descriptions). High quality datasets have to be
+actively and systematically sought and acquired.
 
 At the Month 6 hackathon, we discussed the possibility of engaging with Jataware
 to use their web scraping system to find and stage vector maps (possibly using
 the CDR as a indexing system). This would be a significant improvement over
 current practice, which requires manually finding and staging maps or writing
 our own web-scraping scripts that retread similar ground to Jataware's exercise
-for raster maps. We have not yet engaged in detail with Jataware to plan or
-build this capability, as they are busy building the CDR.
+for raster maps. Jataware's focus is currently on building the CDR, so this has
+fallen by the wayside.
 
-Even better would be to work with alongside USGS to integrate their vector map
-collection, which is maintained internally by NGMDB and contains a large number
-of maps in relatively "clean" data formats amenable to harmonization in
-Macrostrat's framework. Such a systematic survey of geologic mapping data would
-be akin to the exercise being undertaken for geophysics under EarthMRI. However,
-this has been off the table due to organizational barriers within USGS. Given
-that vector mapping compiled from the 1990s onwards tends to be the "best"
+Even better would be working with the USGS to integrate their vector map
+collection, which is maintained internally by NGMDB in relatively "clean" data
+formats (at least in some cases). A systematic survey of available geologic maps
+would be akin to the exercise being undertaken for geophysics under EarthMRI.
+However, this has been off the table due to organizational barriers within USGS.
+Given that vector mapping compiled from the 1990s onwards tends to be the "best"
 geologic mapping data where available, CriticalMAAS is at a significant
-disadvantage for being unable to access this resource. Some high-level attention
-to this problem between DARPA and the USGS divisional leadership would be
-beneficial to ensuring that the CriticalMAAS program can access the datasets
+disadvantage for its inability to access this resource. Some high-level
+attention to this problem between DARPA and the USGS divisional leadership would
+be beneficial to ensuring that the CriticalMAAS program can access the datasets
 needed to deliver its full suite of capabilities.
 
-## Clarity of the development roadmap {#sec:dev-roadmap}
+## Development roadmap clarity {#sec:dev-roadmap}
 
 The program transition to the CDR and a new integration structure has been
 challenging to navigate as a TA4 performer. We have worked to build tools (e.g.,

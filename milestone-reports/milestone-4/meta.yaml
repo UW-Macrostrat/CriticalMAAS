@@ -1,0 +1,31 @@
+title: >-
+  CriticalMAAS Milestone 4 report – Macrostrat TA4 team
+author: Daven Quinn and the UW–Madison / Macrostrat CriticalMAAS team
+affiliation: University of Wisconsin, Madison
+date: April 1, 2024
+fontsize: 12pt
+geometry: margin=1in
+papersize: letter
+mainfont: Chaparral Pro
+sansfont: Montserrat-Regular
+numbersections: true
+secnumdepth: 2
+toc-depth: 2
+toc: true
+figureTitle: "Figure"
+tableTitle: "Table"
+figPrefix: "Fig."
+eqnPrefix: "Eqn."
+tblPrefix: "Tbl."
+secPrefix: "Sec."
+header-includes:
+  - \usepackage[small,compact]{titlesec}
+  - \usepackage{sectsty}
+  - \allsectionsfont{\sffamily}
+  # Set title to sans font
+  - \usepackage{titling}
+  - \pretitle{\begin{center}\sffamily\bfseries\Large}
+  - \posttitle{\par\end{center}}
+  - \usepackage{enumitem}
+  - \setlist{nolistsep}
+  - \setcounter{secnumdepth}{2}
