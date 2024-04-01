@@ -182,7 +182,21 @@ Macrostrat's [**documentation website**](https://dev2.macrostrat.org/docs)
 provides a high-level overview of the Macrostrat system and its capabilities and
 links to more detailed documentation for individual components. Going forward,
 this system-level documentation will be centralized in the
-[`UW-Macrostrat/docs`](https://github.com/UW-Macrostrat/docs) repository.
+[`UW-Macrostrat/docs`](https://github.com/UW-Macrostrat/docs) repository. A
+brief overview of Macrostrat documentation resources is provided below:
+
+### Core system setup
+
+Developer-focused documentation on running Macrostrat's core system can be found
+in the [`UW-Macrostrat/macrostrat`](https://github.com/UW-Macrostrat/macrostrat)
+repository.
+
+### API usage
+
+- [Macrostrat core API](https://dev2.macrostrat.org/api/)
+- [Macrostrat core API tutorials](https://docs.google.com/document/d/13uLxrS0sI9qmLIERtVvegwXa6_063V5Mz82DzJ9LArw/edit)
+- [Macrostrat ingestion API](https://dev2.macrostrat.org/api/ingest/docs)
+- [Tileserver](https://tileserver.development.svc.macrostrat.org/docs)
 
 ### Map interface examples
 
@@ -191,19 +205,12 @@ The [`v2.macrostrat.org/dev`](https://v2.macrostrat.org/dev) and
 contain examples of Macrostrat's map services for raster, vector, and
 point-based data.
 
-### API documentation
-
-- [Macrostrat core API](https://dev2.macrostrat.org/api/)
-- [Macrostrat core API tutorials](https://docs.google.com/document/d/13uLxrS0sI9qmLIERtVvegwXa6_063V5Mz82DzJ9LArw/edit)
-- [Macrostrat ingestion API](https://dev2.macrostrat.org/api/ingest/docs)
-- [Tileserver](https://tileserver.development.svc.macrostrat.org/docs)
-
-### Document extraction
+### Document extraction system
 
 - [COSMOS visualizer example](https://xdd.wisc.edu/set_visualizer/sets/dolomites?query=Belle%20Fourche):
   A demonstration of the COSMOS visualizer used to showcase data from a document
   set relative to carbonate rocks.
-- [Design for document management system](https://github.com/UW-xDD/document-store/blob/main/docs/design_doc.md)
+- [CriticalMAAS document store](https://github.com/UW-xDD/document-store)
 - [xDD API documentation](https://xdd.wisc.edu/api/)
 - [xDD example notebook](./notebooks/xDD%20and%20COSMOS%20examples.ipynb): A
   Jupyter notebook demonstrating the xDD API
