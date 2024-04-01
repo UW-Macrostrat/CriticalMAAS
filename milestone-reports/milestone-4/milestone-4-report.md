@@ -122,18 +122,28 @@ into a more declarative and unified framework. Key accomplishments include
 - Macrostrat's control framework has been considerably improved in this code
   release, with a `macrostrat` command line interface with subcommands for
   database management and map ingestion.
-- Key components such as [Macrostrat Python libraries][gh:python_libraries] and
-  the [v3 API][gh:macrostrat_api_v3] have automated test suites to ensure stable
-  capabilities. Such tests will be added to other components in the coming
-  months.
+- Automated test suites and CI pipelines have been added to key components such
+  as [Macrostrat Python libraries][gh:python_libraries] and the [v3
+  API][gh:macrostrat_api_v3] to ensure stable capabilities. Such tests will be
+  added to other components in the coming months.
+- Most Macrostrat services have been containerized for local or cloud
+  deployment, with CD processes that track both the `main` branch and tagged
+  releases.
 
-Work to document the codebase is ongoing, with a new documentation website
-available at [dev2.macrostrat.org/docs](https://dev2.macrostrat.org/docs). This
-site is still in early development.
+Work is ongoing to fully document the Macrostrat codebase, system design,
+capabilities, and usage. A new documentation website available at
+[dev2.macrostrat.org/docs](https://dev2.macrostrat.org/docs) to centralize these
+resources. This site is still in early development, but its early form links to
+resources such as API documentation (OpenAPI-compatible for new APIs), example
+user interfaces, and documentation for shared [Python][gh:python_libraries] and
+[web component][gh:web_components] libraries. The CriticalMAAS-specific
+entrypoint into the documentation, the [**UW–Macrostrat CriticalMAAS
+README**][readme], has been updated with links into specific parts of this
+documentation footprint.
 
 Most of the technical pieces are in place to run a fully functional standalone
-deployment from `macrostrat up`. Several major missing deficiencies are the
-focus of current development:
+deployment from `macrostrat up`. Several major missing elements are the focus of
+current development:
 
 - The system requires an existing Macrostrat database dump with at least some
   data pre-filled (especially data dictionaries). One key problem that some data
@@ -141,21 +151,140 @@ focus of current development:
   portability between Macrostrat instances challenging. This issue is already
   being encountered between Macrostrat's development and production databases,
   underscoring the need for a solution.
-- [Macrostrat's legacy API][gh:macrostrat_api] (v1-2)
+- [Macrostrat's legacy API][gh:macrostrat_api] (v1-2) still maintains a
+  dependency on MariaDB for some data routes. The PostGIS database that forms
+  the core of Macrostrat's streamlined implementation contains all data, but
+  work is needed to port queries and ensure that the new API does not break
+  existing functionality. We are currently reworking the API's testing framework
+  (which has been inoperative for several years) and will use that to ensure
+  conformance and compatibility.
+
+Our goal is for a standalone deployment of Macrostrat including these elements
+to be possible by soon after the 9-Month Hackathon, to establish a
+well-documented and tested process by the end of the program.
 
 ### Map ingestion pipeline
 
-Progress on the map ingestion pipeline since Milestone 3 has been primarily
-focused on consolidating the toolkit to be more adaptable and flexible. We've
-significantly refined the command-line interface to allow maps to be staged,
-prepared, and finalized using a unified interface. Several sets of issues
-limiting the functionality of legend curation tools have been resolved, and the
-legend preparation web interface has been implemented across points and lines
-(initial development focused on map polygons). Additionally, a new metadata
-management interface is being developed to allow the progress of maps through
-the ingestion pipeline to be tracked and managed. This interface will streamline
-the curation of large numbers of maps and allow for the easy identification of
-maps that require additional attention [@sec:vector-map-access]
+Progress on the since Milestone 3 has been primarily focused on consolidating
+the map ingestion pipeline to be more adaptable and flexible, in response to
+workflow deficiencies identified at the 6-month Hackathon. We've significantly
+refined the command-line interface to allow maps to be staged, prepared, and
+finalized using a unified interface. Several issues limiting the functionality
+of legend curation tools have been resolved, and the legend preparation web
+interface has been implemented for points and lines (initial development focused
+on map polygons). Additionally, a new metadata management interface is being
+developed to allow the progress of maps through the ingestion pipeline to be
+tracked and managed. This interface will streamline the curation of large
+numbers of maps and allow for the easy identification of maps that require
+additional attention [@sec:vector-map-access]. A key target is to have this tool
+ready for USGS evaluation and testing by the 9-month Hackathon.
+
+### Provider-side filtering of geologic maps for TA3
+
+One of the major gaps identified at the 6-month Hackathon was the lack of
+server-side capabilities to filter Macrostrat's vector tiles. This gap was a
+result of TA3's expected usage pattern changing substantially to a
+server-side-filtering approach, which was not anticipated as being a key need
+based on [_Lawley et al., 2023_][lawley2023] modeling approaches. We have made
+substantial progress on scoping and designing this feature, and will implement
+it prior to the 9-month Hackathon. This new feature will be developed alongside
+the standardization of a CI/CD pipeline for the [Macrostrat
+tileserver][gh:tileserver] codebase, bringing it into line with our other
+services.
+
+#### Filter query language
+
+Open-ended filtering is difficult functionality to implement in Macrostrat's API
+due to the number and heterogeneity of data fields and the prospect of complex
+queries across different regions and maps. We are hoping to implement this
+functionality using the semantics of an existing query language to improve
+usability and clarity. We are currently evaluating the potential of several
+query languages to drive API filtering. These include
+
+- Direct specification of a WHERE clause as a query parameter. This approach is
+  similar to that used by the
+  [ArcGIS Online](https://developers.arcgis.com/javascript/latest/tutorials/filter-a-feature-layer-with-sql/)
+  platform but will be difficult to document. The encoding of spatial operators
+  may also be challenging.
+- [PostgREST](https://postgrest.org/en/v12/references/api/tables_views.html#operators)-style
+  filtering, which faithfully exposes the filtering capabilities of PostgreSQL
+  in a small number of query parameters. However, it
+  [does not support spatial operators](https://github.com/PostgREST/postgrest/issues/223),
+  which are difficult to forgo for the CriticalMAAS use case.
+- "Common Query Language" (CQL) filtering, which is a standard for querying
+  geospatial data in development by the Open Geospatial Consortium (OGC). We are
+  evaluating the [pygeofilter](https://github.com/geopython/pygeofilter) library
+  to help implement this functionality.
+
+Overall, the balance of usability, expressiveness, and documentation suggest
+that the CQL approach is the most promising. This will be the focus of our
+prototyping going forward.
+
+#### Expression of lithological queries
+
+One other usability gap we are working to address is how Macrostrat's lithology
+dictionaries are exposed for API querying. Macrostrat hosts tree-based
+[lithology taxonomy](https://dev2.macrostrat.org/api/v2/defs/lithologies) that
+is similar (and conformant to) existing dictionaries such as the
+[USGS lithologic classification](https://apps.usgs.gov/thesaurus/thesaurus-full.php?thcode=4)
+and the State Geologic Map Compilation lithologic hierarchy. We track rock types
+in a four-level, denormalized tree, `lith -> group -> type -> class`. For
+instance,  
+[https://dev2.macrostrat.org/api/v2/defs/lithologies?lith=basalt](https://dev2.macrostrat.org/api/v2/defs/lithologies?lith=basalt)  
+yields  
+`basalt -> mafic -> volcanic -> igneous`. This taxonomy can be accessed in the
+Macrostrat API and web application.
+
+Unfortunately, querying this tree in Macrostrat's current API is somewhat
+awkward, requiring separate queries at each level of the hierarchy. For
+instance, you must know a priori that `mafic` is a `lith_group` and query as
+such,
+[`../lithologies?lith_group=mafic`](https://dev2.macrostrat.org/api/v2/defs/lithologies?lith_group=mafic).
+[`../lithologies?lith=mafic`](https://dev2.macrostrat.org/api/v2/defs/lithologies?lith=mafic)
+would return a different, more restricted set of results, missing terms
+encompassed in the `mafic` group like basalt. This makes it difficult to
+construct expressive queries. As part of designing tileserver filtering, we are
+hoping to improve this situation by allowing queries expressed in terms of a
+single lithology to be automatically expanded to include all child terms.
+
+- A query for `lith=volcanic` would automatically include `rhyolite`, `basalt`,
+  and other extrusive igneous rocks.
+- The ability to return exact matches will be preserved with a `lith:exact`
+  parameter.
+
+This will make it easier to construct complex lithological queries and preserve
+the option to add new levels to the lithology hierarchy in the future.
+
+## Geologic metadata curation
+
+### KGG approach
+
+![KGG pipeline](./images/kgg-pipeline.png)
+
+### LLM-assisted relationship extraction
+
+- Extract entities using LLM (5000 docs for testing)
+  - Strat name (n=4151)
+  - Lithology (n=7123)
+  - Location (n=10618)
+- Get known entities from Macrostrat
+  - Strat name (n=47821)
+  - Lithology (n=212)
+- Obtain semantic embeddings
+- Get the closest known entity for each LLM extracted entity within the same
+  category (local), and across all categories (global)
+
+1. Identify and extract entities from the text using an exact match approach
+   against a Macrostrat known entities.
+2. Include the details of these identified entities in the input prompt,
+   instructing the language model to consider these entities while determining
+   relationships.
+3. Extract relationship triplets from the LLM on the enriched prompt.
+4. Refine the extracted entities by comparing their semantic similarity to the
+   Macrostrat known entities, accepting matches with a similarity score above
+   0.95. Override category if needed.
+5. Incorporate detailed information from the Macrostrat database for the known
+   entities into the final relationship triplets.
 
 ## Geologic map editing
 
@@ -211,6 +340,7 @@ suite of capabilities.
 [cosmos]: https://github.com/UW-COSMOS/COSMOS
 [gh:topology-manager]: https://github.com/Mapboard/topology-manager
 [gh:python_libraries]: https://github.com/UW-Macrostrat/python-libraries
+[gh:web_components]: https://github.com/UW-Macrostrat/web-components
 [mapboard-gis]: https://mapboard-gis.app
 [phase1_plan]:
   https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
@@ -219,3 +349,5 @@ suite of capabilities.
 [readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
 [gh:macrostrat_api]: https://github.com/UW-Macrostrat/macrostrat-api
 [gh:macrostrat_api_v3]: https://github.com/UW-Macrostrat/api-v3
+[gh:tileserver]: https://github.com/UW-Macrostrat/tileserver
+[lawley2023]: https://doi.org/10.1007/s11053-023-10216-1
