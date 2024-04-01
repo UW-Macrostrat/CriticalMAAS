@@ -36,6 +36,9 @@ license.
 
 #### Key dependencies
 
+- [`UW-Macrostrat/macrostrat-api`](https://github.com/UW-Macrostrat/macrostrat-api):
+  Macrostrat's current (v1-2) API, which provides access to Macrostrat's web
+  services for current functionality
 - [`UW-Macrostrat/tileserver`](https://github.com/UW-Macrostrat/tileserver):
   Server for vector and raster tiles to GIS software and TA3 performers
 - [`UW-Macrostrat/api-v3`](https://github.com/UW-Macrostrat/api-v3):
@@ -82,8 +85,8 @@ metadata curation workflows:
 
 - [`UW-xDD/text2graph_llm`](https://github.com/UW-xDD/text2graph_llm): A tool to
   transform textual data into structured graph representations, using LLMs to
-  identify and extract relationship triplets from text. It focuses on extracting
-  relationships between locations and geological entities from the text.
+  identify and extract relationships between locations and geological entities
+  from text.
 - [`UW-Madison-DSI/ask-xDD`](https://github.com/UW-Madison-DSI/ask-xDD): A chat
   interface and API endpoint for accessing academic information via
   Retrieval-Augmented Generation (RAG). The

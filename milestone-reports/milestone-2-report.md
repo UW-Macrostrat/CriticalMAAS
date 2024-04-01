@@ -207,7 +207,7 @@ requirements to the TA1 and TA2 teams.
 
 [readme]: https://github.com/UW-Macrostrat/CriticalMAAS/blob/main/README.md
 [phase1_plan]:
-  https://s3.macrostrat.chtc.io/web-assets/media/criticalmaas/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
+  https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf
 [lawley2023]: https://doi.org/10.1007/s11053-023-10216-1
 
 ## Appendix: Progress towards established technical plan
