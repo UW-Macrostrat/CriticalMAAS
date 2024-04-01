@@ -78,18 +78,13 @@ developed in several repositories:
 - [`Mapboard/topology-manager`](https://github.com/Mapboard/topology-manager): a
   topological map manager for geologic maps stored in PostGIS.
 - [`Mapboard/Mapboard-Platform`](https://github.com/Mapboard/Mapboard-Platform):
-  a web infrastructure to support map editing.
+  a web infrastructure to support geologic map editing.
 
 Both of these are Apache 2.0 licensed and rely on Macrostrat's [Python
-libraries][gh:python_libraries].
-
-The map editing system is augmented by natural editing capabilities provided by
-the [**Mapboard GIS**](https://mapboard-gis.app) iPad app and server components.
-These capabilities can be integrated with the CriticalMAAS system to speed
-editing, but they **are not available under an open-source license**.
-Alternative editing approaches such as direct connection to standard GIS
-platforms (particularly QGIS) will be available, and simplified editing APIs can
-be integrated if desired by DARPA or USGS.
+libraries][gh:python_libraries]. Maps in the system will be editable through
+standard GIS platforms; the natural drawing interface of the
+[**Mapboard GIS** app](https://mapboard-gis.app) will also be available but
+optional, as its codebase is not open-source (see [@sec:geo-map-editing]).
 
 ### Program coordination
 
@@ -220,7 +215,7 @@ Overall, the balance of usability, expressiveness, and documentation suggest
 that the CQL approach is the most promising. This will be the focus of our
 prototyping going forward.
 
-#### Expression of lithological queries
+#### Querying Macrostrat's lithology hierarchy
 
 One other usability gap we are working to address is how Macrostrat's lithology
 dictionaries are exposed for API querying. Macrostrat hosts tree-based
@@ -242,10 +237,11 @@ such,
 [`../lithologies?lith_group=mafic`](https://dev2.macrostrat.org/api/v2/defs/lithologies?lith_group=mafic).
 [`../lithologies?lith=mafic`](https://dev2.macrostrat.org/api/v2/defs/lithologies?lith=mafic)
 would return a different, more restricted set of results, missing terms
-encompassed in the `mafic` group like basalt. This makes it difficult to
-construct expressive queries. As part of designing tileserver filtering, we are
-hoping to improve this situation by allowing queries expressed in terms of a
-single lithology to be automatically expanded to include all child terms.
+encompassed in the `mafic` group like `basalt`. This makes it difficult to
+construct queries naturally, as you have to know the specific level of each
+term. As part of designing tileserver filtering, we are hoping to improve this
+situation by allowing queries expressed in terms of a single lithology to be
+automatically expanded to include all child terms.
 
 - A query for `lith=volcanic` would automatically include `rhyolite`, `basalt`,
   and other extrusive igneous rocks.
@@ -255,83 +251,277 @@ single lithology to be automatically expanded to include all child terms.
 This will make it easier to construct complex lithological queries and preserve
 the option to add new levels to the lithology hierarchy in the future.
 
+### User interface enhancements
+
+We continue to make small enhancements to Macrostrat's web user interface around
+linking to individual maps, allowing quick navigation between stratigraphic
+models and maps, and enhancing the display of metadata for geologic units. New
+user interface contexts are being prepared to host in-development feedback tools
+for geologic unit descriptions and relationships
+[@sec:geologic-metadata-feedback].
+
+## Document store and CDR integration
+
+The [CriticalMAAS Document Store][document-store] was initially produced to host
+program-relevant documents found in xDD for more efficient access by the
+CriticalMAAS program, without an ongoing dependency on xDD. This capability is
+identical (by design) to the needs of the TA2-supporting CDR, and we are working
+with Jataware to merge the document store into the CDR codebase. This month, in
+addition to working to plan this integration, we have also added models and
+basic API routes to hold page extractions (e.g., identified bounding-boxes of
+figures, tables, and other document elements). Once this integration is
+complete, the CDR will assimilate the ~80,000 documents currently hosted by the
+document store, along with COSMOS entity extractions for many document
+components. The document store will then be retired as a standalone codebase.
+
 ## Geologic metadata curation
 
-### KGG approach
+We are working towards building better rock-record descriptions from the
+geological literature by:
 
-![KGG pipeline](./images/kgg-pipeline.png)
+- Discovering concepts linked to known geological units
+- Finding new units based on proximity to known entities
+
+These capabilities will allow structured data describing rock units to be
+extracted from xDD and used to populate Macrostrat's lexicon. This will allow
+straightforward searching of unit descriptions extracted from the geologic
+literature, using xDD in a batch, offline mode.
+
+We are beginning to test these pipelines in bulk, build a more robust
+infrastructure to support them, and build towards both batch extraction of
+geologic information from xDD and HITL feedback tools to curate the resulting
+dataset.
+
+### Unsupervised knowledge graph construction
+
+![System diagram of the unsupervised knowledge graph construction pipeline](./images/kgg-pipeline.png)
+
+The
+[`UW-Macrostrat/unsupervised-kg`](https://github.com/UW-Macrostrat/unsupervised-kg)
+system (_Devesh Sarda_; Computer Science) uses unsupervised knowledge graph
+construction to discover new entities from the geological literature. This
+system includes separate components for named entity resolution, coreference
+resolution, and relationship extraction. It produces highly curated graphs, but
+these often lack sensitivity to nuanced natural language patterns governing
+descriptions. This system has been evaluated end-to-end over several thousand
+documents, with the results available in Macrostrat's prototype
+[web viewer](https://dev2.macrostrat.org/lex/strat-names/6).
 
 ### LLM-assisted relationship extraction
 
-- Extract entities using LLM (5000 docs for testing)
-  - Strat name (n=4151)
-  - Lithology (n=7123)
-  - Location (n=10618)
-- Get known entities from Macrostrat
-  - Strat name (n=47821)
-  - Lithology (n=212)
-- Obtain semantic embeddings
-- Get the closest known entity for each LLM extracted entity within the same
-  category (local), and across all categories (global)
+The other approach, housed in
+[`UW-Macrostrat/llm-kg-generator`](https://github.com/UW-Macrostrat/llm-kg-generator),
+extracts geological facts using LLM prompts to produce graph of related terms,
+and filters these graphs by semantic similarity to known entities.
 
-1. Identify and extract entities from the text using an exact match approach
-   against a Macrostrat known entities.
+This system has been tested over 5000 documents, with 4,151 stratigraphic names
+and 7,123 different descriptive terms extracted. Current work is focused on
+filtering these attributes against Macrostrat's ~47,000 known stratigraphic
+names, 212 lithologies and several hundred lithology attributes. Semantically
+meaningful links to other terms will be preserved as well. A multi-stage
+prompting approach is used.
+
+1. Identify and extract entities from the text using exact matching against a
+   Macrostrat known entities.
 2. Include the details of these identified entities in the input prompt,
    instructing the language model to consider these entities while determining
    relationships.
 3. Extract relationship triplets from the LLM on the enriched prompt.
 4. Refine the extracted entities by comparing their semantic similarity to the
-   Macrostrat known entities, accepting matches with a similarity score above
-   0.95. Override category if needed.
-5. Incorporate detailed information from the Macrostrat database for the known
-   entities into the final relationship triplets.
+   known entities specified in the original query.
+5. Incorporate standardized Macrostrat terms and IDs for the known entities into
+   the final relationship triplets.
 
-## Geologic map editing
+### Infrastructure and feedback
+
+Each of these models is designed for unattended characterization of a geologic
+unit against its particular footprint in the published geologic literature. They
+will be run in an offline batch mode against xDD against Macrostrat's
+[existing lexicon of geologic names](https://dev2.macrostrat.org/lex/strat-names).
+An infrastructure
+([`UW-Macrostrat/macrostrat-xdd`](https://github.com/UW-Macrostrat/macrostrat-xdd);
+_placeholder_) is being developed to deploy these models, standardize results,
+link them to data dictionaries, and store them in Macrostrat's PostgreSQL
+database as "candidate" lithologic descriptions. The goal of this infrastructure
+will be to create bulk descriptions of geological entities from xDD that can be
+validated and refined by human curators and included in Macrostrat's data
+dictionaries and filtering systems.
+
+![Demo editable display of attributes for the Noonday Formation based on the [Poplar][poplar] NER tagging tool](./images/feedback-interface.jpg)
+
+A HITL feedback interface (currently in development; see
+[early prototype](https://dev2.macrostrat.org/lex/strat-names/6)) will allow
+users to view and correct extracted rock descriptions, as well as establish _de
+novo_ relationships. We have been evaluating off-the-shelf NER tagging tools to
+identify user-interface components that can form the core this feedback system
+in Macrostrat's existing web interface. While some commercial and open-source
+tools (e.g., [Prodigy](https://prodi.gy/),
+[Label Studio](https://labelstud.io/),
+[Doccano](https://doccano.herokuapp.com/), and
+[Poplar](https://github.com/synyi/poplar)) are promising, it is likely that we
+will customize an existing solution for use within our web interfaces. Initial
+work is ongoing in the [`Macrostrat/web-components`][gh:web_components]
+repository. These components will be structured as a standalone library so that
+it is easy to implement NER tagging for other problems, including potential TA2
+feedback uses, that may arise.
+
+## Geologic map editing {#sec:geo-map-editing}
 
 We have demonstrated prototype functionality for editing geologic maps at the
 Month 3 and 6 hackathons. Our approach is based on the
 [`Mapboard/topology-manager`][gh:topology-manager] package and the [**Mapboard
-GIS**][mapboard-gis] iPad app. We have made great progress in bringing this
-capability to bear on CriticalMAAS data.
+GIS**][mapboard-gis] iPad app. This month, we have made substantial progress in
+bringing this capability into CriticalMAAS data, in order to allow quick feature
+digitization and correction of TA1 outputs.
+
+The geologic map system is designed to make topological solving iterative,
+allowing a correct map to be built from a series of small edits. This will allow
+maps to be corrected by simple operations like moving a line or changing a unit,
+rather than requiring topologically complex operations like merging polygons.
+
+This month, we streamlined the core
+[`Mapboard/topology-manager`][gh:topology-manager] codebase, shifting its
+orchestration code from Node.js to Python to match the rest of the Macrostrat
+infrastructure. This codebase now includes a full suite of tests and a CI
+pipeline, is able to work with multiple maps in the same database, and can now
+be invoked programmatically from Python instead of just as a watcher daemon.
+This new flexibility will allow the system to be used in a wider variety of
+contexts, including prioritizing overlapping maps in Macrostrat's core system
+(solving Macrostrat's topology is currently a "bulk" process that takes over 9
+hours to run on all maps; an iterative approach promises to speed this by orders
+of magnitude).
+
+The orchestration interface for the map editing system is being developed in the
+[`Mapboard/Mapboard-Platform`](https://github.com/Mapboard/Mapboard-Platform)
+repository, using a similar toolkit to the Macrostrat control scripts that will
+allow easy integration in the future if desired.
+
+Since the map editing system is based on PostGIS, it can be operated on by a
+wide variety of GIS editing tools, particularly QGIS. However, the system is
+designed to function best when augmented by natural editing capabilities
+provided by the [**Mapboard GIS**](https://mapboard-gis.app) iPad app and server
+components. These capabilities can be integrated with the CriticalMAAS system to
+speed editing, including in a web interface, but they **are not available under
+an open-source license**. We should discuss this with DARPA and USGS, but if
+these capabilities cannot be used for that reason, direct connection via GIS
+and/or simplified editing APIs and web interfaces can be prioritized.
 
 # Issues and Concerns
 
-## Macrostrat core system
+## "Structurally complete" TA1 maps {#sec:complete-maps}
 
-Consolidating Macrostrat's core system is going well, but a few small issues
-will be encountered in the coming months:
+Between the 3-Month and 6-Month Hackathons, we created the [TA1 Geopackage
+Format][ta1-geopackage] in conversation with TA1 performers. This format had two
+goals:
+
+1. The pre-CDR integration design that was described in the BAA and remained in
+   place until the 6-Month Hackathon prioritized exchange of flat files between
+   teams, rather than the webhook architecture adopted in the CDR. A
+   "self-describing" format was needed to ensure that TA1 outputs could be
+   validated at the point of creation.
+2. The format was intended to encompass a "structurally complete" geologic map,
+   with all necessary metadata and relationships for downstream. This was
+   intended to ensure that necessary evaluation, validation, and correction
+   occurred in the TA1 phase through HITL tools, and that the endpoint of TA1
+   was a complete, validated geologic map packaged in one file.
+3. The format was intended to be easily openable in GIS software, allowing quick
+   evaluation of the product without custom tooling.
+
+Since the CDR has taken on the responsibility of data storage and schema
+conformance, the TA1 Geopackage has been rendered largely unnecessary as a
+data-passing format. But the housing of more "atomic" TA1 extractions in the CDR
+raises the risk that these outputs will evaluated piecemeal and never integrated
+into a complete geologic map. The compositing of TA1 outputs into a full
+representation of a map is a complex problem in which both TA1 performers (who
+know the relative strengths and interactions between their models) and USGS
+staff operating HITL interfaces need to participate.
+
+In discussions with Jataware, this has been labeled "a TA4 problem," but it is
+unclear whether the CDR system design will make it straightforward to solve. If
+maps aren't integrated into "final" products at the endpoint of TA1, the burden
+of deciding between different TA1 outputs will be pushed onto the analysts doing
+a mineral assessment. This will either slow analysts substantially by requiring
+them to repeatedly evaluate the map extractions for each new mineral modeling
+task, or require new, complex probabilistic models to integrate different maps
+to be built into TA3 pipelines.
+
+Macrostrat will find it difficult to ingest maps that are provided as piecemeal,
+atomic units, or to rapidly build tooling to visualize/integrate these to the
+required standard. We expect that CriticalMAAS TA1 will be engaged with this
+problem, given its centrality to the output products envisioned in the BAA.
+Developing a clear roadmap around the structure and capabilities of HITL tools
+for TA1 integration will be necessary to ensure that this problem is addressed
+([@sec:jataware-integration]).
 
 ## Accessing vector maps {#sec:vector-map-access}
 
-Carried over from our Milestone 3 report
+In our Milestone 3 report, we reported difficulty of accessing vector maps for
+ingestion into Macrostrat. This concern is unchanged. As we build a map
+ingestion pipeline, getting access to vector maps is a key bottleneck to
+integrating modern, "born-digital" mapping into TA3 modeling workflows. We have
+made some progress in getting datasets from state geological surveys, but some
+of these products notably lack standard metadata fields (e.g., maps ingested
+from the Nevada Geologic Survey lack even cursory unit descriptions). This
+underscores that high quality datasets have to be actively and systematically
+sought and acquired. One good example of this is that USGS mapping databases
+contain only state-scale data for much of California, though higher resolution
+mapping data is available from the California Geological Survey and other
+organizations in many areas.
 
-We had discussed at the Month 6 hackathon the possibility of engaging with
-Jataware to use their web scraping system to find and stage vector maps
-(possibly using the CDR as a indexing system). This would be a significant
-improvement over current practices, which require manually finding and staging
-maps or writing our own web-scraping scripts that retread similar ground to
-Jataware's exercise for raster maps. We have not yet engaged in detail with
-Jataware to plan or build this capability, as they are busy building the CDR.
+At the Month 6 hackathon, we discussed the possibility of engaging with Jataware
+to use their web scraping system to find and stage vector maps (possibly using
+the CDR as a indexing system). This would be a significant improvement over
+current practice, which requires manually finding and staging maps or writing
+our own web-scraping scripts that retread similar ground to Jataware's exercise
+for raster maps. We have not yet engaged in detail with Jataware to plan or
+build this capability, as they are busy building the CDR.
 
-Even better would be to work with USGS to get access to their vector map
+Even better would be to work with alongside USGS to integrate their vector map
 collection, which is maintained internally by NGMDB and contains a large number
 of maps in relatively "clean" data formats amenable to harmonization in
-Macrostrat's framework. However, this is apparently not possible due to
-organizational barriers within USGS. Given that vector mapping compiled from the
-1990s onwards tends to be the "best" data where available, CriticalMAAS is at a
-significant disadvantage for being unable to access this resource. Some
-high-level attention to this problem between DARPA and the USGS divisional
-leadership would be beneficial to ensuring that the program can deliver its full
-suite of capabilities.
+Macrostrat's framework. Such a systematic survey of geologic mapping data would
+be akin to the exercise being undertaken for geophysics under EarthMRI. However,
+this has been off the table due to organizational barriers within USGS. Given
+that vector mapping compiled from the 1990s onwards tends to be the "best"
+geologic mapping data where available, CriticalMAAS is at a significant
+disadvantage for being unable to access this resource. Some high-level attention
+to this problem between DARPA and the USGS divisional leadership would be
+beneficial to ensuring that the CriticalMAAS program can access the datasets
+needed to deliver its full suite of capabilities.
 
-## "Structurally complete" maps
+## Clarity of the development roadmap {#sec:dev-roadmap}
 
-- Our TA1 Geopackage has been rendered largely obsolete. This was potentially a
-  waste of time. But it also points to a more troubling issue in the program: a
-  lack of a clear plan to get to fully formed geologic map products.
-- USGS participants seem to want to preserve optionality as much as possible for
-  the final analysts doing a mineral assessment. While we defer to this
-  strategy, as they are the intended users,
+The program transition to the CDR and a new integration structure has been
+challenging to navigate as a TA4 performer. We have worked to build tools (e.g.,
+the [TA1 Geopackage Format][ta1-geopackage]) with usefulness to the program, but
+such program-level functionality now must be closely coordinated with the CDR.
+It is unclear what the CriticalMAAS program's expectations are for the
+development of HMIs and other user-facing tools in this new program design. We
+need to clearly communicate with DARPA and Jataware about the specific
+development roadmap in order to not waste effort building unnecessary
+functionality.
+
+Laudably, Jataware is implementing the CDR with an open design atop which
+"anyone can build a HMI." This is a good principle to guide CDR design and
+ensure flexibility (indeed, Macrostrat's APIs generally take the same approach).
+However, "anyone can build anything" is not a useful approach to planning work
+between performers. We don't have a lot of insight into the envisioned design:
+for instance, will be some sort of a "CriticalMAAS Portal" entrypoint for
+searching/interacting with the CDR and its holdings? If so, presumably Jataware
+will decide how that is oriented and build most of its functionality. We have
+not received clear guidance on the intention here despite pressing for specifics
+(see [@sec:complete-maps]).
+
+Overall, Macrostrat and Jataware are the two organizations with expertise to
+build HMIs for program integration. Macrostrat doesn't have a pool of staff that
+can surge into a project and accomplish a lot of HMI work rapidly, so we need to
+approach development responsibilities with a clear roadmap and division of
+effort. To that end, it's imperative that we do some TA4-level planning and
+horse trading around "who's building what" early enough in the program that we
+can actually deliver capabilities atop the CDR if necessary. We will continue to
+push Jataware to commit to specifics but hope that DARPA can also put a focus on
+concretizing plans for how users will interact with the CriticalMAAS system as a
+whole.
 
 [gh:criticalmaas]: https://github.com/UW-Macrostrat/CriticalMAAS
 [gh:macrostrat]: https://github.com/UW-Macrostrat/macrostrat
@@ -351,3 +541,4 @@ suite of capabilities.
 [gh:macrostrat_api_v3]: https://github.com/UW-Macrostrat/api-v3
 [gh:tileserver]: https://github.com/UW-Macrostrat/tileserver
 [lawley2023]: https://doi.org/10.1007/s11053-023-10216-1
+[poplar]: https://github.com/synyi/poplar
