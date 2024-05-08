@@ -78,7 +78,7 @@ extractions, we will be able to automate more of this process.
 
 ### Standardized user interface elements
 
-![Table component for viewing and editing map legend entries](./images/table-ui.png)
+![New table component for viewing and editing map legend entries](./images/table-ui.png)
 
 Macrostrat has long been committed to browser-based user interfaces, which are
 highly accessible and require no installation. One of the challenges we have
