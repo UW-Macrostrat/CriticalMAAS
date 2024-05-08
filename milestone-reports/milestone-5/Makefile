@@ -1,9 +1,9 @@
 all:
-	cat milestone-3-report.md | \
+	cat milestone-5-report.md | \
 	pandoc -s \
 		--metadata-file meta.yaml \
 		-f markdown \
 		--filter pandoc-crossref \
 		--pdf-engine=xelatex \
-		-o Macrostrat-CriticalMAAS-Milestone-3-report.pdf \
+		-o Macrostrat-CriticalMAAS-Milestone-5-report.pdf \
 		-
