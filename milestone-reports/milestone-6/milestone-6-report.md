@@ -228,12 +228,13 @@ notable successes are summarized below:
   - Web-based, inspectable visualizations of TA1 map datasets
   - Column correlation diagrams.
 - Embedding-based search tools (in collaboration with Meng Ye, SRI) for ranking
-  geological units based on their similarity to a user-provided query
-  [`UW-Macrostrat/embedding-tiler`][gh:embedding-tiler]
+  geological units based on their similarity to a user-provided queries, with
+  embeddings trained over critical minerals documents in xDD (
+  [`UW-Macrostrat/embedding-tiler`][gh:embedding-tiler]).
 - Table views of lithology data that make it easier to inspect and filter data
   holdings.
-- Tools for iteratively managing map topology (e.g.,
-  [`Mapboard/topology-manager`][gh:topology-manager]) and rapidly editing
+- Tools for iteratively constructing map topology
+  ([`Mapboard/topology-manager`][gh:topology-manager]) and rapidly editing
   geologic maps ([`Mapboard/mapboard-platform`][mapboard_platform]). Although
   there is some overlap in functionality with the Polymer product from Jataware,
   they are performant and flexible and will likely be useful for constructing
@@ -246,7 +247,7 @@ will continue to refine them as modular web components
 ([`UW-Macrostrat/web-components`][gh:web_components]) that can be used in other
 geologically rich applications going forward.
 
-![Embedding-based search tool for geologic units](./images/legend-affinity.png)
+![Embedding-based web search for geologic units](./images/legend-affinity.png)
 
 # Summary
 

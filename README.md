@@ -254,21 +254,27 @@ point-based data.
 - [Milestone 3 report](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-02-CriticalMAAS-Milestone-3-report.pdf)
   _(February 2024)_: A report detailing the progress of the project
 - [Milestone 4 report](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-04-CriticalMAAS-Milestone-4-report.pdf)
+  _(April 2024)_: A report detailing the progress of the project after the
+  6-month hackathon
 - [Milestone 5 report](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-05-CriticalMAAS-Milestone-5-report.pdf)
+  _(May 2024)_: A report detailing the progress of the project leading up to the
+  9-month hackathon
+- [Milestone 6 report](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-07-CriticalMAAS-Milestone-6-report.pdf)
+  _(November 2024)_: A report detailing the final status of the project
 
 ## Project Milestones
 
 ### Phase 1
 
-| #   | Milestone                                                                                                                                                                              | Exit Criteria         | Target Date | Product |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- | ------- |
-| 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                                                             | Specifiation Plans    | 09/2023     |         |
-| 1   | [Detailed research plan for Phase 1](https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf)                                | Milestone Report      | 10/2023     |         |
-| 2   | [Initial code/documentation release](https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf)                                   | Milestone Report/Code | 12/2023     |         |
-| 3   | [Report detailing progress of research and technology and gaps](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-02-CriticalMAAS-Milestone-3-report.pdf)              | Milestone Report      | 02/2024     |         |
-| 4   | Code/documentation/data release and [Milestone Report](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-04-CriticalMAAS-Milestone-4-report.pdf)                       | Milestone Report/Code | 03/2024     |         |
-| 5   | [Report detailing progress, capabilities, gaps, and final integration plans](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-05-CriticalMAAS-Milestone-5-report.pdf) | Milestone Report      | 04/2024     |         |
-| 6   | Report with challenge evaluation results, working code and documentation and end-to-end integration                                                                                    | Milestone Report/Code | 07/2024     |         |
+| #   | Milestone                                                                                                                                                                                                       | Exit Criteria         | Target Date | Product |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- | ------- |
+| 0   | [Specifications for TA 1-3](https://github.com/DARPA-CRITICALMAAS/schemas)                                                                                                                                      | Specifiation Plans    | 09/2023     |         |
+| 1   | [Detailed research plan for Phase 1](https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-10-CriticalMAAS-Phase-1-research-plan.pdf)                                                         | Milestone Report      | 10/2023     |         |
+| 2   | [Initial code/documentation release](https://storage.macrostrat.org/web-assets/media/criticalmaas/media/2023-12-CriticalMAAS-Milestone-2-report.pdf)                                                            | Milestone Report/Code | 12/2023     |         |
+| 3   | [Report detailing progress of research and technology and gaps](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-02-CriticalMAAS-Milestone-3-report.pdf)                                       | Milestone Report      | 02/2024     |         |
+| 4   | Code/documentation/data release and [Milestone Report](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-04-CriticalMAAS-Milestone-4-report.pdf)                                                | Milestone Report/Code | 03/2024     |         |
+| 5   | [Report detailing progress, capabilities, gaps, and final integration plans](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-05-CriticalMAAS-Milestone-5-report.pdf)                          | Milestone Report      | 04/2024     |         |
+| 6   | [Report with challenge evaluation results, working code and documentation and end-to-end integration](https://storage.macrostrat.org/web-assets/criticalmaas/media/2024-11-CriticalMAAS-Milestone-6-report.pdf) | Milestone Report/Code | 11/2024     |         |
 
 > ### Appendix: Out-of scope codebases
 >
